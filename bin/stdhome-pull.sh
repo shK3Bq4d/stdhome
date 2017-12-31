@@ -16,7 +16,7 @@ for remote in $(git remote show); do
 	if [[ "$remote" == ksgitlab ]] && ! ssh-add -L | grep -q id_rsa_ks; then
 		ssh-add ~/.ssh/id_rsa_ks
 	fi
-	git pull $remote master  --no-rebase
+	git pull $remote stdhome  --no-rebase
 done
 set -x
 bash -x $DIR/bin/stdhome-remove-deadlinks.sh

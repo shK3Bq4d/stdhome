@@ -93,5 +93,3 @@ stdhome-remove-deadlinks.sh
 
 git diff
 echo "do 'git checkout .' to revert local changes"
-#git push -u origin master
-#git commit -m "auto while merging on $HOSTNAME"  && git push -u origin master

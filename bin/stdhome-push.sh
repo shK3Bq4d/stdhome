@@ -12,7 +12,7 @@ for remote in $(git remote show); do
 	if [[ $remote == ksgitlab ]] && ! ssh-add -L | grep -q id_rsa_ks; then
 		ssh-add ~/.ssh/id_rsa_ks
 	fi
-	git push $remote master
+	git push $remote stdhome
 done
 $DIR/bin/stdothers.sh | while read repo; do
 	set -x

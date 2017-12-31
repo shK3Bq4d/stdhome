@@ -22,8 +22,8 @@ cd $DIR
 $DIR/bin/stdhome-remove-deadlinks.sh
 if git commit -m "auto commit from $HOSTNAME" .; then
 	for remote in $(git remote show); do
-		git pull $remote master --no-rebase
-		git push -u $remote master
+		git pull $remote stdhome --no-rebase
+		git push -u $remote stdhome
 	done
 fi
 $DIR/bin/stdothers.sh | while read repo; do
