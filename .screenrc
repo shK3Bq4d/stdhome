@@ -1,0 +1,24 @@
+# force execution of bash at startup
+shell $SHELL
+
+# Don't display the copyright page
+startup_message off
+
+# tab-completion flash in heading bar
+vbell off
+
+# keep scrollback n lines
+defscrollback 30000
+
+
+autodetach on # Autodetach session on hangup instead of terminating screen completely
+
+
+#It displays a status line at the bottom of the terminal which shows what window you're in and a list of the other windows.
+termcapinfo xterm "ks=E[?1lE:kuE[A:kd=E[B:kl=E[D:kr=E[C:kh=E[5~:kH=E [F"
+hardstatus alwayslastline "%{-b gk}%-w%{+b kg}%50>%n %t%{-b gk}%+w%<"
+
+#disable vi scrollbuffer after vi quit
+altscreen on
+
+

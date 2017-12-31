@@ -1,0 +1,55 @@
+#!/bin/bash
+
+
+if [[ -n ${ZSH_VERSION-} ]]; then
+autoload -U +X bashcompinit && bashcompinit
+fi
+
+_venv()
+{	cur=${COMP_WORDS[COMP_CWORD]}
+	prev=${COMP_WORDS[COMP_CWORD-1]}
+	COMPREPLY=( $( compgen -W "$(lsvirtualenv -b)" $cur ) )
+	return 0
+}
+_vm()
+{	cur=${COMP_WORDS[COMP_CWORD]}
+	prev=${COMP_WORDS[COMP_CWORD-1]}
+	COMPREPLY=( $( compgen -W "$(vm_list)" $cur ) )
+	return 0
+}
+_jails()
+{
+	_script_commands=$(command ssh charlotte jail_list.sh)
+
+		    local cur prev
+			  COMPREPLY=()
+			    cur="${COMP_WORDS[COMP_CWORD]}"
+				  COMPREPLY=( $(compgen -W "${_script_commands}" -- ${cur}) )
+
+				    return 0
+}
+_dockerids()
+{	
+	cur=${COMP_WORDS[COMP_CWORD]}
+	prev=${COMP_WORDS[COMP_CWORD-1]}
+
+#echo -ne "\n\ncur is $cur\nprev is $prev"
+
+#COMPREPLY=( $(vm_list) )
+	COMPREPLY=( $( compgen -W "$(docker ps -q --no-trunc)" $cur ) )
+
+	return 0
+}
+complete -o nospace -F _jails jail_console.sh ssh_jail.sh
+complete -F _vm vm_headless vm_stop vm_start vm_status vm_delete.py vm_rdp.sh vm_last_snapshot
+complete -F _venv venv.switch
+complete -F _dockerids docker_bash.sh
+complete -F _dockerids docker_bash.sh
+complete -c command hlp viw h
+#complete -a ssh sshrc 
+for f in \
+	~/git/sshrc/bash_completion \
+	~/git/vboxmanage-bash-completion/VBoxManage \
+	; do 
+	[[ -f $f ]] && . $f
+done

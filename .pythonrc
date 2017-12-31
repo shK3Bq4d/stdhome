@@ -1,0 +1,95 @@
+# vim: autoindent tabstop=4 shiftwidth=4 expandtab softtabstop=4 filetype=python
+try:
+    import readline
+except ImportError:
+    print("Module readline not available.")
+else:
+    import rlcompleter
+    readline.parse_and_bind("tab: complete")
+    readline.parse_and_bind("set editing-mode vi")
+import re, sys, os, time, datetime, pickle, json, base64
+try:
+    from lxml import etree, html
+    doc = etree.fromstring("<root><a>ha</a><b battribute='battvalue'>bvalue</b><c /><d /><d /></root>")
+except:
+    pass
+from pprint import pprint, pformat
+try:
+    import pyzmail
+except:
+    pass
+try:
+    import requests
+    session = requests.session()
+except:
+    pass
+try:
+    import argparse
+except:
+    pass
+try:
+    import mock
+except:
+    pass
+import unittest
+import types
+import logging
+import logging.config
+try:
+    import StringIO
+except ImportError as e:
+    pass
+try:
+    import ConfigParser
+
+    config = ConfigParser.ConfigParser()
+    config.readfp(StringIO.StringIO("""
+[section0]
+key0 = section0_value0
+key1 = section0_value1
+
+[section1]
+key0 = section1_value0
+key1 = section1_value1
+key2 = section1_value2
+  multineline section1_value2
+key3 = section1_value3a
+key3 = section1_value3b
+      """))
+except ImportError as e:
+    # except NameError as e:
+    pass
+
+testcase = unittest.TestCase
+
+def logging_conf(
+        level='INFO', # DEBUG
+        use='stdout syslog' # "stdout syslog" "stdout syslog file"
+        ):
+    import logging.config
+    logging.config.dictConfig({'version':1,'disable_existing_loggers':False,
+       'formatters':{
+           'standard':{'format':'%(asctime)s %(levelname)-5s %(filename)s-%(funcName)s(): %(message)s'},
+           'syslogf': {'format':'%(filename)s[%(process)d]: %(levelname)-5s %(funcName)s(): %(message)s'},
+           },
+       'handlers':{
+           'stdout': {'level':level,'formatter': 'standard','class':'logging.StreamHandler','stream': 'ext://sys.stdout'},
+           'file':   {'level':level,'formatter': 'standard','class':'logging.FileHandler','filename': '/tmp/zabbix-kg_maintenance.log'}, #
+           'syslog': {'level':level,'formatter': 'syslogf', 'class':'logging.handlers.SysLogHandler','address': '/var/run/log' if 'freebsd' in sys.platform else '/dev/log', 'facility': 'user'}, # (localhost, 514), local5, ...
+       }, 'loggers':{'':{'handlers': use.split(),'level': level,'propagate':True}}})
+logger = logging.getLogger(__name__)
+
+try:
+    logging_conf()
+except:
+    pass
+try:
+    import argparse
+except:
+    pass
+
+bA = [1,2,3,4,5]
+cA = [5,4,3,2,1]
+bH = dict(a=1,b=2,c=3,d=4,e=5)
+cH = dict(a='aa',b='bb',c='cc',d='dd',e='ee')
+pprint(locals())

@@ -1,0 +1,21 @@
+set ignorecase
+set smartcase
+set regexsearch
+set hlsearch
+set incsearch
+set sanecw
+#set clipboard=unnamed
+
+:nnoremap ö :
+:nnoremap Z Y
+:nnoremap zz yy
+:nnoremap :q+ :q!
+:nnoremap :wq+ :wq!
+:nnoremap :w+ :w!
+:noremap ° ~
+:nnoremap ä "
+:nnoremap à `
+:noremap ç $
+:noremap ' `
+:noremap _ ?
+:noremap - /
