@@ -1,0 +1,438 @@
+# ex: set filetype=sh: #
+
+[ ${sudomr_hooks+x} ] && sudomr_hooks=()
+function sudomr() {
+	local f user commands mrhome NEWRCD
+	mrhome=$HOME
+	NEWRCD=$RCD
+	if [[ $# -gt 0 ]]; then
+		user="-u $1"
+		if [[ -n $SSHHOME ]]; then
+			NEWRCD=$(mktemp -d)/.sshrc.d
+			sudo cp -R $RCD $NEWRCD
+			f=$NEWRCD/../.sshrc
+			sudo cp $SSHHOME/.sshrc $f
+			sudo chown -R "$1" $NEWRCD/..
+		fi
+	fi
+
+	for hook in ${sudomr_hooks}; do
+		$hook
+	done
+	
+	commands="
+export RCD=$NEWRCD
+source $NEWRCD/.bashrc
+export VIMINIT='so $NEWRCD/.vimrc'
+#export VIMRUNTIME=$NEWRCD/.vim
+export SSH_AUTH_SOCK=$SSH_AUTH_SOCK
+" 
+	if [[ -z $SSHHOME ]]; then
+		f=$HOME/.tmp/tmp/sudomr.bashrc
+		[[ -f $f ]] && rm -f $f
+		touch $f
+	else
+		[[ -z $f ]] && f=$SSHHOME/.sshrc
+	fi
+	echo "$commands" | sudo tee -a $f >/dev/null
+	sudo $user bash --rcfile $f
+	if [[ -z $SSHHOME ]]; then
+		rm -f $f
+	else 
+		if [[ "$RCD" != "$NEWRCD" ]]; then
+			echo rm -rf $NEWRCD
+		fi
+	fi
+}
+function abspath() {
+	cd "$(mrdirname "$1")"
+	echo -n "$PWD/$(mrbasename "$1")"
+}
+
+function pathprepend() {
+	if [ -d "$1" ] && [[ ":$PATH:" != *":$1:"* ]]; then
+		if [[ -z "$PATH" ]]; then
+			PATH="$1"
+		else
+			PATH="$1:$PATH"
+		fi
+	fi
+	export PATH
+}
+function pathappend() {
+	if [ -d "$1" ] && [[ ":$PATH:" != *":$1:"* ]]; then
+		if [[ -z "$PATH" ]]; then
+			PATH="$1"
+		else
+			PATH="$PATH:$1"
+		fi
+	fi
+	export PATH
+}
+function mrbasename() {
+	local a
+	a="$1"
+	while [[ "$a" == */ ]]; do
+		a="${a:0:${#a}-1}"
+	done
+	a="${a##*/}"
+	[[ $# -gt 1 ]] && a="${a%$2}"
+	echo "$a"
+}
+function mrdirname() {
+	local a
+	a="$1"
+	if [[ "$a" != */* ]]; then
+		echo .
+		return
+	fi
+	while [[ "$a" == */ ]]; do
+		a="${a:0:${#a}-1}"
+	done
+	a="${a%/*}"
+	if [[ -z "$a" ]]; then
+		echo "/"
+	else
+		echo "$a"
+	fi
+}
+
+function py() {
+	RET="$(~/bin/py "$@")"
+	[[ $? -eq 0 && -f "$RET" ]] && $EDITOR "$RET"
+}
+function newsh() {
+	RET="$(~/bin/newsh "$@")"
+	[[ $? -eq 0 && -f "$RET" ]] && $EDITOR "$RET"
+}
+function cdd() {
+	local DIR
+	if [[ $# -eq 0 ]]; then
+		DIR=$(history | tail -2 | head -n 1 | sed -r -e 's/\s+$//' -e 's/(.* )//g')
+		eval DIR=$DIR # http://stackoverflow.com/questions/3963716/how-to-manually-expand-a-special-variable-ex-tilde-in-bash
+	else
+		DIR="$@"
+	fi
+	while [[ -n "$DIR" ]] && [[ "$DIR" != "/" ]]; do
+		if [[ -d "$DIR" ]]; then
+			cd "$DIR"
+			return 0
+		fi
+		DIR="$(dirname "$DIR")"
+	done
+	return 1
+}
+
+function ssh() {
+	local BIN
+	BIN=ssh
+
+	if [[ $# -eq 1 ]] && [[ -f $HOME/.sshrc ]]; then
+		case "$1" in \
+		charlotte|$WORK_PC1|apr16|acer2011|thinkpad|fw11*|motog*|galaxy*)
+			;;
+		*)
+			hash sshrc 2>/dev/null && BIN=sshrc
+			;;
+		esac
+	fi
+	case TERM in 
+		rxvt-unicode-256color)
+			TERM=xterm-256color
+			;;
+		*)
+			;;
+	esac
+	TERM=$TERM command $BIN "$@"
+}
+
+tomr () {
+	dir=~/mnt/h/bob/uploads
+	if [[ -z "$1" ]]; then
+		cd $dir
+	else
+		cp $* $dir
+	fi
+}
+mrfind () {
+	local out
+	local k
+	local s
+	local sep
+	sep=$'\n'
+	out=
+	k=0
+	s=0
+	for arg in "$@"
+	do
+		# separate arguments with NULL character
+		if [[ k -ne 0 ]]; then out="${out}${sep}"; fi
+		k=1
+
+		# as soon as argument's not a FILE/DIR
+		if [[ s -eq 0 ]] && [[ ! -a "${arg}" ]]; then
+			s=1
+			out="${out}-xdev${sep}"
+		fi
+		out="${out}${arg}"
+	done
+	if [[ -z "${out}" ]]; then
+		out="-xdev"
+	fi
+	out="${out}${sep}-nowarn${sep}-regextype${sep}posix-extended"
+
+	echo "${out}" | xargs -d "${sep}" --verbose /usr/bin/find 2>&1| grep -v "Permission denied"
+}
+
+function cdl () {
+	param=
+	[[ $# -gt 0 ]] && param="*"$1"*" || param="*"
+	# find -name "*" finds hidden file
+	DIR=$(find . -mindepth 1 -maxdepth 1 -type d -name "$param" -printf '%T@ %p\n' | sort -k 1nr | head -1 | sed 's/^[^ ]* //')
+	if [[ -n "$DIR" ]]; then
+		cd "$DIR"
+	else
+		return 1
+	fi
+}
+function cdl_old () {
+	# doesn't work on zsh and poorly on freebsd
+	local param
+	param=*/
+	[[ -n "$1" ]] && param=*${*}*/
+	case $UNAME in \
+	freebsd)
+		cd "$(ls -dt -1                           ${param} | head -1 2>/dev/null)"
+		;;
+	*)
+		cd "$(ls -dt -1 --group-directories-first ${param} | head -1 2>/dev/null)"
+		;;
+	esac
+}
+function viw () {
+	local f
+    f=$(command which $1)
+	if [[ -f $f ]]; then
+		$EDITOR $(command which $1)
+	else
+		echo "FATAL: not a file: $1"
+		return 1
+	fi
+}
+function catw () {
+	cat $(command which $1)
+}
+function vif ()
+{	file=$(find . -type f | egrep -v '\.swp$' | egrep -i $* | head -n 1)
+	if [[ -z $file ]]; then
+		echo "couldn't find anyfile"
+		return 1
+	fi
+
+	$EDITOR $file	
+}
+function cdw () {
+	cd $(dirname $(command which $1))
+}
+function last () {
+	NEWEST=$(find -maxdepth 1 -name "*${*}*" -type f -printf '%T@ %p\0' | \
+		sort -rnz | xargs -0rn1 2>/dev/null | head -n1 | cut -d' ' -f2-)
+	mrbasename "$NEWEST"
+}
+function vil () {
+	#params=$*
+	local file
+	file="$(last $@)"
+	[[ -z "$file" ]]   && echo "ERROR -z $file" && return 1
+	[[ ! -f "$file" ]] && echo "ERROR ! -f $file. Likely the filename has space and my awk is buggy" && return 1
+	[[ ! -r "$file" ]] && echo "ERROR ! -r $file" && return 1
+	if [[ -z "$file" ]] || [[ ! -f "$file" ]] || [[ ! -r "$file" ]]; then
+		echo "ERROR file is $file"
+		return 1
+	fi
+	$EDITOR "$file"
+}
+function vi_last_grep() {
+	local DIR
+	HISTTIMEFORMAT=""
+	if [[ $# -eq 0 ]]; then
+		CMD=$(history | cut -c 8- | grep -E '^(sed|ack|./grepjs.sh)( |$)' | tail -1 )
+		#eval DIR=$DIR # http://stackoverflow.com/questions/3963716/how-to-manually-expand-a-special-variable-ex-tilde-in-bash
+	else
+		CMD="$@"
+	fi
+	echo "last cmd was $CMD"
+	case "$CMD" in \
+	grep*|./grepjs.sh*)
+		command -v vim &>/dev/null && vi_args=vim || vi_args=vi
+		output=$(eval $CMD | head -n 1)
+		echo "output is $output"
+		file=${output/:*/}
+		vi_args="$vi_args $file"
+		leftover=${output:${#file}+1}
+		linenumber=${leftover/:*/}
+		echo "file is $file"
+		echo "linenumber is _${linenumber}_"
+		[[ $linenumber =~ ^[0-9]+$ ]] && echo "number" || echo "NOT A NUMBER"
+		[[ $linenumber =~ ^[0-9]+$ ]] && vi_args="$vi_args +$linenumber"
+		echo $vi_args	
+		eval $vi_args	
+		;;
+	ack*)
+		echo "unimplemented for ack $CMD"
+		return 1
+		;;
+	*)
+		echo "unimplemented for * $CMD"
+		return 1
+		;;
+	esac
+}
+function clip () {
+	xclip -i -selection clipboard $*
+	xclip -o -selection clipboard | head -n 10
+}
+function p2f () {
+	local f ext
+	f=$(mktemp -p ~/tmp/ p2f.XXXXX)
+	rm -f $f # freaking noclobber
+	xclip -o -selection clipboard > $f 
+	ext=
+	case $(file -ib $f) in \
+		application/xml*) ext=xml;;
+		text/html*) ext=html;;
+		text/plain*)
+			if cat $f | prettify-json &>/dev/null; then
+				ext=json
+			else
+				ext=txt
+			fi
+			;;
+	esac
+	if [[ -n $ext ]]; then
+		if mv $f $f.$ext; then
+			f=$f.$ext
+		fi
+	fi
+		
+	ls -la $f
+	echo -n $f | xclip -i -selection clipboard  
+	echo "Filepath has been copied to clipboard"
+}
+function p2v () {
+	local vi
+	local file
+	vi=$EDITOR
+	[[ ! -t 1 ]] && vi=gvim
+
+
+	file=$(mktemp -t "p2v.alias.XXXXXXXXXXX")
+	set +o noclobber
+	xclip -o -selection clipboard >$file
+	set -o noclobber
+	$vi -- $file
+
+}
+function cwd_gitted() {
+	local a
+	if [[ -n ${GIT_DIR:+1} ]]; then
+		[[ -f ${GIT_DIR}/index  ]] && return 0
+	fi
+	a="$PWD"
+	while [[ "$a" != "/" ]] && [[ "$a" != "." ]]; do
+		[[ -d "$a/.git" ]] && return 0
+		a="$(mrdirname "$a")"
+	done
+	return 1
+}
+function git_root_dir() {
+	local a
+	if [[ -n ${GIT_DIR:+1} ]]; then
+		[[ -f ${GIT_DIR}/index  ]] && echo "${GIT_DIR}" && return 0
+	fi
+	a="$PWD"
+	while [[ "$a" != "/" ]] && [[ "$a" != "." ]]; do
+		[[ -d "$a/.git" ]] && echo "$a" && return 0
+		a="$(mrdirname "$a")"
+	done
+	return 1
+}
+function locate() {
+	local args gargs
+
+	if [[ -t 1 ]]; then
+		gargs=--color=always 
+	else
+		gargs=
+	fi
+	args="$@"
+	case $UNAME in \
+	freebsd)
+		command locate -i         "$@"  | grep -Ei $gargs "$@" | less --raw-control-chars --quit-if-one-screen --ignore-case --no-init
+		;;
+	*)
+		command locate -i --regex "$@" | grep -Ei $gargs "^|$@" | less --raw-control-chars --quit-if-one-screen --ignore-case --no-init
+		;;
+	esac
+}
+function http_proxy_dockerhost3142() { http_proxy "172.17.0.1:3142";}
+function http_proxy_none() { http_proxy "";}
+function http_proxy() {
+	local a
+	a="$@"
+	[[ -n "${a}" && ! "${a}" =~ .*://* ]] && a="http://${a}"
+	set -x
+	export http_proxy="${a}"
+	export https_proxy="${a}"
+	set +x
+}
+function git_reset_dir_work_tree() {
+	unset GIT_DIR
+	unset GIT_WORK_TREE
+}
+
+function ps_parent() {
+	local PID
+	[[ $# -eq 0 ]] && PID="$1" || PID="$$"
+	[[ -z "$PID" ]] && PID="$BASHPID"
+	[[ -z "$PID" ]] && PID=$(bash -c 'cut -d " " -f 4 /proc/$PPID/stat')
+	[[ -z "$PID" ]] && echo "Fatal couldnt get PID" && return 1
+	while [[ $PID -ne 0 ]]; do
+		printf "%-7s" "$PID"
+		cat /proc/$PID/cmdline | xargs -0 echo
+		PID=$(cut -d ' ' -f 4 /proc/$PID/stat)
+	done
+}
+function kafka_mr() {
+	export KAFKA_JMX_OPTS=" "
+	KAFKA_BIN_DIR="$(dirname $(command locate -e kafka-console-consumer.sh | grep -E 'bin.kafka-console-consumer.sh$' | head -n 1))"
+	export PATH="$KAFKA_BIN_DIR:$PATH"
+	ZK=" --zookeeper $(command locate -e kafka | grep -E config/server.properties$ | head -n 1 | xargs grep -Po '(?<=^zookeeper.connect=).*') "
+	BL2=" --broker-list localhost:9092 "
+	BL3=" $(netstat -n | sed -n -r -e '/9092/s/^.+\s(\S+:9092)\s.*/\1/ p' | sort -u | xargs echo | tr ' ' , )"
+	BL=" --broker-list $BL3"
+	BSS=" --new-consumer --bootstrap-server $BL3"
+	echo "
+PATH:           $PATH
+KAFKA_BIN_DIR:  $KAFKA_BIN_DIR
+KAFKA_JMX_OPTS: $KAFKA_JMX_OPTS
+ZK:             $ZK
+BL2:            $BL2
+BL:             $BL
+BSS:            $BSS
+ 		" | grep -iE --color=always '^|kafka'
+}
+function stdworkon() {
+	if [[ $# -ne 1 ]]; then
+		echo "FATAL: nb args not equal to 1. Ex: stdworkon private"
+		return 1
+	fi
+	local d="$STDHOME_DIRNAME/../std$1/.git"
+	if [[ ! -d "$d" ]]; then
+		echo "FATAL: not a dir $d"
+		return 1
+	fi
+	d="$(readlink -f "$d")"
+	echo "export GIT_DIR=\"$d\""
+	export GIT_DIR="$d"
+}
