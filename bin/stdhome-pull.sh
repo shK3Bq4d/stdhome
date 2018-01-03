@@ -29,11 +29,11 @@ $DIR/bin/stdothers.sh -e | while read repo; do
 	#export GIT_WORK_TREE="$HOME"
 	#git config core.worktree "$GIT_WORK_TREE"
 	cd $repo
+	branch=$(basename $repo noexternalcheckout)
 	for remote in $(git remote show); do
 		if [[ "$remote" == ksgitlab ]] && [[ -f ~/.ssh/id_rsa_ks ]] && ! ssh-add -L | grep -q id_rsa_ks; then
 			ssh-add ~/.ssh/id_rsa_ks
 		fi
-		branch=$(basename $repo)
 		curbranch=$(git rev-parse --abbrev-ref HEAD)
 		if [[ "$branch" != "$curbranch" ]]; then
 			git checkout -b "$branch" &>/dev/null || git checkout "$branch"

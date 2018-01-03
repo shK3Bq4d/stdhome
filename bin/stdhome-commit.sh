@@ -20,30 +20,10 @@ fi
 
 cd $DIR
 $DIR/bin/stdhome-remove-deadlinks.sh
-branch=stdhome
-if git commit -m "auto commit from $HOSTNAME" .; then
-	for remote in $(git remote show); do
-		git fetch $remote $branch
-	done
-	git remote show | grep -q . && \
-		git merge $(git remote show | sed -r -e "s/$/\\/$branch/")
-	for remote in $(git remote show); do
-		git push -u $remote $branch
-	done
-fi
+git commit -am "auto commit $(date)" || true
 $DIR/bin/stdothers.sh -e | while read repo; do
-	set -x
 	cd $repo
-	branch=$(basename $repo)
-	if git commit -am "auto commit from $HOSTNAME"; then
-		for remote in $(git remote show); do
-			git fetch $remote $branch 
-		done
-		git remote show | grep -q . && \
-			git merge $(git remote show | sed -r -e "s/$/\\/$branch/")
-		for remote in $(git remote show); do
-			git push -u $remote $branch
-		done
-	fi
-	set +x
+	git commit -am "auto commit $(date)" || true
 done
+$DIR/bin/stdhome-pull.sh
+$DIR/bin/stdhome-push.sh
