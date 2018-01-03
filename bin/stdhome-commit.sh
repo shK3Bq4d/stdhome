@@ -27,3 +27,5 @@ $DIR/bin/stdothers.sh -e | while read repo; do
 done
 $DIR/bin/stdhome-pull.sh
 $DIR/bin/stdhome-push.sh
+$DIR/bin/stdhome-pull.sh
+$DIR/bin/stdhome-push.sh
