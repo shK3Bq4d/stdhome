@@ -23,7 +23,7 @@ $DIR/bin/stdothers.sh -e | while read repo; do
 	#git config core.worktree "$GIT_WORK_TREE"
 	cd $repo
 	branch=$(basename $repo noexternalcheckout)
-	if [[ "$repo" != "noexternalcheckout" ]]; then
+	if [[ "$repo" != *noexternalcheckout ]]; then
 		find "$repo" -mindepth 1 -not -path '*/.git*' -print -delete
 	fi
 	for remote in $(git remote show); do
