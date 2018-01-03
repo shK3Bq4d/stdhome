@@ -9,20 +9,22 @@ cd $DIR
 [[ ! -d ~/.ssh/c ]] && mkdir ~/.ssh/c
 [[ -f ~/.ssh/config ]] && chmod g-rwx,o-rwx ~/.ssh/config
 for remote in $(git remote show); do
-	if [[ $remote == ksgitlab ]] && ! ssh-add -L | grep -q id_rsa_ks; then
+	if [[ "$remote" == ksgitlab ]] && [[ -f ~/.ssh/id_rsa_ks ]] && ! ssh-add -L | grep -q id_rsa_ks; then
 		ssh-add ~/.ssh/id_rsa_ks
 	fi
 	git push $remote stdhome
 done
-$DIR/bin/stdothers.sh | while read repo; do
+$DIR/bin/stdothers.sh -e | while read repo; do
 	set -x
-	export GIT_DIR="$repo/.git"
-	export GIT_WORK_TREE="$HOME"
-	git config status.showuntrackedfiles no
-	git config core.worktree "$GIT_WORK_TREE"
-	find "$repo" -mindepth 1 -not -path '*/.git*' -print -delete
+	#export GIT_DIR="$repo/.git"
+	#export GIT_WORK_TREE="$HOME"
+	#git config status.showuntrackedfiles no
+	#git config core.worktree "$GIT_WORK_TREE"
+	if [[ "$repo" != "noexternalcheckout" ]]; then
+		find "$repo" -mindepth 1 -not -path '*/.git*' -print -delete
+	fi
 	for remote in $(git remote show); do
-		if [[ "$remote" == ksgitlab ]] && ! ssh-add -L | grep -q id_rsa_ks; then
+		if [[ "$remote" == ksgitlab ]] && [[ -f ~/.ssh/id_rsa_ks ]] && ! ssh-add -L | grep -q id_rsa_ks; then
 			ssh-add ~/.ssh/id_rsa_ks
 		fi
 		git push $remote $(basename $repo)

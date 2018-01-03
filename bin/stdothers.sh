@@ -12,7 +12,9 @@
 set -euo pipefail
 cd $(stdhome-dirname.sh)
 cd ..
+excludepattern='noexternalcheckout|stdhome' 
+[[ $# -eq 1 && $1 == '-e' ]] && excludepattern='stdhome' 
 ls -1d std*/ |\
-	grep -vE 'noexternalcheckout|stdhome' |\
+	grep -vE "$excludepattern" |\
 	xargs -r realpath
 

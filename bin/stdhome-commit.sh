@@ -20,27 +20,30 @@ fi
 
 cd $DIR
 $DIR/bin/stdhome-remove-deadlinks.sh
+branch=stdome
 if git commit -m "auto commit from $HOSTNAME" .; then
 	for remote in $(git remote show); do
-		git pull $remote stdhome --no-rebase
-		git push -u $remote stdhome
+		git fetch $remote $branch
+	done
+	git remote show | grep -q . && \
+		git merge $(git remote show | sed -r -e "s/$/\\/$branch/")
+	for remote in $(git remote show); do
+		git push -u $remote $branch
 	done
 fi
-$DIR/bin/stdothers.sh | while read repo; do
+$DIR/bin/stdothers.sh -e | while read repo; do
 	set -x
-	export GIT_DIR="$repo/.git"
-	export GIT_WORK_TREE="$HOME"
-	git config status.showuntrackedfiles no
-	git config core.worktree "$GIT_WORK_TREE"
+	cd $repo
 	branch=$(basename $repo)
-	if git commit -m "auto commit from $HOSTNAME" "$GIT_WORK_TREE"; then
+	if git commit -am "auto commit from $HOSTNAME"; then
 		for remote in $(git remote show); do
-			git pull $remote $branch --no-rebase
+			git fetch $remote $branch 
+		done
+		git remote show | grep -q . && \
+			git merge $(git remote show | sed -r -e "s/$/\\/$branch/")
+		for remote in $(git remote show); do
 			git push -u $remote $branch
 		done
 	fi
 	set +x
 done
-unset GIT_DIR
-unset GIT_WORK_TREE
-$DIR/bin/stdhome-push.sh
