@@ -23,7 +23,7 @@ git remote show | grep -q . && \
 	git merge $(git remote show | sed -r -e "s/$/\\/$branch/")
 set -x
 bash -x $DIR/bin/stdhome-remove-deadlinks.sh
-$DIR/bin/stdothers.sh -e | while read repo; do
+$DIR/bin/stdothers.sh | while read repo; do
 	set -x
 	#export GIT_DIR="$repo/.git"
 	#export GIT_WORK_TREE="$HOME"

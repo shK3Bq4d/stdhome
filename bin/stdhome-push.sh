@@ -15,7 +15,7 @@ for remote in $(git remote show); do
 	fi
 	git push $remote $branch
 done
-$DIR/bin/stdothers.sh -e | while read repo; do
+$DIR/bin/stdothers.sh | while read repo; do
 	set -x
 	#export GIT_DIR="$repo/.git"
 	#export GIT_WORK_TREE="$HOME"

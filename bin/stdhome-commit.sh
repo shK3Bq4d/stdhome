@@ -21,11 +21,9 @@ fi
 cd $DIR
 $DIR/bin/stdhome-remove-deadlinks.sh
 git commit -am "auto commit $(date)" || true
-$DIR/bin/stdothers.sh -e | while read repo; do
+$DIR/bin/stdothers.sh | while read repo; do
 	cd $repo
 	git commit -am "auto commit $(date)" || true
 done
-$DIR/bin/stdhome-pull.sh
-$DIR/bin/stdhome-push.sh
 $DIR/bin/stdhome-pull.sh
 $DIR/bin/stdhome-push.sh
