@@ -20,7 +20,7 @@ fi
 
 cd $DIR
 $DIR/bin/stdhome-remove-deadlinks.sh
-branch=stdome
+branch=stdhome
 if git commit -m "auto commit from $HOSTNAME" .; then
 	for remote in $(git remote show); do
 		git fetch $remote $branch
