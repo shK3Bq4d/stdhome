@@ -141,10 +141,10 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 # ~/.bash_aliases, instead of adding them here directly.
 # See /usr/share/doc/bash-doc/examples in the bash-doc package.
 
-export WORK_PC1F=laptop00615.muc.com
-export WORK_PC1=laptop00615
-export WORK_PC2F=workstation00451.muc.com
-export WORK_PC2=workstation00451
+export WORK_PC1F=workstation00451.muc.com
+export WORK_PC1=workstation00451
+export WORK_PC2F=laptop00615.muc.com
+export WORK_PC2=laptop00615
 is_zsh && setopt null_glob
 for f in \
 	$RCD/.bash_aliases \
