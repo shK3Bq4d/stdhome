@@ -151,7 +151,7 @@ for f in \
 	$RCD/.${HOSTNAMEF}_aliases  \
  	/usr/share/virtualenvwrapper/virtualenvwrapper_lazy.sh \
 	/usr/bin/virtualenvwrapper_lazy.sh \
-	~/.std*_aliases \
+	$RCD/.std*_aliases \
 	; do
 		[[ -f $f ]] && source $f
 done
