@@ -426,9 +426,10 @@ fi
 [[ $EUID -ne 0 && -d ~/.tmp ]] && echo "$(date +'%Y.%m.%d %H:%M:%S') in  $SSH_CLIENT" >> ~/.tmp/bashrc-events
 #[[ -n $SSH_TTY ]] && [[ $- == *i* ]] && command last | head
 #echo "$-"
-#[[ -f ~/.tmp/touch/stdhome-pull ]] && find ~/.tmp/touch/stdhome-pull -mtime +1 | grep -qE . && hash stdhome-pull.sh && { stdhome-pull.sh &>/dev/null & }
- [[ -f ~/.tmp/touch/stdhome-pull ]] && find ~/.tmp/touch/stdhome-pull -mtime +1 | grep -qE . && hash stdhome-pull.sh && stdhome-pull.sh || true
 [[ -n "$MR_EXTERNAL_RC" ]] && source $MR_EXTERNAL_RC # so as to be called to execute further scripts in docker where sourcing from {HOSTNAME}_aliases doesn't work
 [[ -z $SSH_CLIENT && -z $SUDO_USER ]] && stty -ixon # disable control-S if not running in a SSH session
+
+# to be run very last so a control-C due to non-connectivity doesn't prevent all the other stuff to run
+[[ -f ~/.tmp/touch/stdhome-pull ]] && find ~/.tmp/touch/stdhome-pull -mtime +1 | grep -qE . && hash stdhome-pull.sh && stdhome-pull.sh || true
 
 true # so prompt is green
