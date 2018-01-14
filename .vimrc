@@ -398,7 +398,9 @@ nnoremap <c-p> :call UpByIndent()<cr>
 
 
 " disable mouse interactions "
-set mouse=nicr
+set mouse=
+set ttymouse=
+autocmd BufEnter * set mouse=
 map <ScrollWheelUp> <nop>
 map <S-ScrollWheelUp> <nop>
 map <C-ScrollWheelUp> <nop>
