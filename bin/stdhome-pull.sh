@@ -20,7 +20,7 @@ for remote in $(git remote show); do
 	git fetch $remote $branch
 done
 git remote show | grep -q . && \
-	git merge $(git remote show | sed -r -e "s/$/\\/$branch/")
+	git merge -m automerge $(git remote show | sed -r -e "s/$/\\/$branch/")
 set -x
 bash -x $DIR/bin/stdhome-remove-deadlinks.sh
 $DIR/bin/stdothers.sh | while read repo; do
@@ -43,7 +43,7 @@ $DIR/bin/stdothers.sh | while read repo; do
 		git fetch $remote $branch 
 	done
 	git remote show | grep -q . && \
-		git merge $(git remote show | sed -r -e "s/$/\\/$branch/")
+		git merge -m automerge $(git remote show | sed -r -e "s/$/\\/$branch/")
 	set +x
 done
 [[ -d ~/.tmp/touch ]] && touch ~/.tmp/touch/stdhome-pull
