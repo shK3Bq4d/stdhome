@@ -395,3 +395,19 @@ map <C-j> gq} '.
 
 nnoremap <c-p> :call UpByIndent()<cr>
 :autocmd Syntax * call MrSyntaxRange()
+
+
+" disable mouse interactions "
+set mouse=nicr
+map <ScrollWheelUp> <nop>
+map <S-ScrollWheelUp> <nop>
+map <C-ScrollWheelUp> <nop>
+map <ScrollWheelDown> <nop>
+map <S-ScrollWheelDown> <nop>
+map <C-ScrollWheelDown> <nop>
+map <ScrollWheelLeft> <nop>
+map <S-ScrollWheelLeft> <nop>
+map <C-ScrollWheelLeft> <nop>
+map <ScrollWheelRight> <nop>
+map <S-ScrollWheelRight> <nop>
+map <C-ScrollWheelRight> <nop>
