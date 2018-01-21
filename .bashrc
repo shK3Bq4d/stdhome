@@ -212,7 +212,7 @@ freebsd)
 	alias netstat='echo use sockcat -l or command netstat'
 	#alias locate='locate -i'
 	#export LC_TIME=en_DK.UTF-8
-	alias ll='ls -lhFA'
+	alias ll='ls -lhFa'
 	alias updatedb='/usr/libexec/locate.updatedb'
 	;;
 cygwin)
@@ -224,9 +224,9 @@ cygwin)
 	alias xargs='xargs -r'
 	function ll() {
 		if [[ -z "$1" ]]; then 
-			ls -lhFA --group-directories-first 
+			ls -lhFa --group-directories-first 
 		else
-			ls -lhFA --group-directories-first | grep -i $*
+			ls -lhFa --group-directories-first | grep -i $*
 		fi
 	}
 	#alias locate='locate -i --regex'
