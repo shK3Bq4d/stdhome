@@ -240,7 +240,8 @@ reset_rprompt() {
 }
 setopt no_share_history # https://stackoverflow.com/questions/9502274/last-command-in-same-terminal
 
-alias ll='ls -lhFA'
+#alias ll='ls -lhFa'
+unalias ll # defined as a function in .bashrc
 
 if true; then
 	# https://github.com/robbyrussell/oh-my-zsh/tree/master/plugins/vi-mode
