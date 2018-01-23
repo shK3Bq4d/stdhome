@@ -107,8 +107,13 @@ function newsh() {
 }
 function cdd() {
 	local DIR
+	local idx
+	#set -x
+	idx=2
+	is_zsh && idx=1
 	if [[ $# -eq 0 ]]; then
-		DIR=$(history | tail -2 | head -n 1 | sed -r -e 's/\s+$//' -e 's/(.* )//g')
+		#DIR=$(history | tail -2 | head -n 1 | sed -r -e 's/\s+$//' -e 's/(.* )//g')
+		DIR=$(history | tail -${idx} | head -n 1 | awk-print-last.sh)
 		eval DIR=$DIR # http://stackoverflow.com/questions/3963716/how-to-manually-expand-a-special-variable-ex-tilde-in-bash
 	else
 		DIR="$@"
@@ -116,10 +121,12 @@ function cdd() {
 	while [[ -n "$DIR" ]] && [[ "$DIR" != "/" ]]; do
 		if [[ -d "$DIR" ]]; then
 			cd "$DIR"
+			#set +x
 			return 0
 		fi
 		DIR="$(dirname "$DIR")"
 	done
+	#set +x
 	return 1
 }
 
