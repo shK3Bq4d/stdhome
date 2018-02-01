@@ -213,6 +213,7 @@ if version >= 500
     endfunc
 endif
 :nmap <F6> :call MrF6()<CR><CR>
+:nmap <F3> :AnsiEsc<CR><CR>
 ":nmap <F7> :pc!<CR>:let a:x=`date +'%Y'`<CR>:w<CR>:silent !chmod +x %:p<CR>:execute "silent !%:p 2>&1 \| tee /tmp/" . x . ".tmp"<CR>:pedit! +:42343234 /tmp/%:t.tmp<CR>:redraw!<CR><CR>
 
 
