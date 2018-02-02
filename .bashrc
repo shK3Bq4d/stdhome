@@ -430,7 +430,14 @@ fi
 #echo "$-"
 [[ -n "$MR_EXTERNAL_RC" ]] && source $MR_EXTERNAL_RC # so as to be called to execute further scripts in docker where sourcing from {HOSTNAME}_aliases doesn't work
 [[ -z $SSH_CLIENT && -z $SUDO_USER ]] && stty -ixon # disable control-S if not running in a SSH session
-[[ -z $SSH_CLIENT && -f ~/.config/i3/config ]] && for (( i=1; i<=$LINES; i++ )); do echo; done && clear; # https://superuser.com/questions/442589/xmonad-urxvt-issue-text-disappears-after-resizing and, better explained https://superuser.com/questions/442589/xmonad-urxvt-issue-text-disappears-after-resizing
+
+
+# handles urxvt resize bug
+# https://superuser.com/questions/442589/xmonad-urxvt-issue-text-disappears-after-resizing and,
+# better explained https://superuser.com/questions/442589/xmonad-urxvt-issue-text-disappears-after-resizing
+#[[ -z $SSH_CLIENT && -f ~/.config/i3/config ]] && for (( i=1; i<=$LINES; i++ )); do echo; done && clear; 
+# this one is a perf optimisation try
+[[ -z $SSH_CLIENT && -f ~/.config/i3/config ]] && tail -n $(( $LINES + 5 )) ~/.config/urxvt-resize-bug && clear; 
 
 # to be run very last so a control-C due to non-connectivity doesn't prevent all the other stuff to run
 [[ -f ~/.tmp/touch/stdhome-pull ]] && find ~/.tmp/touch/stdhome-pull -mtime +1 | grep -qE . && hash stdhome-pull.sh && stdhome-pull.sh || true
