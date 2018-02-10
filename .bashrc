@@ -333,6 +333,10 @@ if [[ $UID -ne 0 ]]; then
 		else
 			 start_agent;
 		fi
+	else
+		if [ -f "${SSH_ENV}" ]; then
+			 source ${SSH_ENV} > /dev/null
+		fi
 	fi
 fi
 

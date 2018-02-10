@@ -120,7 +120,7 @@ au BufReadPost * if getfsize(bufname("%")) > 90*1024 |
 ":nnoremap z y
 
 ":map <C-q> <Esc>:qa!<CR>
-:map <C-i> <C-q>
+:map <C-i> :set cursorcolumn<CR><C-q>
 :nnoremap ö :
 :nnoremap Z Y
 :nnoremap zz yy
