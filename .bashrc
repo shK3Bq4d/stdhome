@@ -317,7 +317,7 @@ if [[ $UID -ne 0 ]]; then
 			echo succeeded
 			chmod 600 ${SSH_ENV}
 			source ${SSH_ENV} > /dev/null
-			/usr/bin/ssh-add
+			/usr/bin/ssh-add -t 43200
 		fi
 	}
 
@@ -330,12 +330,15 @@ if [[ $UID -ne 0 ]]; then
 			 ps -ef | grep ${SSH_AGENT_PID} | grep ssh-agent$ > /dev/null || {
 				 start_agent;
 			 }
+			 /usr/bin/ssh-add -l &>/dev/null || /usr/bin/ssh-add -t 43200
 		else
 			 start_agent;
+			 /usr/bin/ssh-add -l &>/dev/null || /usr/bin/ssh-add -t 43200
 		fi
 	else
 		if [ -f "${SSH_ENV}" ]; then
 			 source ${SSH_ENV} > /dev/null
+			 /usr/bin/ssh-add -l &>/dev/null || /usr/bin/ssh-add -t 43200
 		fi
 	fi
 fi
