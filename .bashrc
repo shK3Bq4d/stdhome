@@ -169,7 +169,7 @@ alias ssh-no-host-checking='ssh -o ControlMaster=No -o UserKnownHostsFile=/dev/n
 alias ssh-password-auth='ssh -o ControlMaster=No -o NumberOfPasswordPrompts=1000 -o PubkeyAuthentication=no -o HostbasedAuthentication=no -o KbdInteractiveAuthentication=no -o RhostsRSAAuthentication=no -o RSAAuthentication=no -o ChallengeResponseAuthentication=no $@'
 alias scp='scp -p'
 alias rsync='rsync -vh --progress'
-alias githome='git --git-dir=$STDHOME_DIRNAME/.git'
+#alias githome='git --git-dir=$STDHOME_DIRNAME/.git'
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
