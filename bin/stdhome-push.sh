@@ -13,7 +13,7 @@ for remote in $(git remote show); do
 	if [[ "$remote" == ksgitlab ]] && [[ -f ~/.ssh/id_rsa_ks ]] && ! ssh-add -L | grep -q id_rsa_ks; then
 		ssh-add ~/.ssh/id_rsa_ks
 	fi
-	if git diff --stat --cached $remote/$branch | grep -q .; the
+	if git diff --stat --cached $remote/$branch | grep -q .; then
 		git push $remote $branch
 	fi
 done
@@ -32,7 +32,7 @@ $DIR/bin/stdothers.sh | while read repo; do
 		if [[ "$remote" == ksgitlab ]] && [[ -f ~/.ssh/id_rsa_ks ]] && ! ssh-add -L | grep -q id_rsa_ks; then
 			ssh-add ~/.ssh/id_rsa_ks
 		fi
-		if git diff --stat --cached $remote/$branch | grep -q .; the
+		if git diff --stat --cached $remote/$branch | grep -q .; then
 			git push $remote $branch
 		fi
 	done
