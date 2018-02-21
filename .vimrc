@@ -89,8 +89,8 @@ set t_Co=256
 :set guioptions-=r  "remove right-hand scroll bar
 :hi CursorLine   cterm=None ctermbg=yellow ctermfg=white guibg=yellow guifg=black
 :hi CursorColumn cterm=None ctermbg=yellow ctermfg=white guibg=lightyellow guifg=lightyellow
-au WinLeave * set nocursorline nocursorcolumn
-au WinEnter * set cursorline nocursorcolumn
+"au WinLeave * set nocursorline nocursorcolumn
+"u WinEnter * set cursorline nocursorcolumn
 set cursorline nocursorcolumn
 :set number
 :set cmdheight=2
@@ -141,6 +141,7 @@ au BufReadPost * if getfsize(bufname("%")) > 90*1024 |
 :set title
 :auto BufEnter * let &titlestring = "vim - " .$USER . "@" . hostname() . ":" . expand('%:p')
 
+au BufNewFile,BufRead *.yaml set cursorcolumn
 au BufNewFile,BufRead *.json set filetype=json
 au BufNewFile,BufRead *.java set filetype=java
 au BufNewFile,BufRead *.js set filetype=javascript
