@@ -122,6 +122,7 @@ fi
 
 
 # some more ls aliases
+alias mplayer='mplayer -zoom -fs -vo x11'
 #alias ll='ls -lhFa --group-directories-first'
 function lr() {
     if [[ -z "$1" ]]; then 
