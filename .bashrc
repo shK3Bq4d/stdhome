@@ -152,6 +152,8 @@ export WORK_PC1F=workstation00451.muc.com
 export WORK_PC1=workstation00451
 export WORK_PC2F=laptop00615.muc.com
 export WORK_PC2=laptop00615
+export WORK_PC3F=vmhabon.muc.com
+export WORK_PC3=vmhabon
 is_zsh && setopt null_glob
 for f in \
     $RCD/.bash_aliases \
