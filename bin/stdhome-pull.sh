@@ -30,7 +30,7 @@ $DIR/bin/stdothers.sh | while read repo; do
 	#git config core.worktree "$GIT_WORK_TREE"
 	cd $repo
 	branch=$(basename $repo noexternalcheckout)
-	test branch == stdswift && branch=$(git rev-parse --abbrev-ref HEAD)
+	test $branch == stdswift && branch=$(git rev-parse --abbrev-ref HEAD)
 	for remote in $(git remote show); do
 		if [[ "$remote" == ksgitlab ]] && [[ -f ~/.ssh/id_rsa_ks ]] && ! ssh-add -L | grep -q id_rsa_ks; then
 			ssh-add ~/.ssh/id_rsa_ks
