@@ -96,4 +96,24 @@ bA = [1,2,3,4,5]
 cA = [5,4,3,2,1]
 bH = dict(a=1,b=2,c=3,d=4,e=5)
 cH = dict(a='aa',b='bb',c='cc',d='dd',e='ee')
-pprint(locals())
+
+reSearch = re.search(r'(\d{2})-(\d{2})-(\d{4})', 'bonjour 31-12-2018 aurevoir')
+
+td_5min = datetime.timedelta(minutes=5)
+td_1day = datetime.timedelta(days=1)
+dt_now = datetime.datetime.now()
+dt_in5minutes = dt_now + td_5min
+d_today = datetime.date.today()
+d_tomorrow = datetime.date.today() + td_1day
+
+
+
+__rH = dict()
+for k, v in locals().copy().iteritems():
+    if isinstance(v, types.ClassType): continue
+    if isinstance(v, types.ModuleType): continue
+    if isinstance(v, types.FunctionType): continue
+    if k.startswith('__'): continue
+    __rH[k] = v
+pprint(__rH)
+
