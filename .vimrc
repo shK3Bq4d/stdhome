@@ -246,8 +246,8 @@ let g:html_no_pre=1
 " Buffers - explore/next/previous: Alt-F12, F12, Shift-F12.
 nnoremap <silent> <F12> :BufExplorer<CR>
 " http://vim.wikia.com/wiki/Fix_syntax_highlighting
-noremap <F11> <Esc>:syntax sync fromstart<CR>
-inoremap <F11> <C-o>:syntax sync fromstart<CR>
+noremap <F11> <Esc>:syntax sync fromstart<CR>:autocmd BufEnter <buffer> syntax sync fromstart<CR> 
+inoremap <F11> <C-o>:syntax sync fromstart<CR>:autocmd BufEnter <buffer> syntax sync fromstart<CR> 
 
 map <F10> :set paste! wrap! number!<CR>:GitGutterToggle<CR>
 map <F7> :GitGutterPrevHunk<CR>
