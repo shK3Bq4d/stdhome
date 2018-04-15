@@ -16,6 +16,9 @@ if hostname == $WORK_PC1 || hostname == "bipbip"
     "set completeopt=menu,preview
 else
 endif
+if hostname == "jly200" || hostname == "bipbip" 
+    let g:airline#extensions#whitespace#mixed_indent_algo = 2
+endif
 if hostname == "bipbip" || hostname == "bipbip" 
     call add(g:pathogen_disabled, 'vim-gitgutter')
 else
@@ -422,6 +425,7 @@ let g:airline_theme='papercolor'
 let g:airline#extensions#tabline#enabled = 1
 try
     " https://github.com/LucHermitte/local_vimrc
+    " _vimrc_local.vim
     call lh#local_vimrc#munge('whitelist', $HOME.'/tmp')
 catch /^Vim\%((\a\+)\)\=:E117/
 endtry
