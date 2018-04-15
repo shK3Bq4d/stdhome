@@ -420,3 +420,4 @@ map <C-ScrollWheelRight> <nop>
 let g:airline_powerline_fonts = 1
 let g:airline_theme='papercolor'
 let g:airline#extensions#tabline#enabled = 1
+call lh#local_vimrc#munge('whitelist', $HOME.'/tmp')
