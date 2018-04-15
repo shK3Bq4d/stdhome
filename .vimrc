@@ -420,4 +420,8 @@ map <C-ScrollWheelRight> <nop>
 let g:airline_powerline_fonts = 1
 let g:airline_theme='papercolor'
 let g:airline#extensions#tabline#enabled = 1
-call lh#local_vimrc#munge('whitelist', $HOME.'/tmp')
+try
+    " https://github.com/LucHermitte/local_vimrc
+    call lh#local_vimrc#munge('whitelist', $HOME.'/tmp')
+catch /^Vim\%((\a\+)\)\=:E117/
+endtry
