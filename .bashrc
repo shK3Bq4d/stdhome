@@ -5,7 +5,7 @@
 # handles urxvt resize bug
 # https://superuser.com/questions/442589/xmonad-urxvt-issue-text-disappears-after-resizing and,
 # better explained https://superuser.com/questions/442589/xmonad-urxvt-issue-text-disappears-after-resizing
-#[[ -z $SSH_CLIENT && -f ~/.config/i3/config ]] && for (( i=1; i<=$LINES; i++ )); do echo; done && clear; 
+#[[ -z $SSH_CLIENT && -f ~/.config/i3/config ]] && for (( i=1; i<=$LINES; i++ )); do echo; done && clear;
 # this one is a perf optimisation try
 [[ -z $SSH_CLIENT && -f ~/.config/i3/config ]] && tail -n $(( $LINES + 5 )) ~/.config/urxvt-resize-bug
 is_zsh() {
@@ -84,7 +84,7 @@ if [[ -d /usr/share/terminfo ]]; then
     }
     if ! _termok $TERM; then
         for t in xterm-256color xterm; do
-            if _termok $t; then 
+            if _termok $t; then
                 export TERM=$t
                 break
             fi
@@ -125,15 +125,15 @@ fi
 alias mplayer='mplayer -zoom -fs -vo x11'
 #alias ll='ls -lhFa --group-directories-first'
 function lr() {
-    if [[ -z "$1" ]]; then 
-        ls -lhAFtr 
+    if [[ -z "$1" ]]; then
+        ls -lhAFtr
     else
         ls -lhAFtr | grep -i $*
     fi
 }
 function lss() {
-    if [[ -z "$1" ]]; then 
-        ls -lhFarS --group-directories-first 
+    if [[ -z "$1" ]]; then
+        ls -lhFarS --group-directories-first
     else
         ls -lhFarS --group-directories-first | grep -i $*
     fi
@@ -176,13 +176,13 @@ alias rsync='rsync -vh --progress'
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
-HISTFILESIZE=1000000000                                                                                                                 
-HISTSIZE=1000000                                                                                                                        
+HISTFILESIZE=1000000000
+HISTSIZE=1000000
 HISTCONTROL=ignorespace
 set -o vi
 set -o noclobber
 if hash vim  &>/dev/null; then
-    export EDITOR=vim                                          
+    export EDITOR=vim
     if [[ $EUID -eq 0 ]]; then # vim readonly for root
         alias vi='vim -R'
         function vim() {
@@ -232,8 +232,8 @@ cygwin)
 *)
     alias xargs='xargs -r'
     function ll() {
-        if [[ -z "$1" ]]; then 
-            ls -lhFa --group-directories-first 
+        if [[ -z "$1" ]]; then
+            ls -lhFa --group-directories-first
         else
             ls -lhFa --group-directories-first | grep -i $*
         fi
@@ -251,7 +251,7 @@ cygwin)
 esac
 export CDPATH=$CDPATH:$RCD/.cdpath
 
-if hash javac &>/dev/null; then 
+if hash javac &>/dev/null; then
     export JAVA_HOME=$(mrdirname $(mrdirname $(which javac)))
 fi
 
@@ -297,7 +297,7 @@ alias venv.wipe="wipeenv"
 
 for d in $RCD/py \
     \#$RCD/git/mr/mrpy/src \
-    ; do 
+    ; do
     [[ -d $d ]] && \
         for i in $(find $d -maxdepth 1 -type d ); do export PYTHONPATH=$PYTHONPATH:$i; done
 done
@@ -309,7 +309,7 @@ if hash less &>/dev/null; then
 fi
 PERL_MB_OPT="--install_base \"$HOME/perl5\""; export PERL_MB_OPT;
 PERL_MM_OPT="INSTALL_BASE=$HOME/perl5"; export PERL_MM_OPT;
-SSH_ENV=$HOME/.ssh/environment                                                                          
+SSH_ENV=$HOME/.ssh/environment
 
 if [[ $UID -ne 0 ]]; then
     function start_agent {
@@ -369,7 +369,7 @@ xterm*|rxvt*)
         pre_cmd()
         {
             local MR_LAST=$?
-            local cmd="$BASH_COMMAND" 
+            local cmd="$BASH_COMMAND"
             case "$cmd" in
                 *\033]0*)
                     # The command is trying to set the title bar as well;
@@ -432,9 +432,9 @@ xterm*|rxvt*)
     ;;
 esac
 ! hash apt 2>/dev/null && hash apt-get 2>/dev/null &&  alias apt=apt-get # for older debian-based, sometimes used in docker containers
-hash thunar 2>/dev/null &&  alias explorer=thunar # 
+hash thunar 2>/dev/null &&  alias explorer=thunar #
 if hash pip 2>/dev/null; then
-   if is_zsh; then 
+   if is_zsh; then
        eval "$(pip completion --zsh --disable-pip-version-check &>/dev/null)" #&>/dev/null
     else
        eval "$(pip completion --bash --disable-pip-version-check &>/dev/null)" #&>/dev/null
