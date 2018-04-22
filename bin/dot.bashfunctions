@@ -191,17 +191,40 @@ mrfind () {
 	echo "${out}" | xargs -d "${sep}" --verbose /usr/bin/find 2>&1| grep -v "Permission denied"
 }
 
-function cdl () {
-	param=
-	[[ $# -gt 0 ]] && param="*"$1"*" || param="*"
-	# find -name "*" finds hidden file
-	DIR=$(find . -mindepth 1 -maxdepth 1 -type d -name "$param" -printf '%T@ %p\n' | sort -k 1nr | head -1 | sed 's/^[^ ]* //')
-	if [[ -n "$DIR" ]]; then
-		cd "$DIR"
-	else
-		return 1
-	fi
-}
+if [[ $UNAME = freebsd ]]; then
+	function cdl () {
+		param=
+		[[ $# -gt 0 ]] && param="*"$1"*" || param="*"
+		# find -name "*" finds hidden file
+		DIR="$(find . -mindepth 1 -maxdepth 1 -type d -name "$param" -print0 | xargs -0 ls -1td | head -n 1)"
+		if [[ -n "$DIR" ]]; then
+			cd "$DIR"
+		else
+			return 1
+		fi
+	}
+	function last () {
+		NEWEST="$(find . -mindepth 1 -maxdepth 1 -name "*${*}*" -type f -print0 | xargs -0 ls -1td | head -n 1)"
+		mrbasename "$NEWEST"
+	}
+else
+	function cdl () {
+		param=
+		[[ $# -gt 0 ]] && param="*"$1"*" || param="*"
+		# find -name "*" finds hidden file
+		DIR="$(find . -mindepth 1 -maxdepth 1 -type d -name "$param" -printf '%T@ %p\n' | sort -k 1nr | head -1 | sed 's/^[^ ]* //')"
+		if [[ -n "$DIR" ]]; then
+			cd "$DIR"
+		else
+			return 1
+		fi
+	}
+	function last () {
+		NEWEST=$(find -maxdepth 1 -name "*${*}*" -type f -printf '%T@ %p\0' | \
+			sort -rnz | xargs -0rn1 2>/dev/null | head -n1 | cut -d' ' -f2-)
+		mrbasename "$NEWEST"
+	}
+fi
 function cdl_old () {
 	# doesn't work on zsh and poorly on freebsd
 	local param
@@ -240,11 +263,6 @@ function vif ()
 }
 function cdw () {
 	cd $(dirname $(command which $1))
-}
-function last () {
-	NEWEST=$(find -maxdepth 1 -name "*${*}*" -type f -printf '%T@ %p\0' | \
-		sort -rnz | xargs -0rn1 2>/dev/null | head -n1 | cut -d' ' -f2-)
-	mrbasename "$NEWEST"
 }
 function vil () {
 	#params=$*
