@@ -146,6 +146,8 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 if hash stdhome-dirname.sh 2>/dev/null; then
     export STDHOME_DIRNAME=$(stdhome-dirname.sh)
     alias cdstdhome='cd $STDHOME_DIRNAME'
+    alias githome="git --git-dir=$STDHOME_DIRNAME/.git --work-tree=$STDHOME_DIRNAME"
+    alias githomeworkon="export GIT_DIR=$STDHOME_DIRNAME/.git; export GIT_WORK_TREE=$STDHOME_DIRNAME"
 fi
 # Alias definitions.
 # You may want to put all your additions into a separate file like
