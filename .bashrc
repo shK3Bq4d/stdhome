@@ -143,6 +143,12 @@ function lss() {
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
+if hash stdhome-dirname.sh 2>/dev/null; then
+    export STDHOME_DIRNAME=$(stdhome-dirname.sh)
+    alias cdstdhome='cd $STDHOME_DIRNAME'
+    alias githome="git --git-dir=$STDHOME_DIRNAME/.git --work-tree=$STDHOME_DIRNAME"
+    alias githomeworkon="export GIT_DIR=$STDHOME_DIRNAME/.git; export GIT_WORK_TREE=$STDHOME_DIRNAME"
+fi
 # Alias definitions.
 # You may want to put all your additions into a separate file like
 # ~/.bash_aliases, instead of adding them here directly.
@@ -353,10 +359,6 @@ NPM_PACKAGES="$HOME/.npm-packages"
 MANPATH="$NPM_PACKAGES/share/man:$MANPATH"
 NODE_PATH="$NPM_PACKAGES/lib/node_modules:$NODE_PATH"
 
-if hash stdhome-dirname.sh 2>/dev/null; then
-    export STDHOME_DIRNAME=$(stdhome-dirname.sh)
-    alias cdstdhome='cd $STDHOME_DIRNAME'
-fi
 
 # virtualenv https://gist.github.com/bbengfort/246bc820e76b48f71df7
 export WORKON_HOME=$HOME/.virtualenvs
