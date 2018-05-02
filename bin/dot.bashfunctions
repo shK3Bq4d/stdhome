@@ -430,9 +430,9 @@ function ps_parent() {
 }
 function kafka_mr() {
 	export KAFKA_JMX_OPTS=" "
-	KAFKA_BIN_DIR="$(dirname $(command locate -e kafka-console-consumer.sh | grep -E 'bin.kafka-console-consumer.sh$' | head -n 1))"
+	KAFKA_BIN_DIR="$(dirname $({ command locate -e kafka-console-consumer.sh | grep -E 'bin.kafka-console-consumer.sh$'; echo /opt/kafka/bin/mrdefault; } | head -n 1))"
 	export PATH="$KAFKA_BIN_DIR:$PATH"
-	ZK=" --zookeeper $(command locate -e kafka | grep -E config/server.properties$ | head -n 1 | xargs grep -Po '(?<=^zookeeper.connect=).*') "
+	ZK=" --zookeeper $({ command locate -e kafka | grep -E config/server.properties$;  echo /opt/kafka/config/server.properties; } | head -n 1 | xargs grep -Po '(?<=^zookeeper.connect=).*') "
 	BL2=" --broker-list localhost:9092 "
 	BL3=" $(netstat -n | sed -n -r -e '/9092/s/^.+\s(\S+:9092)\s.*/\1/ p' | sort -u | xargs echo | tr ' ' , )"
 	BL=" --broker-list $BL3"
