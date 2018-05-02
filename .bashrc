@@ -7,7 +7,11 @@
 # better explained https://superuser.com/questions/442589/xmonad-urxvt-issue-text-disappears-after-resizing
 #[[ -z $SSH_CLIENT && -f ~/.config/i3/config ]] && for (( i=1; i<=$LINES; i++ )); do echo; done && clear;
 # this one is a perf optimisation try
-[[ -z $SSH_CLIENT && -f ~/.config/i3/config ]] && tail -n $(( $LINES + 5 )) ~/.config/urxvt-resize-bug
+#[[ -z $SSH_CLIENT && -f ~/.config/i3/config ]] && tail -n $(( $LINES + 5 )) ~/.config/urxvt-resize-bug
+# 2018.05.02 trying with a bigger, hardcoded number of lines since bug still there. I suspect it's the number
+#            of full screen lines that need to be written
+#[[ -z $SSH_CLIENT && -f ~/.config/i3/config ]] && echo 'welcome?' && tail -n 85 ~/.config/urxvt-resize-bug && echo ✇
+[[ -z $SSH_CLIENT && -f ~/.config/i3/config ]] && echo -n "$(<~/.config/urxvt-resize-bug)"
 is_zsh() {
     test -n "${ZSH_VERSION:-}"
 }
