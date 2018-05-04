@@ -16,6 +16,7 @@ if hostname == $WORK_PC1 || hostname == "bipbip"
     "set completeopt=menu,preview
 else
 endif
+let airline#extensions#c_like_langs = ['c', 'cpp', 'cuda', 'go', 'javascript', 'java', 'ld', 'php']
 if hostname == "jly200" || hostname == "bipbip" 
     let g:airline#extensions#whitespace#mixed_indent_algo = 2
 endif
