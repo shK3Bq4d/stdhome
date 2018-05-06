@@ -136,7 +136,7 @@ function ssh() {
 
 	if [[ $# -eq 1 ]] && [[ -f $HOME/.sshrc ]]; then
 		case "$1" in \
-		charlotte|$WORK_PC1|apr16|acer2011|thinkpad|fw11*|motog*|galaxy*)
+		charlotte|$WORK_PC1|apr16|acer2011|thinkpad|fw11*|motog*|galaxy*|ly1*|10.19.29.25*)
 			;;
 		*)
 			hash sshrc 2>/dev/null && BIN=sshrc
