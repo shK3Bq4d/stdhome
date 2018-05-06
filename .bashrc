@@ -456,6 +456,6 @@ fi
 
 
 # to be run very last so a control-C due to non-connectivity doesn't prevent all the other stuff to run
-[[ -f ~/.tmp/touch/stdhome-pull ]] && find ~/.tmp/touch/stdhome-pull -mtime +1 | grep -qE . && hash stdhome-pull.sh && stdhome-pull.sh || true
+[[ -f ~/.tmp/touch/stdhome-pull ]] && find ~/.tmp/touch/stdhome-pull -mtime +1 | grep -qE . && hash stdhome-pull.sh 2>/dev/null && stdhome-pull.sh || true
 
 true # so prompt is green
