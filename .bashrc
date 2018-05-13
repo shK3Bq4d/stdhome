@@ -26,6 +26,7 @@ for i in $RCD ~$SUDO_USER; do
         break
     fi
 done
+pathprepend $RCD/bin
 # cygwin, being started from mintty.exe scratch, doesn't any good PATH
 if ! hash chmod &>/dev/null; then
     pathprepend /usr/sbin
@@ -147,7 +148,7 @@ function lss() {
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
-if hash stdhome-dirname.sh 2>/dev/null; then
+if hash stdhome-dirname.sh 2>/dev/null || which stdhome-dirname.sh &>/dev/null; then
     export STDHOME_DIRNAME=$(stdhome-dirname.sh)
     alias cdstdhome='cd $STDHOME_DIRNAME'
     alias githome="git --git-dir=$STDHOME_DIRNAME/.git --work-tree=$STDHOME_DIRNAME"
@@ -215,7 +216,6 @@ elif hash vi  &>/dev/null; then
     fi
 fi
 #export PATH=~/bin:$PATH
-pathprepend $RCD/bin
 export VAGRANT_SERVER_URL=https://app.vagrantup.com
 #pathprepend ~/bin/$HOSTNAME
 #export LC_TIME=fr_CH

@@ -58,6 +58,7 @@ function pathprepend() {
 		fi
 	fi
 	export PATH
+	is_zsh && rehash || hash -r
 }
 function pathappend() {
 	if [ -d "$1" ] && [[ ":$PATH:" != *":$1:"* ]]; then
@@ -68,6 +69,7 @@ function pathappend() {
 		fi
 	fi
 	export PATH
+	is_zsh && rehash || hash -r
 }
 function mrbasename() {
 	local a
