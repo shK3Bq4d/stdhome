@@ -192,6 +192,7 @@ HISTSIZE=1000000
 HISTCONTROL=ignorespace
 set -o vi
 set -o noclobber
+[[ -z "$EDITOR" ]] && export EDITOR=vi
 if hash vim  &>/dev/null; then
     export EDITOR=vim
     if [[ $EUID -eq 0 ]]; then # vim readonly for root
