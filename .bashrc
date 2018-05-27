@@ -323,6 +323,14 @@ PERL_MM_OPT="INSTALL_BASE=$HOME/perl5"; export PERL_MM_OPT;
 SSH_ENV=$HOME/.ssh/environment
 
 if [[ $UID -ne 0 ]]; then
+    function mr_ssh_add {
+         if /usr/bin/ssh-add -l &>/dev/null; then
+             true
+         else
+             echo -n "$HOSTNAMEF: "
+             /usr/bin/ssh-add -t 43200
+         fi
+    }
     function start_agent {
         if [[ -d $(dirname $SSH_ENV) ]]; then
             echo "Initialising new SSH agent..."
@@ -331,7 +339,8 @@ if [[ $UID -ne 0 ]]; then
             echo succeeded
             chmod 600 ${SSH_ENV}
             source ${SSH_ENV} > /dev/null
-            /usr/bin/ssh-add -t 43200
+            #/usr/bin/ssh-add -t 43200
+            mr_ssh_add
         fi
     }
 
@@ -344,15 +353,18 @@ if [[ $UID -ne 0 ]]; then
              ps -ef | grep ${SSH_AGENT_PID} | grep ssh-agent$ > /dev/null || {
                  start_agent;
              }
-             /usr/bin/ssh-add -l &>/dev/null || /usr/bin/ssh-add -t 43200
+             #/usr/bin/ssh-add -l &>/dev/null || /usr/bin/ssh-add -t 43200
+             mr_ssh_add
         else
              start_agent;
-             /usr/bin/ssh-add -l &>/dev/null || /usr/bin/ssh-add -t 43200
+             # /usr/bin/ssh-add -l &>/dev/null || /usr/bin/ssh-add -t 43200
+             # mr_ssh_add
         fi
     else
         if [ -f "${SSH_ENV}" ]; then
              source ${SSH_ENV} > /dev/null
-             /usr/bin/ssh-add -l &>/dev/null || /usr/bin/ssh-add -t 43200
+             # /usr/bin/ssh-add -l &>/dev/null || /usr/bin/ssh-add -t 43200
+             mr_ssh_add
         fi
     fi
 fi
