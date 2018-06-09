@@ -36,7 +36,6 @@ ENABLE_CORRECTION="true"
 
 alias doc='nocorrect doc'
 alias ssfs='nocorrect sshfs'
-alias z='nocorrect z'
 alias ant='nocorrect ant'
 alias cp='nocorrect cp -i'
 alias mv='nocorrect mv -i'
@@ -128,7 +127,7 @@ function preexec() {
 	echo -ne "\033]0;\u231b $1 - $USER@$HOSTNAMEF\007"
 }
 
-#setopt promptsubst # 
+#setopt promptsubst #
 setopt prompt_subst
 DISABLE_AUTO_TITLE="true"
 function precmd() {
@@ -141,7 +140,7 @@ function precmd() {
 			export RPROMPT="%F{cyan}${elapsed}ms %{$reset_color%}"
 			unset timer
 		fi
-	else 
+	else
 		if [ $timer ]; then
 			now=$(now_millis)
 			elapsed=$(($now-$timer))
@@ -168,7 +167,7 @@ function precmd() {
 		fi
 	fi
 
-	local cmd="$MR_RUNNING_COMMAND" 
+	local cmd="$MR_RUNNING_COMMAND"
 	case "$cmd" in \
 		"")
 			#return
@@ -269,7 +268,7 @@ else
 	zle -N zle-line-init
 	zle -N zle-keymap-select
 	export KEYTIMEOUT=1
-	autoload -z edit-command-line 
+	autoload -z edit-command-line
 	zle -N edit-command-line
 	bindkey "^V" edit-command-line
 fi
@@ -281,3 +280,4 @@ compinit
 zstyle ':completion:*' menu select=2
 #source ~/.bash_completion
 compdef _path_commands viw catw lessw
+alias z='nocorrect _z 2>&1' # at the end is necessary as it is defined elsewhere
