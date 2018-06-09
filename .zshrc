@@ -37,6 +37,7 @@ ENABLE_CORRECTION="true"
 alias doc='nocorrect doc'
 alias ssfs='nocorrect sshfs'
 alias z='nocorrect z'
+alias ant='nocorrect ant'
 # Uncomment the following line to display red dots whilst waiting for completion.
 #COMPLETION_WAITING_DOTS="true"
 
