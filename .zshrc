@@ -35,6 +35,7 @@ DISABLE_AUTO_UPDATE="true"
 ENABLE_CORRECTION="true"
 
 alias doc='nocorrect doc'
+alias ssfs='nocorrect sshfs'
 # Uncomment the following line to display red dots whilst waiting for completion.
 #COMPLETION_WAITING_DOTS="true"
 
