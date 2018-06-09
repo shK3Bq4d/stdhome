@@ -38,6 +38,8 @@ alias doc='nocorrect doc'
 alias ssfs='nocorrect sshfs'
 alias z='nocorrect z'
 alias ant='nocorrect ant'
+alias cp='nocorrect cp -i'
+alias mv='nocorrect mv -i'
 # Uncomment the following line to display red dots whilst waiting for completion.
 #COMPLETION_WAITING_DOTS="true"
 
