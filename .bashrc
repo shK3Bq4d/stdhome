@@ -526,7 +526,7 @@ alias head80="head -n 80"
 alias head90="head -n 90"
 alias head100="head -n 100"
 
-mrbg() { nohup "$@" &>/dev/null &; disown }
+mrbg() { nohup "$@" &>/dev/null &; disown; }
 
 # to be run very last so a control-C due to non-connectivity doesn't prevent all the other stuff to run
 [[ -f ~/.tmp/touch/stdhome-pull ]] && find ~/.tmp/touch/stdhome-pull -mtime +1 | grep -qE . && hash stdhome-pull.sh 2>/dev/null && stdhome-pull.sh || true
