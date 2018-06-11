@@ -35,7 +35,7 @@ DISABLE_AUTO_UPDATE="true"
 ENABLE_CORRECTION="true"
 
 alias doc='nocorrect doc'
-alias ssfs='nocorrect sshfs'
+alias sshfs='nocorrect sshfs'
 alias ant='nocorrect ant'
 alias cp='nocorrect cp -i'
 alias mv='nocorrect mv -i'
