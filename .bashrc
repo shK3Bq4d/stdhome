@@ -233,6 +233,7 @@ freebsd)
     #alias locate='locate -i'
     #export LC_TIME=en_DK.UTF-8
     alias ll='ls -lhFa'
+    alias ,='ls -lhFa'
     alias updatedb='/usr/libexec/locate.updatedb'
     ;;
 cygwin)
@@ -250,6 +251,7 @@ cygwin)
             ls -lhFa --group-directories-first | grep -i $*
         fi
     }
+    alias ,=ll
     #alias locate='locate -i --regex'
     if [[ -z "${SUDO_USER+1}" ]]; then
         if [[ -d /usr/share/X11/locale/en_US.UTF-8 ]]; then
