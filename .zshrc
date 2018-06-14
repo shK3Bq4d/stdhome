@@ -34,12 +34,6 @@ DISABLE_AUTO_UPDATE="true"
 # Uncomment the following line to enable command auto-correction.
 ENABLE_CORRECTION="true"
 
-alias doc='nocorrect doc'
-alias sshfs='nocorrect sshfs'
-alias ant='nocorrect ant'
-alias cp='nocorrect cp -i'
-alias mv='nocorrect mv -i'
-alias git='nocorrect git'
 # Uncomment the following line to display red dots whilst waiting for completion.
 #COMPLETION_WAITING_DOTS="true"
 
@@ -101,6 +95,12 @@ fi
 #
 #source ~/bin/dot.bashfunctions
 source ~/.bashrc
+alias doc='nocorrect doc'
+alias sshfs='nocorrect sshfs'
+alias ant='nocorrect ant'
+alias cp='nocorrect cp -i'
+alias mv='nocorrect mv -i'
+alias git='nocorrect git'
 
 # https://github.com/robbyrussell/oh-my-zsh/pull/3434/files
 #AGNOSTER_STATUS_BG=yellow
