@@ -165,19 +165,6 @@ export WORK_PC2F=laptop00615.muc.com
 export WORK_PC2=laptop00615
 export WORK_PC3F=vmhabon.muc.com
 export WORK_PC3=vmhabon
-is_zsh && setopt null_glob
-for f in \
-    $RCD/.bash_aliases \
-    $RCD/.${HOSTNAMEF}_aliases  \
-     /usr/share/virtualenvwrapper/virtualenvwrapper_lazy.sh \
-    /usr/bin/virtualenvwrapper_lazy.sh \
-    $RCD/.std*_aliases \
-    ; do
-        [[ -f $f ]] && source $f
-done
-is_zsh && unsetopt null_glob
-[[ -n "$GIT_AUTHOR_NAME" && -z "$GIT_COMMITTER_NAME" ]] && export GIT_COMMITTER_NAME="$GIT_AUTHOR_NAME"
-[[ -n "$GIT_AUTHOR_EMAIL" && -z "$GIT_COMMITTER_EMAIL" ]] && export GIT_COMMITTER_EMAIL="$GIT_AUTHOR_EMAIL"
 
 alias ssh-no-host-checking='ssh -o ControlMaster=No -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=No $@'
 alias ssh-password-auth='ssh -o ControlMaster=No -o NumberOfPasswordPrompts=1000 -o PubkeyAuthentication=no -o HostbasedAuthentication=no -o KbdInteractiveAuthentication=no -o RhostsRSAAuthentication=no -o RSAAuthentication=no -o ChallengeResponseAuthentication=no $@'
@@ -323,30 +310,8 @@ if hash less &>/dev/null; then
 fi
 PERL_MB_OPT="--install_base \"$HOME/perl5\""; export PERL_MB_OPT;
 PERL_MM_OPT="INSTALL_BASE=$HOME/perl5"; export PERL_MM_OPT;
-SSH_ENV=$HOME/.ssh/environment
 
 if [[ $UID -ne 0 ]]; then
-    function mr_ssh_add {
-         if /usr/bin/ssh-add -l &>/dev/null; then
-             true
-         else
-             echo -n "$HOSTNAMEF: "
-             /usr/bin/ssh-add -t 43200
-         fi
-    }
-    function start_agent {
-        if [[ -d $(dirname $SSH_ENV) ]]; then
-            echo "Initialising new SSH agent..."
-            [[ -f ${SSH_ENV} ]] && rm -f ${SSH_ENV}
-            /usr/bin/ssh-agent | sed 's/^echo/#echo/' > ${SSH_ENV}
-            echo succeeded
-            chmod 600 ${SSH_ENV}
-            source ${SSH_ENV} > /dev/null
-            #/usr/bin/ssh-add -t 43200
-            mr_ssh_add
-        fi
-    }
-
     # Source SSH settings, if applicable
 
     if [[ -z ${SSH_CLIENT+1} ]]; then # only start agent if not running inside SSH session
@@ -532,5 +497,20 @@ alias head100="head -n 100"
 
 # to be run very last so a control-C due to non-connectivity doesn't prevent all the other stuff to run
 [[ -f ~/.tmp/touch/stdhome-pull ]] && find ~/.tmp/touch/stdhome-pull -mtime +1 | grep -qE . && hash stdhome-pull.sh 2>/dev/null && stdhome-pull.sh || true
+
+is_zsh && setopt null_glob
+for f in \
+    $RCD/.bash_aliases \
+    $RCD/.${HOSTNAMEF}_aliases  \
+     /usr/share/virtualenvwrapper/virtualenvwrapper_lazy.sh \
+    /usr/bin/virtualenvwrapper_lazy.sh \
+    $RCD/.std*_aliases \
+    ; do
+        [[ -f $f ]] && source $f
+done
+is_zsh && unsetopt null_glob
+# needs  to be done after local aliases
+[[ -n "$GIT_AUTHOR_NAME" && -z "$GIT_COMMITTER_NAME" ]] && export GIT_COMMITTER_NAME="$GIT_AUTHOR_NAME"
+[[ -n "$GIT_AUTHOR_EMAIL" && -z "$GIT_COMMITTER_EMAIL" ]] && export GIT_COMMITTER_EMAIL="$GIT_AUTHOR_EMAIL"
 
 true # so prompt is green
