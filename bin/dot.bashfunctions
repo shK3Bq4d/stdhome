@@ -485,8 +485,17 @@ function start_agent {
         echo succeeded
         chmod 600 ${SSH_ENV}
         source ${SSH_ENV} > /dev/null
-        #/usr/bin/ssh-add -t 43200
-        mr_ssh_add
+    fi
+}
+function start_agent_if_not_started {
+    if [ -f "${SSH_ENV}" ]; then
+         source ${SSH_ENV} > /dev/null
+         #ps ${SSH_AGENT_PID} doesn't work under cywgin
+         ps -q ${SSH_AGENT_PID} -o comm= | grep -qx ssh-agent || {
+             start_agent;
+         }
+    else
+         start_agent;
     fi
 }
 

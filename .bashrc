@@ -315,19 +315,8 @@ if [[ $UID -ne 0 ]]; then
     # Source SSH settings, if applicable
 
     if [[ -z ${SSH_CLIENT+1} ]]; then # only start agent if not running inside SSH session
-        if [ -f "${SSH_ENV}" ]; then
-             source ${SSH_ENV} > /dev/null
-             #ps ${SSH_AGENT_PID} doesn't work under cywgin
-             ps -ef | grep ${SSH_AGENT_PID} | grep ssh-agent$ > /dev/null || {
-                 start_agent;
-             }
-             #/usr/bin/ssh-add -l &>/dev/null || /usr/bin/ssh-add -t 43200
-             mr_ssh_add
-        else
-             start_agent;
-             # /usr/bin/ssh-add -l &>/dev/null || /usr/bin/ssh-add -t 43200
-             # mr_ssh_add
-        fi
+        start_agent_if_not_started
+        mr_ssh_add
     else
         if [ -f "${SSH_ENV}" ]; then
              source ${SSH_ENV} > /dev/null
