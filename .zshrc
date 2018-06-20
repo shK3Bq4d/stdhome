@@ -100,6 +100,7 @@ alias sshfs='nocorrect sshfs'
 alias ant='nocorrect ant'
 alias cp='nocorrect cp -i'
 alias mv='nocorrect mv -i'
+alias grep='nocorrect grep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn}'
 alias git='nocorrect git'
 
 # https://github.com/robbyrussell/oh-my-zsh/pull/3434/files
