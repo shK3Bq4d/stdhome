@@ -440,3 +440,12 @@ try
     call lh#local_vimrc#munge('whitelist', $HOME.'/tmp')
 catch /^Vim\%((\a\+)\)\=:E117/
 endtry
+
+" https://github.com/vim-syntastic/syntastic
+" https://github.com/rodjek/vim-puppet
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_puppet_checkers = ['puppetlint']
