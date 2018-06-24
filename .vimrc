@@ -236,7 +236,8 @@ command -range=% MrBlockToUnicode :<line1>,<line2>:call MrBlockToUnicodeFunc()
 :command MrConfluence :TOhtml | :%!html2confluencewiki_bis.py
 :command MrAlign0space :AlignCtrl "Ilp0P0=" '='
 :command MrAlign0left1right :AlignCtrl "Ilp0P1" '='
-:command MrAlign1left1right :AlignCtrl "Ilp1P0" '='
+:command MrAlign1left0right :AlignCtrl "Ilp1P0" '='
+:command MrAlign1left1right :AlignCtrl "Ilp1P1" '='
 :command MrAlign1space :AlignCtrl "Ilp1P1=" '='
 :command MrAlign2space :AlignCtrl "Ilp2P2=" '='
 :command MrAlign3space :AlignCtrl "Ilp3P3=" '='
