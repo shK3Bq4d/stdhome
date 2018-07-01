@@ -1,5 +1,6 @@
 " ex: set expandtab ts=4 sw=4:
 let g:pathogen_disabled = []
+let g:mapleader=" "
 let s:sys=system('uname -s | perl -pe "chomp"')
 let hostname = substitute(system('hostname'), '\n', '', '')
 if s:sys == "Cygwin_NT""
