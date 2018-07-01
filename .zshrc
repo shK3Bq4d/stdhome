@@ -101,7 +101,7 @@ alias ant='nocorrect ant'
 alias cp='nocorrect cp -i'
 alias mv='nocorrect mv -i'
 case $UNAME in \
-	) true;;
+	freebsd) true;;
 	*) alias grep='nocorrect grep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn}'
 esac
 alias git='nocorrect git'
