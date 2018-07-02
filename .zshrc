@@ -101,10 +101,12 @@ alias ant='nocorrect ant'
 alias cp='nocorrect cp -i'
 alias mv='nocorrect mv -i'
 case $UNAME in \
-    freebsd) true;;
+	freebsd) true;;
 	*) alias grep='nocorrect grep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn}'
 esac
 alias git='nocorrect git'
+alias -g L='|less --raw-control-chars --quit-if-one-screen --ignore-case --status-column --no-init'
+alias -g G='|grep --color=always -E'
 
 # https://github.com/robbyrussell/oh-my-zsh/pull/3434/files
 #AGNOSTER_STATUS_BG=yellow
