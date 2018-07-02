@@ -450,3 +450,14 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_puppet_checkers = ['puppetlint']
+
+function Py2()
+  let g:syntastic_python_python_exec = '/usr/local/bin/python2.7'
+endfunction
+
+function Py3()
+  let g:syntastic_python_python_exec = '/usr/local/bin/python3.6'
+endfunction
+
+"call Py3()   " default to Py3 because I try to use it when possible
+call Py2()   " default to Py2 because of legacy scripts
