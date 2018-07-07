@@ -193,10 +193,17 @@ mrfind () {
 
 if [[ $UNAME = freebsd ]]; then
     function cdl () {
-        param=
-        [[ $# -gt 0 ]] && param="*"$1"*" || param="*"
+        local param
+		local extra
+        if [[ $# -gt 0 ]]; then
+		   	param="*"$1"*"
+			extra=
+		else
+			param="*"
+			extra="-and -not -name .git"
+		fi
         # find -name "*" finds hidden file
-        DIR="$(find . -mindepth 1 -maxdepth 1 -type d -name "$param" -print0 | xargs -0 ls -1td | head -n 1)"
+		DIR="$(find . -mindepth 1 -maxdepth 1 -type d -name "$param" $(echo $extra) -print0 | xargs -0 ls -1td | head -n 1)"
         if [[ -n "$DIR" ]]; then
             cd "$DIR"
         else
@@ -209,10 +216,17 @@ if [[ $UNAME = freebsd ]]; then
     }
 else
     function cdl () {
-        param=
-        [[ $# -gt 0 ]] && param="*"$1"*" || param="*"
+        local param
+		local extra
+        if [[ $# -gt 0 ]]; then
+		   	param="*"$1"*"
+			extra=
+		else
+			param="*"
+			extra="-and -not -name .git"
+		fi
         # find -name "*" finds hidden file
-        DIR="$(find . -mindepth 1 -maxdepth 1 -type d -name "$param" -printf '%T@ %p\n' | sort -k 1nr | head -1 | sed 's/^[^ ]* //')"
+		DIR="$(find . -mindepth 1 -maxdepth 1 -type d -name "$param" $(echo $extra) -printf '%T@ %p\n' | sort -k 1nr | head -1 | sed 's/^[^ ]* //')"
         if [[ -n "$DIR" ]]; then
             cd "$DIR"
         else
