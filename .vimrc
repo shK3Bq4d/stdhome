@@ -307,6 +307,13 @@ inoremap <ScrollWheelDown> <Nop>
 
 func MrSyntaxRange()
     try
+        call SyntaxRange#Include('@begin=markdown@'       ,'@end=markdown@'       ,'markdown'       ,'NonText')
+    catch /^Vim\%((\a\+)\)\=:E117/
+        " deal with it
+    catch /^Vim\%((\a\+)\)\=:E484/
+        " deal with it
+    endtry
+    try
         call SyntaxRange#Include('@begin=css@'       ,'@end=css@'       ,'css'       ,'NonText')
     catch /^Vim\%((\a\+)\)\=:E117/
         " deal with it
@@ -451,6 +458,8 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_puppet_checkers = ['puppetlint']
+let g:syntastic_python_checkers = []
+let g:syntastic_javascript_checkers = ['jshint']
 
 function Py2()
   let g:syntastic_python_python_exec = '/usr/local/bin/python2.7'

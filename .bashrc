@@ -43,6 +43,7 @@ if [[ -z $HOSTNAMEF ]]; then
     fi
 fi
 [[ -z $HOSTNAME ]] && export HOSTNAME=${HOSTNAMEF//\.*/}
+export PYTHONIOENCODING="UTF-8"
 export UNAME="$(uname)"
 if is_zsh; then
     UNAME="$UNAME:l"
