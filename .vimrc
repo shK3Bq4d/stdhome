@@ -266,9 +266,13 @@ noremap <F11> <Esc>:syntax sync fromstart<CR>:autocmd BufEnter <buffer> syntax s
 inoremap <F11> <C-o>:syntax sync fromstart<CR>:autocmd BufEnter <buffer> syntax sync fromstart<CR> 
 
 map <F10> :set paste! wrap! number!<CR>:GitGutterToggle<CR>
+imap <F10> <Esc>:set paste! wrap! number!<CR>:GitGutterToggle<CR>
 map <F7> :GitGutterPrevHunk<CR>
+imap <F7> <Esc>:GitGutterPrevHunk<CR>
 map <F8> :GitGutterNextHunk<CR>
+imap <F8> <Esc>:GitGutterNextHunk<CR>
 map <F9> :GitGutterPreviewHunk<CR>
+imap <F9> <Esc>:GitGutterPreviewHunk<CR>
 :command Gstagehunk :GitGutterStageHunk
 :command Gundohunk :GitGutterUndoHunk
 set nocp
