@@ -97,6 +97,7 @@ fi
 source ~/.bashrc
 alias doc='nocorrect doc'
 alias sshfs='nocorrect sshfs'
+alias command='nocorrect command'
 alias ant='nocorrect ant'
 alias cp='nocorrect cp -i'
 alias mv='nocorrect mv -i'
@@ -105,8 +106,8 @@ case $UNAME in \
 	*) alias grep='nocorrect grep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn}'
 esac
 alias git='nocorrect git'
-alias -g L='|less --raw-control-chars --quit-if-one-screen --ignore-case --status-column --no-init'
-alias -g G='|grep --color=always -E'
+alias -g L='2>&1|less --raw-control-chars --quit-if-one-screen --ignore-case --status-column --no-init'
+alias -g G='2>&1|grep --color=always -E'
 
 # https://github.com/robbyrussell/oh-my-zsh/pull/3434/files
 #AGNOSTER_STATUS_BG=yellow

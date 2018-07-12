@@ -476,3 +476,4 @@ endfunction
 "call Py3()   " default to Py3 because I try to use it when possible
 call Py2()   " default to Py2 because of legacy scripts
 set clipboard=
+:set nofixendofline
