@@ -109,6 +109,7 @@ alias git='nocorrect git'
 alias -g L='2>&1|less --raw-control-chars --quit-if-one-screen --ignore-case --status-column --no-init'
 alias -g G='2>&1|grep --color=always -E'
 alias -g V='2>&1|vim -'
+alias -g C='2>&1|cat -'
 
 # https://github.com/robbyrussell/oh-my-zsh/pull/3434/files
 #AGNOSTER_STATUS_BG=yellow
