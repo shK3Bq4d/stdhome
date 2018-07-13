@@ -259,25 +259,26 @@ let g:html_use_css=0
 " risk of making some things look a bit different, use: >
 let g:html_no_pre=1
 
-" Buffers - explore/next/previous: Alt-F12, F12, Shift-F12.
-nnoremap <silent> <F12> :BufExplorer<CR>
 " http://vim.wikia.com/wiki/Fix_syntax_highlighting
-noremap <F11> <Esc>:syntax sync fromstart<CR>:autocmd BufEnter <buffer> syntax sync fromstart<CR> 
-inoremap <F11> <C-o>:syntax sync fromstart<CR>:autocmd BufEnter <buffer> syntax sync fromstart<CR> 
 
-map <F10> :set paste! wrap! number!<CR>:GitGutterToggle<CR>
-imap <F10> <Esc>:set paste! wrap! number!<CR>:GitGutterToggle<CR>
-map <F7> :GitGutterPrevHunk<CR>
+nnoremap <F2>      :<C-U>setlocal lcs=tab:>-,trail:-,eol:$ list! list? <CR>
+imap     <F2> <Esc>:<C-U>setlocal lcs=tab:>-,trail:-,eol:$ list! list? <CR>
+map  <F7>      :GitGutterPrevHunk<CR>
 imap <F7> <Esc>:GitGutterPrevHunk<CR>
-map <F8> :GitGutterNextHunk<CR>
+map  <F8>      :GitGutterNextHunk<CR>
 imap <F8> <Esc>:GitGutterNextHunk<CR>
-map <F9> :GitGutterPreviewHunk<CR>
+map  <F9>      :GitGutterPreviewHunk<CR>
 imap <F9> <Esc>:GitGutterPreviewHunk<CR>
+map  <F10>      :set paste! wrap! number!<CR>:GitGutterToggle<CR>
+imap <F10> <Esc>:set paste! wrap! number!<CR>:GitGutterToggle<CR>
+noremap  <F11> <Esc>:syntax sync fromstart<CR>:autocmd BufEnter <buffer> syntax sync fromstart<CR> 
+inoremap <F11> <C-o>:syntax sync fromstart<CR>:autocmd BufEnter <buffer> syntax sync fromstart<CR> 
+nnoremap <silent> <F12>      :BufExplorer<CR>
+imap     <silent> <F12> <Esc>:BufExplorer<CR>
 :command Gstagehunk :GitGutterStageHunk
 :command Gundohunk :GitGutterUndoHunk
 set nocp
 
-nnoremap    <F2> :<C-U>setlocal lcs=tab:>-,trail:-,eol:$ list! list? <CR>
 
 "let g:dbext_default_profile_ORA         = 'type=ORA:user=pretim:passwd=michel:host=gmadora05:dbname=gma3d.groupemutuel.ch'
 
