@@ -55,7 +55,7 @@ HIST_STAMPS="dd.mm.yyyy"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-autosuggestions history-substring-search vi-mode z zsh-syntax-highlighting) # zsh-syntax-highlighting must be the last
+plugins=(git zsh-autosuggestions history-substring-search vi-mode z kubectl minikube zsh-syntax-highlighting) # zsh-syntax-highlighting must be the last
 
 if [[ -f "$ZSH/oh-my-zsh.sh" ]]; then
 	source $ZSH/oh-my-zsh.sh
@@ -101,13 +101,15 @@ alias command='nocorrect command'
 alias ant='nocorrect ant'
 alias cp='nocorrect cp -i'
 alias mv='nocorrect mv -i'
+alias kubectl='nocorrect kubectl'
+alias minikube='nocorrect minikube'
 case $UNAME in \
 	freebsd) true;;
 	*) alias grep='nocorrect grep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn}'
 esac
 alias git='nocorrect git'
 alias -g L='2>&1|less --raw-control-chars --quit-if-one-screen --ignore-case --status-column --no-init'
-alias -g G='2>&1|grep --color=always -E'
+alias -g G='2>&1|grep -a --color=always -E'
 alias -g V='2>&1|vim -'
 alias -g C='2>&1|cat -'
 
