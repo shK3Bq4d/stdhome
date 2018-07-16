@@ -86,8 +86,7 @@ done
 [[ -e ~/bin/githooks/post-merge ]] && ~/bin/githooks/post-merge
 
 # creating directories
-mkdir -p ~/.tmp/tmpp ~/.tmp/tmp ~/.tmp/touch ~/.tmp/vim/{directory,backupdir,undodir,output} ~/.ssh ~/.ssh/c &>/dev/null
-chmod 0700 ~/.ssh
+mkdir -p ~/.tmp/tmpp ~/.tmp/tmp ~/.tmp/touch ~/.tmp/vim/{directory,backupdir,undodir,output} ~/.ssh/c &>/dev/null
 
 # removing previous broken symlinks
 stdhome-remove-deadlinks.sh
