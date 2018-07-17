@@ -261,7 +261,12 @@ alias ...='cd ../..'
 alias ..='cd ..'
 alias vi-='vi -'
 
-hash ack-grep &>/dev/null && alias ack='ack-grep --follow $*'
+if hash ack-grep &>/dev/null; then
+    alias ack='ack-grep --follow $*'
+    alias ackf='ack-grep -f'
+elif hash ack &>/dev/null; then
+    alias ackf='ack -f'
+fi
 alias ducks='du -cksh -- * | sort -rh | head -11'
 alias mdkir=mkdir
 alias feh='feh -p --auto-zoom -. -B black'
