@@ -56,7 +56,8 @@ HIST_STAMPS="dd.mm.yyyy"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git zsh-autosuggestions history-substring-search vi-mode z kubectl zsh-syntax-highlighting) # zsh-syntax-highlighting must be the last
-# minikube
+# minikube # minikube init seams slowish
+# helm # doesn't complet
 
 if [[ -f "$ZSH/oh-my-zsh.sh" ]]; then
 	source $ZSH/oh-my-zsh.sh
