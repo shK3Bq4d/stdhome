@@ -105,6 +105,8 @@ alias cp='nocorrect cp -i'
 alias mv='nocorrect mv -i'
 alias kubectl='nocorrect kubectl'
 alias minikube='nocorrect minikube'
+alias screen='nocorrect screen'
+alias watch='nocorrect watch'
 case $UNAME in \
 	freebsd) true;;
 	*) alias grep='nocorrect grep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn}'
