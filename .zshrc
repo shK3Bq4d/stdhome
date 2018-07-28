@@ -122,6 +122,10 @@ alias -g V='|vim -'
 alias -g VV='2>&1|vim -'
 alias -g C='|cat -'
 alias -g CC='2>&1|cat -'
+alias -g N='>/dev/null'
+alias -g NN='2>/dev/null'
+alias -g NNN='&>/dev/null'
+alias -g H='&>/dev/null &'
 
 # https://github.com/robbyrussell/oh-my-zsh/pull/3434/files
 #AGNOSTER_STATUS_BG=yellow
