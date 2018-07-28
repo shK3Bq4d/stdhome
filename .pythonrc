@@ -7,7 +7,7 @@ else:
     import rlcompleter
     readline.parse_and_bind("tab: complete")
     readline.parse_and_bind("set editing-mode vi")
-import re, sys, os, time, datetime, pickle, json, base64
+import re, sys, os, time, datetime, pickle, json, base64, shutil
 try:
     from lxml import etree, html
     doc = etree.fromstring("<root><a>ha</a><b battribute='battvalue'>bvalue</b><c /><d /><d /></root>")
