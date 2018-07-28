@@ -15,36 +15,7 @@
 is_zsh() {
     test -n "${ZSH_VERSION:-}"
 }
-
-
-for i in $RCD ~$SUDO_USER; do
-    i=$(eval echo $i)
-    f=$i/bin/dot.bashfunctions
-    if [[ -f $f ]]; then
-        export RCD=$i
-        source $f
-        break
-    fi
-done
-pathprepend $RCD/bin
-# cygwin, being started from mintty.exe scratch, doesn't any good PATH
-if ! hash chmod &>/dev/null; then
-    pathprepend /usr/sbin
-    pathprepend /usr/bin
-    pathprepend /sbin
-    pathprepend /bin
-    cd $HOME
-fi
-if [[ -z $HOSTNAMEF ]]; then
-    if [[ -L /usr/bin/timeout ]] && [[ $(readlink -f /usr/bin/timeout) == *busybox ]]; then
-        export HOSTNAMEF=$(timeout -t 3 hostname -f)
-    else
-        export HOSTNAMEF=$(timeout 3 hostname -f)
-    fi
-fi
-[[ -z $HOSTNAME ]] && export HOSTNAME=${HOSTNAMEF//\.*/}
-export PYTHONIOENCODING="UTF-8"
-export UNAME="$(uname)"
+UNAME="$(uname)"
 if is_zsh; then
     UNAME="$UNAME:l"
 else
@@ -74,6 +45,35 @@ else
 
     source $RCD/.bashrc_mrprompt
 fi
+
+
+for i in $RCD ~$SUDO_USER; do
+    i=$(eval echo $i)
+    f=$i/bin/dot.bashfunctions # needs UNAME
+    if [[ -f $f ]]; then
+        export RCD=$i
+        source $f
+        break
+    fi
+done
+pathprepend $RCD/bin # needs dot.bashfunctions
+# cygwin, being started from mintty.exe scratch, doesn't any good PATH
+if ! hash chmod &>/dev/null; then
+    pathprepend /usr/sbin
+    pathprepend /usr/bin
+    pathprepend /sbin
+    pathprepend /bin
+    cd $HOME
+fi
+if [[ -z $HOSTNAMEF ]]; then
+    if [[ -L /usr/bin/timeout ]] && [[ $(readlink -f /usr/bin/timeout) == *busybox ]]; then
+        export HOSTNAMEF=$(timeout -t 3 hostname -f)
+    else
+        export HOSTNAMEF=$(timeout 3 hostname -f)
+    fi
+fi
+[[ -z $HOSTNAME ]] && export HOSTNAME=${HOSTNAMEF//\.*/}
+export PYTHONIOENCODING="UTF-8"
 if [[ -d /usr/share/terminfo ]]; then
     function _termok() {
         local _TERM=$1
