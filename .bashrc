@@ -490,9 +490,6 @@ alias head90="head -n 90"
 alias head100="head -n 100"
 
 
-# to be run very last so a control-C due to non-connectivity doesn't prevent all the other stuff to run
-[[ -f ~/.tmp/touch/stdhome-pull ]] && find ~/.tmp/touch/stdhome-pull -mtime +1 | grep -qE . && hash stdhome-pull.sh 2>/dev/null && stdhome-pull.sh || true
-
 is_zsh && setopt null_glob
 for f in \
     $RCD/.bash_aliases \
@@ -507,5 +504,8 @@ is_zsh && unsetopt null_glob
 # needs  to be done after local aliases
 [[ -n "$GIT_AUTHOR_NAME" && -z "$GIT_COMMITTER_NAME" ]] && export GIT_COMMITTER_NAME="$GIT_AUTHOR_NAME"
 [[ -n "$GIT_AUTHOR_EMAIL" && -z "$GIT_COMMITTER_EMAIL" ]] && export GIT_COMMITTER_EMAIL="$GIT_AUTHOR_EMAIL"
+
+# to be run very last so a control-C due to non-connectivity doesn't prevent all the other stuff to run
+[[ -f ~/.tmp/touch/stdhome-pull ]] && find ~/.tmp/touch/stdhome-pull -mtime +1 | grep -qE . && hash stdhome-pull.sh 2>/dev/null && stdhome-pull.sh || true
 
 true # so prompt is green
