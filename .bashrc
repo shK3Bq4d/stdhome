@@ -257,8 +257,14 @@ if hash javac &>/dev/null; then
     export JAVA_HOME=$(mrdirname $(mrdirname $(which javac)))
 fi
 
-alias ...='cd ../..'
-alias ..='cd ..'
+alias ........='cd ../../../../../../../..'
+alias .......='cd ../../../../../../..'
+alias ......='cd ../../../../../..'
+alias .....='cd ../../../../..'
+alias ....='cd ../../../..'
+alias ...='cd ../../..'
+alias ..='cd ../..'
+alias .='cd ..'
 alias vi-='vi -'
 
 if hash ack-grep &>/dev/null; then
