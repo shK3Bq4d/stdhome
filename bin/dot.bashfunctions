@@ -512,16 +512,19 @@ function start_agent_if_not_started {
          start_agent;
     fi
 }
+function mrless() {
+	less --raw-control-chars --quit-if-one-screen --ignore-case --status-column --no-init
+}
 function aliashelp() {
 	# hardcoded for zsh
 	[[ $# -eq 0 ]] && { alias -g; alias; } && return
 	[[ $# -ge 2 ]] && g=$2 || g=.
 	case $1 in \
 	g*)
-		alias | grep git | grep -i $g L
+		alias | grep git | grep -i $g | mrless
 		;;
 	r*|z*)
-		alias -g | grep -Ei $g L
+		alias -g | grep -Ei $g | mrless
 		;;
 	esac
 }
