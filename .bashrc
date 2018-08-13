@@ -74,6 +74,7 @@ if [[ -z $HOSTNAMEF ]]; then
 fi
 [[ -z $HOSTNAME ]] && export HOSTNAME=${HOSTNAMEF//\.*/}
 export PYTHONIOENCODING="UTF-8"
+export PYTHONDONTWRITEBYTECODE="True"
 if [[ -d /usr/share/terminfo ]]; then
     function _termok() {
         local _TERM=$1
