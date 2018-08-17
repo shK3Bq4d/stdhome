@@ -194,16 +194,16 @@ mrfind () {
 if [[ $UNAME = freebsd ]]; then
     function cdl () {
         local param
-		local extra
+        local extra
         if [[ $# -gt 0 ]]; then
-		   	param="*"$1"*"
-			extra=
-		else
-			param="*"
-			extra="-and -not -name .git"
-		fi
+               param="*"$1"*"
+            extra=
+        else
+            param="*"
+            extra="-and -not -name .git"
+        fi
         # find -name "*" finds hidden file
-		DIR="$(find . -mindepth 1 -maxdepth 1 -type d -name "$param" $(echo $extra) -print0 | xargs -0 ls -1td | head -n 1)"
+        DIR="$(find . -mindepth 1 -maxdepth 1 -type d -name "$param" $(echo $extra) -print0 | xargs -0 ls -1td | head -n 1)"
         if [[ -n "$DIR" ]]; then
             cd "$DIR"
         else
@@ -217,16 +217,16 @@ if [[ $UNAME = freebsd ]]; then
 else
     function cdl () {
         local param
-		local extra
+        local extra
         if [[ $# -gt 0 ]]; then
-		   	param="*"$1"*"
-			extra=
-		else
-			param="*"
-			extra="-and -not -name .git"
-		fi
+               param="*"$1"*"
+            extra=
+        else
+            param="*"
+            extra="-and -not -name .git"
+        fi
         # find -name "*" finds hidden file
-		DIR="$(find . -mindepth 1 -maxdepth 1 -type d -name "$param" $(echo $extra) -printf '%T@ %p\n' | sort -k 1nr | head -1 | sed 's/^[^ ]* //')"
+        DIR="$(find . -mindepth 1 -maxdepth 1 -type d -name "$param" $(echo $extra) -printf '%T@ %p\n' | sort -k 1nr | head -1 | sed 's/^[^ ]* //')"
         if [[ -n "$DIR" ]]; then
             cd "$DIR"
         else
@@ -513,18 +513,32 @@ function start_agent_if_not_started {
     fi
 }
 function mrless() {
-	less --raw-control-chars --quit-if-one-screen --ignore-case --status-column --no-init
+    less --raw-control-chars --quit-if-one-screen --ignore-case --status-column --no-init
 }
 function aliashelp() {
-	# hardcoded for zsh
-	[[ $# -eq 0 ]] && { alias -g; alias; } && return
-	[[ $# -ge 2 ]] && g=$2 || g=.
-	case $1 in \
-	g*)
-		alias | grep git | grep -i $g | mrless
-		;;
-	r*|z*)
-		alias -g | grep -Ei $g | mrless
-		;;
-	esac
+    # hardcoded for zsh
+    [[ $# -eq 0 ]] && { alias -g; alias; } && return
+    [[ $# -ge 2 ]] && g=$2 || g=.
+    case $1 in \
+    g*)
+        alias | grep git | grep -i $g | mrless
+        ;;
+    r*|z*)
+        alias -g | grep -Ei $g | mrless
+        ;;
+    esac
+}
+function pwdc() {
+    local mr
+    mr=$(pwd)
+    if [[ -a "$1" ]]; then
+        mr="$mr/$1"
+    fi
+    if [[ -n "$SSH_CLIENT" ]]; then
+        echo "$(hostname -f):$mr"
+    elif hash -v xclip &>/dev/null; then
+        echo -n "$mr" | xclip -i -selection "clipboard"
+    else
+        echo "$mr"
+    fi
 }
