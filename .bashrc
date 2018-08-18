@@ -284,7 +284,7 @@ alias tmp='cd $RCD/tmp'
 alias tmpp='$RCD/bin/tmpp && cd $RCD/tmp'
 
 alias mv='mv -i'
-alias cp='cp -i'
+alias cp='cp -ip'
 alias ln='ln -i'
 alias rm='rm -i'
 
