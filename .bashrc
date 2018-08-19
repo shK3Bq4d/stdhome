@@ -15,7 +15,7 @@
 is_zsh() {
     test -n "${ZSH_VERSION:-}"
 }
-UNAME="$(uname)"
+export UNAME="$(uname)"
 if is_zsh; then
     UNAME="$UNAME:l"
 else

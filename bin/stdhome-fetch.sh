@@ -43,9 +43,7 @@ $DIR/bin/stdothers.sh | while read repo; do
 		#git pull $remote $branch --no-rebase
 		git fetch $remote $branch 
 	done
-	git remote show | grep -q . && \
-		git merge -m automerge $(git remote show | sed -r -e "s/$/\\/$branch/")
 	set +x
 done
-[[ -d ~/.tmp/touch ]] && touch ~/.tmp/touch/stdhome-pull
+[[ -d ~/.tmp/touch ]] && touch ~/.tmp/touch/stdhome-fetch
 exit 0
