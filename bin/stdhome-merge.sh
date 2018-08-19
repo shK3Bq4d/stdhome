@@ -11,12 +11,6 @@ unset GIT_WORK_TREE
 
 cd $DIR
 branch=stdhome
-for remote in $(git remote show); do
-	if [[ "$remote" == ksgitlab ]] && [[ -f ~/.ssh/id_rsa_ks ]] && ! ssh-add -L | grep -q id_rsa_ks; then
-		ssh-add ~/.ssh/id_rsa_ks
-	fi
-	git fetch $remote $branch
-done
 git remote show | grep -q . && \
 	git merge -m automerge $(git remote show | sed -r -e "s/$/\\/$branch/")
 set -x
