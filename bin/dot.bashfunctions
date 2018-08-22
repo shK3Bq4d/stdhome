@@ -530,9 +530,12 @@ function aliashelp() {
 }
 function pwdc() {
     local mr
-    mr=$(pwd)
     if [[ -a "$1" ]]; then
-        mr="$mr/$1"
+        mr="$(readlink -f "$1")"
+    elif [[ "$1" == "/"* ]]; then
+        mr="$1"
+    else
+        mr="$(pwd)/$1"
     fi
     if [[ -n "$SSH_CLIENT" ]]; then
         echo "$(hostname -f):$mr"
