@@ -515,8 +515,9 @@ is_zsh && unsetopt null_glob
 # to be run very last so a control-C due to non-connectivity doesn't prevent all the other stuff to run
 if [[ -f ~/.tmp/touch/stdhome-pull ]]; then
     if find ~/.tmp/touch/stdhome-pull -mtime +1 | grep -qE . && hash stdhome-pull.sh 2>/dev/null; then
-        stdhome-merge.sh
-        stdhome-fetch.sh &
+        #stdhome-merge.sh
+        #stdhome-fetch.sh &
+        stdhome-pull.sh
     fi
 fi
 
