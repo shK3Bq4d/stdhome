@@ -27,7 +27,7 @@ $DIR/bin/stdothers.sh | while read repo; do
 	branch=$(basename $repo noexternalcheckout)
 	test $branch == stdtsys && branch=$(git rev-parse --abbrev-ref HEAD)
 	if [[ "$repo" != *noexternalcheckout ]]; then
-		find "$repo" -mindepth 1 -not -path '*/.git*' -print -delete
+		find "$repo" -xdev -mindepth 1 -not -path '*/.git*' -print -delete
 	fi
 	for remote in $(git remote show); do
 		if [[ "$remote" == ksgitlab ]] && [[ -f ~/.ssh/id_rsa_ks ]] && ! ssh-add -L | grep -q id_rsa_ks; then

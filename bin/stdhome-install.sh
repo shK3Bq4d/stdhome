@@ -60,7 +60,7 @@ shift $((OPTIND-1))
 
 
 #find $DIR -type f -regextype posix-extended -path $PWD/.git -prune -o -print
-find $STDHOME_DIRNAME -name .git -prune -o \( -type f -or -type l \) -print0 | sort -rz |
+find $STDHOME_DIRNAME -xdev -name .git -prune -o \( -type f -or -type l \) -print0 | sort -rz |
     while read -r -d '' f; do
 		case $(mrbasename $f) in .gitmodules|.gitignore)
 			continue
