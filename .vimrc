@@ -184,7 +184,7 @@ set guifont=Consolas:h10
 " http://stackoverflow.com/questions/3712725/can-i-change-vim-completion-preview-window-height
 :set previewheight=30
 au BufEnter ?* call PreviewHeightWorkAround()
-func PreviewHeightWorkAround()
+func! PreviewHeightWorkAround()
     if &previewwindow
         exec 'setlocal winheight='.&previewheight
     endif
@@ -200,7 +200,7 @@ endfunc
 "let g:mrf6oldbuffer=""
 "if has('vim') 
 if version >= 500
-    func MrF6()
+    func! MrF6()
         pc!
         if exists("g:mrf6oldbuffer")
             exec "silent bw! " g:mrf6oldbuffer
@@ -224,7 +224,7 @@ endif
 ":nmap <F7> :pc!<CR>:let a:x=`date +'%Y'`<CR>:w<CR>:silent !chmod +x %:p<CR>:execute "silent !%:p 2>&1 \| tee /tmp/" . x . ".tmp"<CR>:pedit! +:42343234 /tmp/%:t.tmp<CR>:redraw!<CR><CR>
 
 
-func MrBlockToUnicodeFunc()
+func! MrBlockToUnicodeFunc()
     :silent! s/|/│/g
     :silent! s/-/─/g
     :silent! s/'/┘/g
@@ -232,22 +232,24 @@ func MrBlockToUnicodeFunc()
     :silent! s/,/┌/g
     :silent! s/\./┐/g
 endfunc
-command -range=% MrBlockToUnicode :<line1>,<line2>:call MrBlockToUnicodeFunc()
+command! -range=% MrBlockToUnicode :<line1>,<line2>:call MrBlockToUnicodeFunc()
 
-:command MrConfluence :TOhtml | :%!html2confluencewiki_bis.py
-:command MrAlign0space :AlignCtrl "Ilp0P0=" '='
-:command MrAlign0left1right :AlignCtrl "Ilp0P1" '='
-:command MrAlign1left0right :AlignCtrl "Ilp1P0" '='
-:command MrAlign1left1right :AlignCtrl "Ilp1P1" '='
-:command MrAlign1space :AlignCtrl "Ilp1P1=" '='
-:command MrAlign2space :AlignCtrl "Ilp2P2=" '='
-:command MrAlign3space :AlignCtrl "Ilp3P3=" '='
+:command! MrConfluence :TOhtml | :%!html2confluencewiki_bis.py
+:command! MrAlign0space :AlignCtrl "Ilp0P0=" '='
+:command! MrAlign0left1right :AlignCtrl "Ilp0P1" '='
+:command! MrAlign1left0right :AlignCtrl "Ilp1P0" '='
+:command! MrAlign1left1right :AlignCtrl "Ilp1P1" '='
+:command! MrAlign1space :AlignCtrl "Ilp1P1=" '='
+:command! MrAlign2space :AlignCtrl "Ilp2P2=" '='
+:command! MrAlign3space :AlignCtrl "Ilp3P3=" '='
 :command! -range=% MrAlignSql <line1>,<line2>Align! CW \(--\s|\|\<as\s\+\w\+\(,\|\s\|$\)\) -- fsdafsdfsdk | norm! ``
-command -range=% RemoveTrailingWhitespace <line1>,<line2>s/\(\s\| \)\+$// | norm! ``
-command -range=% RT                       <line1>,<line2>RemoveTrailingWhitespace
-command -range=% MrMergeSingleQuote      :<line1>,<line2>!merge_single_quote.py
-command -range=% MrMergeComma            :<line1>,<line2>!merge_comma.py
-:command MrFixWhiteSpace :set expandtab | :silent! %s/[ \t]\+$// | :silent! %s/\t/    /g
+command! -range=% RemoveTrailingWhitespace <line1>,<line2>s/\(\s\| \)\+$// | norm! ``
+command! -range=% RT                       <line1>,<line2>RemoveTrailingWhitespace
+command! -range=% MrMergeSingleQuote      :<line1>,<line2>!merge_single_quote.py
+command! -range=% MrMergeComma            :<line1>,<line2>!merge_comma.py
+:command! MrFixWhiteSpace :set expandtab | :silent! %s/[ \t]\+$// | :silent! %s/\t/    /g | norm! ``
+:command! -range=% MrTasksFromBullet :silent! <line1>,<line2>g/^\s*\*\s\?/ s/\*\s\?/* [ ] / | :noh | norm! ``
+:command! MrReloadVimrc :so $MYVIMRC
 " See :h :tohtml and my application which is to use with html2confluence
 " script
 "By default, valid HTML 4.01 using cascading style sheets (CSS1) is generated.
@@ -275,8 +277,8 @@ noremap  <F11> <Esc>:syntax sync fromstart<CR>:autocmd BufEnter <buffer> syntax 
 inoremap <F11> <C-o>:syntax sync fromstart<CR>:autocmd BufEnter <buffer> syntax sync fromstart<CR> 
 nnoremap <silent> <F12>      :BufExplorer<CR>
 imap     <silent> <F12> <Esc>:BufExplorer<CR>
-:command Gstagehunk :GitGutterStageHunk
-:command Gundohunk :GitGutterUndoHunk
+:command! Gstagehunk :GitGutterStageHunk
+:command! Gundohunk :GitGutterUndoHunk
 set nocp
 
 
@@ -310,7 +312,7 @@ imap <C-v> <Esc><C-v>a
 inoremap <ScrollWheelUp> <Nop> 
 inoremap <ScrollWheelDown> <Nop> 
 
-func MrSyntaxRange()
+func! MrSyntaxRange()
     try
         call SyntaxRange#Include('@begin=markdown@'       ,'@end=markdown@'       ,'markdown'       ,'NonText')
     catch /^Vim\%((\a\+)\)\=:E117/
@@ -466,11 +468,11 @@ let g:syntastic_puppet_checkers = ['puppetlint']
 let g:syntastic_python_checkers = []
 let g:syntastic_javascript_checkers = ['jshint']
 
-function Py2()
+function! Py2()
   let g:syntastic_python_python_exec = '/usr/local/bin/python2.7'
 endfunction
 
-function Py3()
+function! Py3()
   let g:syntastic_python_python_exec = '/usr/local/bin/python3.6'
 endfunction
 
