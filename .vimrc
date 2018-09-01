@@ -249,6 +249,7 @@ command! -range=% MrMergeSingleQuote      :<line1>,<line2>!merge_single_quote.py
 command! -range=% MrMergeComma            :<line1>,<line2>!merge_comma.py
 :command! MrFixWhiteSpace :set expandtab | :silent! %s/[ \t]\+$// | :silent! %s/\t/    /g | norm! ``
 :command! -range=% MrTasksFromBullet :silent! <line1>,<line2>g/^\s*\*\s*[^\[ \t]/ s/\*\s\?/* [ ] / | :noh | norm! ``
+:command! -range=% MrTasksReset :silent! <line1>,<line2>s/\[.\]/[ ]/ | :noh | norm! ``
 :command! MrReloadVimrc :so $MYVIMRC | :noh 
 " See :h :tohtml and my application which is to use with html2confluence
 " script
