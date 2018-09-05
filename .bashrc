@@ -130,6 +130,7 @@ fi
 
 alias mplayer='mplayer -zoom -fs -vo x11'
 alias wcl='wc -l'
+alias mysql='mysql --i-am-a-dummy'
 # some more ls aliases
 #alias ll='ls -lhFa --group-directories-first'
 function lr() {
