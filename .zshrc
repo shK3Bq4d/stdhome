@@ -115,29 +115,44 @@ case $UNAME in \
 	*) alias grep='nocorrect grep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn}'
 esac
 alias git='nocorrect git'
-alias -g L='|less --raw-control-chars --quit-if-one-screen --ignore-case --status-column --no-init'
-alias -g LL='2>&1|less --raw-control-chars --quit-if-one-screen --ignore-case --status-column --no-init'
+
 alias -g LA='$(last)'
 alias -g LAS='$(last)'
 alias -g LAST='$(last)'
+
+alias -g L='2>&1|less --raw-control-chars --quit-if-one-screen --ignore-case --status-column --no-init'
+alias -g L1='2>/dev/null|L'
+alias -g L2='2>&1 >/dev/null|L'
+
 alias -g H='2>&1|head'
-alias -g H1='2>/dev/null|head'
-alias -g T='|tail'
-alias -g TT='2>&1|tail'
-alias -g GI='|grep -i -a --color=always -E'
-alias -g G='2>&1|grep -a --color=always -E'
-alias -g G1='2>/dev/null|grep -a --color=always -E'
-alias -g GGI='2>&1|grep -i -a --color=always -E'
+alias -g H1='2>/dev/null|H'
+alias -g H2='2>&1 >/dev/null|H'
+
+alias -g T='2>&1|head'
+alias -g T1='2>/dev/null|T'
+alias -g T2='2>&1 >/dev/null|T'
+
+alias -g C='2>&1|head'
+alias -g C1='2>/dev/null|C'
+alias -g C2='2>&1 >/dev/null|C'
+
+alias -g G='2>&1|grep --color=auto -aE'
+alias -g G1='2>/dev/null|G'
+alias -g G2='2>&1 >/dev/null|G'
+
+alias -g GI='2>&1|grep --color=auto -iaE'
+alias -g GI1='2>/dev/null|GI'
+alias -g GI2='2>&1 >/dev/null|GI'
+
 alias -g V='2>&1|vim -'
-alias -g V1='2>/dev/null|vim -'
-#alias -g V2='>/dev/null 2>&1|vim -'
-alias -g V2='2>&1 1>/dev/null|vim -'
-alias -g C='2>&1|cat -'
-alias -g C1='2>/dev/null|cat -'
+alias -g V1='2>/dev/null|V'
+alias -g V2='2>&1 >/dev/null|V'
+
+alias -g N='&>/dev/null'
 alias -g N1='>/dev/null'
 alias -g N2='2>/dev/null'
-alias -g N='&>/dev/null'
-alias -g H='&>/dev/null &'
+
+alias -g NH='&>/dev/null &'
 
 # https://github.com/robbyrussell/oh-my-zsh/pull/3434/files
 #AGNOSTER_STATUS_BG=yellow
