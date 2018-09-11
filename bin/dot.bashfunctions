@@ -136,13 +136,18 @@ function ssh() {
 
     if [[ $# -eq 1 ]] && [[ -f $HOME/.sshrc ]]; then
         case "$1" in \
-        charlotte|$WORK_PC1|pfsense|apr16|acer2011|thinkpad|fw11*|motog*|galaxy*|ly1*|10.19.29.25*)
+        minikube|charlotte|$WORK_PC1|pfsense|apr16|acer2011|thinkpad|fw11*|motog*|galaxy*|ly1*|10.19.29.25*)
             ;;
         *)
             hash sshrc 2>/dev/null && BIN=sshrc
             ;;
         esac
     fi
+	case "$1" in \
+		minikube)
+            TERM=xterm
+			;;
+	esac
     case TERM in
         rxvt-unicode-256color)
             TERM=xterm-256color
