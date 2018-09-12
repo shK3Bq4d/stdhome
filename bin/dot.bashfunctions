@@ -522,6 +522,15 @@ function mrless() {
 }
 function aliashelp() {
     # hardcoded for zsh
+	arg1=$1
+	empty=""
+	[[ $# -le 1 ]] && p2=. || p2=""
+	shift
+
+	{ alias;
+	  alias -g;
+	} | grep -iE "^\\S*$arg1" | grep "${p2}$@" | mrless
+	return
     [[ $# -eq 0 ]] && { alias -g; alias; } && return
     [[ $# -ge 2 ]] && g=$2 || g=.
     case $1 in \

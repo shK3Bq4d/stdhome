@@ -137,11 +137,11 @@ alias -g C='2>&1|cat'
 alias -g C1='2>/dev/null|C'
 alias -g C2='2>&1 >/dev/null|C'
 
-alias -g G='2>&1|grep --color=auto -aE'
+alias -g G='2>&1|grep --line-buffered --color=auto -aE'
 alias -g G1='2>/dev/null|G'
 alias -g G2='2>&1 >/dev/null|G'
 
-alias -g GI='2>&1|grep --color=auto -iaE'
+alias -g GI='2>&1|grep --line-buffered --color=auto -iaE'
 alias -g GI1='2>/dev/null|GI'
 alias -g GI2='2>&1 >/dev/null|GI'
 
