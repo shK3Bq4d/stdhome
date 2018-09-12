@@ -129,11 +129,11 @@ alias -g H='2>&1|head'
 alias -g H1='2>/dev/null|H'
 alias -g H2='2>&1 >/dev/null|H'
 
-alias -g T='2>&1|head'
+alias -g T='2>&1|tail'
 alias -g T1='2>/dev/null|T'
 alias -g T2='2>&1 >/dev/null|T'
 
-alias -g C='2>&1|head'
+alias -g C='2>&1|cat'
 alias -g C1='2>/dev/null|C'
 alias -g C2='2>&1 >/dev/null|C'
 
