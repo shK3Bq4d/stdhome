@@ -98,6 +98,7 @@ fi
 #source ~/bin/dot.bashfunctions
 source ~/.bashrc
 alias doc='nocorrect doc'
+alias locate='nocorrect locate'
 alias sshfs='nocorrect sshfs'
 alias command='nocorrect command'
 alias ant='nocorrect ant'
