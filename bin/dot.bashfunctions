@@ -508,11 +508,20 @@ function start_agent {
 }
 function start_agent_if_not_started {
     if [ -f "${SSH_ENV}" ]; then
-         source ${SSH_ENV} > /dev/null
-         #ps ${SSH_AGENT_PID} doesn't work under cywgin
-         ps -q ${SSH_AGENT_PID} -o comm= | grep -qx ssh-agent || {
-             start_agent;
-         }
+        source ${SSH_ENV} > /dev/null
+        #ps ${SSH_AGENT_PID} doesn't work under cywgin
+        case $UNAME in \
+        cygwin*)
+            ps -p ${SSH_AGENT_PID} -s       | grep -qx ssh-agent || {
+                 start_agent;
+            }
+            ;;
+        *)
+            ps -q ${SSH_AGENT_PID} -o comm= | grep -qx ssh-agent || {
+                 start_agent;
+            }
+            ;;
+        esac
     else
          start_agent;
     fi
