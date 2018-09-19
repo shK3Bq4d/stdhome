@@ -131,12 +131,19 @@ function cdd() {
 }
 
 function ssh() {
-    local BIN
+    local BIN OPTS
     BIN=ssh
+	OPTS=""
 
     if [[ $# -eq 1 ]] && [[ -f $HOME/.sshrc ]]; then
         case "$1" in \
-        minikube|charlotte|$WORK_PC1|pfsense|apr16|acer2011|thinkpad|fw11*|motog*|galaxy*|ly1*|10.19.29.25*)
+		galaxy*)
+            if hash sshpass 2>/dev/null; then
+				BIN=sshpass
+				OPTS="-f$HOME/.words/$1 ssh"
+			fi
+			;;
+        minikube|charlotte|$WORK_PC1|pfsense|apr16|acer2011|thinkpad|fw11*|motog*|ly1*|10.19.29.25*)
             ;;
         *)
             hash sshrc 2>/dev/null && BIN=sshrc
@@ -155,7 +162,7 @@ function ssh() {
         *)
             ;;
     esac
-    TERM=$TERM command $BIN "$@"
+	TERM=$TERM command $BIN $(echo $OPTS) "$@"
 }
 
 tomr () {

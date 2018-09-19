@@ -55,7 +55,7 @@ HIST_STAMPS="dd.mm.yyyy"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-autosuggestions history-substring-search vi-mode z kubectl zsh-syntax-highlighting) # zsh-syntax-highlighting must be the last
+plugins=(git zsh-autosuggestions history-substring-search vi-mode z kubectl minikube zsh-syntax-highlighting) # zsh-syntax-highlighting must be the last
 # minikube # minikube init seams slowish
 # helm # doesn't complet
 
@@ -106,6 +106,7 @@ alias ssh='nocorrect ssh'
 alias cp='nocorrect cp -ip'
 alias which='nocorrect which'
 alias viw='nocorrect viw'
+alias ah='nocorrect aliashelp'
 alias aliashelp='nocorrect aliashelp'
 alias mv='nocorrect mv -i'
 alias kubectl='nocorrect kubectl'
