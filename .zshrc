@@ -180,6 +180,7 @@ function preexec() {
 	export MR_RUNNING_COMMAND="$1"
 	#export MR_RUNNING="1"
 	export timer=$(now_millis)
+	export endtime=""
 	echo -ne "\033]0;\u231b $1 - $USER@$HOSTNAMEF\007"
 }
 
@@ -200,6 +201,7 @@ function precmd() {
 		if [ $timer ]; then
 			now=$(now_millis)
 			elapsed=$(($now-$timer))
+			endtime=$(date +'%_H:%M:%S')
 			p=""
 			# days
 			(( $elapsed >= 86400000 ))                        && p="${p}$(($elapsed / 86400000))d"
@@ -217,7 +219,7 @@ function precmd() {
 			# milliseconds
 			(( $elapsed >= 1000     && $elapsed < 60000    )) && p="$(printf "%s%-.03d" "${p}" $(($elapsed % 1000)))"
 			(( $elapsed <  1000                            )) && p="${p} $(($elapsed))ms"
-			export RPROMPT="%F{blue}%*%F{cyan}${p} %{$reset_color%}"
+			export RPROMPT="%F{blue}$endtime %F{cyan}${p}%{$reset_color%}"
 			#export RPROMPT="\$(reset_rprompt)%F{cyan}${p} %{$reset_color%}"
 			unset timer
 		fi
