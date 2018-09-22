@@ -13,6 +13,13 @@ cd $DIR
 [[ ! -d ~/.ssh/c ]] && mkdir ~/.ssh/c
 [[ -f ~/.ssh/config ]] && chmod g-rwx,o-rwx ~/.ssh/config
 branch=stdhome
+
+f=$DIR/bin/dot.bashfunctions
+if [[ -f $f ]]; then
+	source $f
+   	start_agent_if_not_started
+	mr_ssh_add
+fi
 for remote in $(git remote show); do
 	if [[ "$remote" == ksgitlab ]] && [[ -f ~/.ssh/id_rsa_ks ]] && ! ssh-add -L | grep -q id_rsa_ks; then
 		ssh-add ~/.ssh/id_rsa_ks

@@ -2,6 +2,12 @@
 
 set -ex
 DIR="$( cd -P "$( dirname $(readlink  -f "${BASH_SOURCE[0]}" ) )/.." && pwd )"
+f=$DIR/bin/dot.bashfunctions
+if [[ -f $f ]]; then
+	source $f
+   	start_agent_if_not_started
+	mr_ssh_add
+fi
 unset GIT_DIR
 unset GIT_WORK_TREE
 
