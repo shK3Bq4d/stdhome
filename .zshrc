@@ -202,22 +202,22 @@ function precmd() {
 			elapsed=$(($now-$timer))
 			p=""
 			# days
-			(( $elapsed >= 86400000 ))                        && p="${p} $(($elapsed / 86400000))d"
+			(( $elapsed >= 86400000 ))                        && p="${p}$(($elapsed / 86400000))d"
 			# hours
-			(( $elapsed >= 3600000 ))                         && p="${p} $(($elapsed % 86400000 / 3600000))h"
+			(( $elapsed >= 3600000 ))                         && p="${p}$(($elapsed % 86400000 / 3600000))h"
 			# minutes
-			(( $elapsed >= 60000    && $elapsed >= 3600000 )) && p="$(printf "%s %-.02d'" "${p}" $(($elapsed % 3600000 / 60000 )))"
-			(( $elapsed >= 60000    && $elapsed <  3600000 )) && p="${p} $(($elapsed % 3600000 / 60000))'"
+			(( $elapsed >= 60000    && $elapsed >= 3600000 )) && p="$(printf "%s%-.02d'" "${p}" $(($elapsed % 3600000 / 60000 )))"
+			(( $elapsed >= 60000    && $elapsed <  3600000 )) && p="${p}$(($elapsed % 3600000 / 60000))'"
 			# seconds
 			if (( $elapsed >= 1000 && $elapsed < 86400000 )); then
 				(( $elapsed >= 60000)) \
-					&& p="$(printf "%s %.02d\"" "${p}" $(($elapsed % 60000 / 1000)))" \
+					&& p="$(printf "%s%.02d\"" "${p}" $(($elapsed % 60000 / 1000)))" \
 					|| p="${p} $(($elapsed / 1000))\""
 			fi
 			# milliseconds
-			(( $elapsed >= 1000     && $elapsed < 60000    )) && p="$(printf "%s %-.03d" "${p}" $(($elapsed % 1000)))"
+			(( $elapsed >= 1000     && $elapsed < 60000    )) && p="$(printf "%s%-.03d" "${p}" $(($elapsed % 1000)))"
 			(( $elapsed <  1000                            )) && p="${p} $(($elapsed))ms"
-			export RPROMPT="%F{cyan}${p} %{$reset_color%}"
+			export RPROMPT="%F{blue}%*%F{cyan}${p} %{$reset_color%}"
 			#export RPROMPT="\$(reset_rprompt)%F{cyan}${p} %{$reset_color%}"
 			unset timer
 		fi
