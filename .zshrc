@@ -201,7 +201,7 @@ function precmd() {
 		if [ $timer ]; then
 			now=$(now_millis)
 			elapsed=$(($now-$timer))
-			endtime=$(date +'%_H:%M:%S')
+			endtime=$(date +'%_H:%M:%S') # it seems that the %* ZSH gets reevaluated when browsing history
 			p=""
 			# days
 			(( $elapsed >= 86400000 ))                        && p="${p}$(($elapsed / 86400000))d"
@@ -222,6 +222,7 @@ function precmd() {
 			export RPROMPT="%F{blue}$endtime %F{cyan}${p}%{$reset_color%}"
 			#export RPROMPT="\$(reset_rprompt)%F{cyan}${p} %{$reset_color%}"
 			unset timer
+			unset endtime
 		fi
 	fi
 
