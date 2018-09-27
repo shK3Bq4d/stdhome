@@ -64,6 +64,13 @@ if [[ -f "$ZSH/oh-my-zsh.sh" ]]; then
 else
 	echo -e "oh-my-zsh absent\ninstall via sh -c \"\$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)\"\nor visit https://github.com/robbyrussell/oh-my-zsh"
 fi
+setopt null_glob
+for f in \
+    ~/.zsh-aliases/* \
+    ; do
+        [[ -f $f ]] && source $f
+done
+unsetopt null_glob
 
 
 # User configuration
@@ -147,7 +154,7 @@ alias -g GI='2>&1|grep --line-buffered --color=auto -iaE'
 alias -g GI1='2>/dev/null|GI'
 alias -g GI2='2>&1 >/dev/null|GI'
 
-alias -g V='2>&1|vim -'
+alias -g V='2>&1|vim -R -'
 alias -g V1='2>/dev/null|V'
 alias -g V2='2>&1 >/dev/null|V'
 
@@ -156,6 +163,10 @@ alias -g N1='>/dev/null'
 alias -g N2='2>/dev/null'
 
 alias -g NH='&>/dev/null &'
+
+alias -g X='2>&1|xargs -'
+alias -g X1='2>/dev/null|X'
+alias -g X2='2>&1 >/dev/null|X'
 
 # https://github.com/robbyrussell/oh-my-zsh/pull/3434/files
 #AGNOSTER_STATUS_BG=yellow
