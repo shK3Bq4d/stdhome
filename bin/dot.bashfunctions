@@ -133,16 +133,16 @@ function cdd() {
 function ssh() {
     local BIN OPTS
     BIN=ssh
-	OPTS=""
+    OPTS=""
 
     if [[ $# -eq 1 ]] && [[ -f $HOME/.sshrc ]]; then
         case "$1" in \
-		galaxy*)
+        galaxy*)
             if hash sshpass 2>/dev/null; then
-				BIN=sshpass
-				OPTS="-f$HOME/.words/$1 ssh"
-			fi
-			;;
+                BIN=sshpass
+                OPTS="-f$HOME/.words/$1 ssh"
+            fi
+            ;;
         minikube|charlotte|$WORK_PC1|pfsense|apr16|acer2011|thinkpad|fw11*|motog*|ly1*|10.19.29.25*)
             ;;
         *)
@@ -150,11 +150,11 @@ function ssh() {
             ;;
         esac
     fi
-	case "$1" in \
-		minikube)
+    case "$1" in \
+        minikube)
             TERM=xterm
-			;;
-	esac
+            ;;
+    esac
     case TERM in
         rxvt-unicode-256color)
             TERM=xterm-256color
@@ -162,7 +162,7 @@ function ssh() {
         *)
             ;;
     esac
-	TERM=$TERM command $BIN $(echo $OPTS) "$@"
+    TERM=$TERM command $BIN $(echo $OPTS) "$@"
 }
 
 tomr () {
@@ -523,6 +523,11 @@ function start_agent_if_not_started {
                  start_agent;
             }
             ;;
+        freebsd*)
+            ps -p ${SSH_AGENT_PID} -o comm= | grep -qx ssh-agent || {
+                 start_agent;
+            }
+            ;;
         *)
             ps -q ${SSH_AGENT_PID} -o comm= | grep -qx ssh-agent || {
                  start_agent;
@@ -538,15 +543,15 @@ function mrless() {
 }
 function aliashelp() {
     # hardcoded for zsh
-	arg1=$1
-	empty=""
-	[[ $# -le 1 ]] && p2=. || p2=""
-	shift
+    arg1=$1
+    empty=""
+    [[ $# -le 1 ]] && p2=. || p2=""
+    shift
 
-	{ alias;
-	  alias -g;
-	} | grep -iE "^\\S*$arg1" | grep "${p2}$@" | mrless
-	return
+    { alias;
+      alias -g;
+    } | grep -iE "^\\S*$arg1" | grep "${p2}$@" | mrless
+    return
     [[ $# -eq 0 ]] && { alias -g; alias; } && return
     [[ $# -ge 2 ]] && g=$2 || g=.
     case $1 in \
