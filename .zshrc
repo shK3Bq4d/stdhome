@@ -322,6 +322,9 @@ if true; then
 	# https://github.com/robbyrussell/oh-my-zsh/tree/master/plugins/vi-mode
 	bindkey -v
 	#set -o vi
+	#bindkey "${terminfo[khome]}" beginning-of-line
+	#bindkey "${terminfo[kend]}" end-of-line
+	#echo bip
 else
 	# https://dougblack.io/words/zsh-vi-mode.html
 	bindkey -v
