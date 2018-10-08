@@ -290,10 +290,10 @@ alias cp='cp -ip'
 alias ln='ln -i'
 alias rm='rm -i'
 
-alias igrep='grep -i'
-alias cgrep='grep --color=always'
-alias fgrep='fgrep --color=auto'
-alias egrep='egrep --color=auto'
+alias igrep='grep -ia --line-buffered'
+alias cgrep='grep --color=always -a --line-buffered'
+alias fgrep='fgrep --color=auto -a --line-buffered'
+alias egrep='egrep --color=auto -a --line-buffered'
 
 alias venv="workon"
 alias venv.exit="deactivate"

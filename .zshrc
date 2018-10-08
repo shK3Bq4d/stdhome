@@ -3,6 +3,8 @@
 
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
+export GOPATH=~/go
+path=($path $GOPATH/bin) # otherwise kubectl doesn't work per SSH (likely have PATH exported from parent urxvt window when not using SSH)
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
@@ -122,7 +124,7 @@ alias screen='nocorrect screen'
 alias watch='nocorrect watch'
 case $UNAME in \
 	freebsd) true;;
-	*) alias grep='nocorrect grep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn}'
+	*) alias grep='nocorrect grep --line-buffered -a --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn}'
 esac
 alias git='nocorrect git'
 
@@ -167,6 +169,8 @@ alias -g NH='&>/dev/null &'
 alias -g X='2>&1|xargs -'
 alias -g X1='2>/dev/null|X'
 alias -g X2='2>&1 >/dev/null|X'
+
+alias findf='find . -type f'
 
 # https://github.com/robbyrussell/oh-my-zsh/pull/3434/files
 #AGNOSTER_STATUS_BG=yellow
