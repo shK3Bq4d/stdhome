@@ -213,32 +213,35 @@ function precmd() {
 			unset timer
 		fi
 	else
+		p=""
+		[[ -n $VIMRUNTIME ]] && p="${p}%F{red}:SH %{$reset_color%}"
 		if [ $timer ]; then
 			now=$(now_millis)
 			elapsed=$(($now-$timer))
 			endtime=$(date +'%_H:%M:%S') # it seems that the %* ZSH gets reevaluated when browsing history
-			p=""
+			p2=""
 			# days
-			(( $elapsed >= 86400000 ))                        && p="${p}$(($elapsed / 86400000))d"
+			(( $elapsed >= 86400000 ))                        && p2="${p2}$(($elapsed / 86400000))d"
 			# hours
-			(( $elapsed >= 3600000 ))                         && p="${p}$(($elapsed % 86400000 / 3600000))h"
+			(( $elapsed >= 3600000 ))                         && p2="${p2}$(($elapsed % 86400000 / 3600000))h"
 			# minutes
-			(( $elapsed >= 60000    && $elapsed >= 3600000 )) && p="$(printf "%s%-.02d'" "${p}" $(($elapsed % 3600000 / 60000 )))"
-			(( $elapsed >= 60000    && $elapsed <  3600000 )) && p="${p}$(($elapsed % 3600000 / 60000))'"
+			(( $elapsed >= 60000    && $elapsed >= 3600000 )) && p2="$(printf "%s%-.02d'" "${p2}" $(($elapsed % 3600000 / 60000 )))"
+			(( $elapsed >= 60000    && $elapsed <  3600000 )) && p2="${p2}$(($elapsed % 3600000 / 60000))'"
 			# seconds
 			if (( $elapsed >= 1000 && $elapsed < 86400000 )); then
 				(( $elapsed >= 60000)) \
-					&& p="$(printf "%s%.02d\"" "${p}" $(($elapsed % 60000 / 1000)))" \
-					|| p="${p} $(($elapsed / 1000))\""
+					&& p2="$(printf "%s%.02d\"" "${p2}" $(($elapsed % 60000 / 1000)))" \
+					|| p2="${p2} $(($elapsed / 1000))\""
 			fi
 			# milliseconds
-			(( $elapsed >= 1000     && $elapsed < 60000    )) && p="$(printf "%s%-.03d" "${p}" $(($elapsed % 1000)))"
-			(( $elapsed <  1000                            )) && p="${p} $(($elapsed))ms"
-			export RPROMPT="%F{blue}$endtime %F{cyan}${p}%{$reset_color%}"
+			(( $elapsed >= 1000     && $elapsed < 60000    )) && p2="$(printf "%s%-.03d" "${p2}" $(($elapsed % 1000)))"
+			(( $elapsed <  1000                            )) && p2="${p2} $(($elapsed))ms"
+			p="${p}%F{blue}$endtime %F{cyan}${p2}%{$reset_color%}"
 			#export RPROMPT="\$(reset_rprompt)%F{cyan}${p} %{$reset_color%}"
 			unset timer
 			unset endtime
 		fi
+		export RPROMPT="${p}"
 	fi
 
 	local cmd="$MR_RUNNING_COMMAND"
