@@ -22,7 +22,7 @@ cd $DIR
 $DIR/bin/stdhome-remove-deadlinks.sh
 git commit -am "auto commit $(date)" || true
 $DIR/bin/stdothers.sh | while read repo; do
-	if [[ "$repo" == *stdtsys ]]; the
+	if [[ "$repo" == *stdtsys ]]; then
 		continue
 	fi
 	cd $repo
