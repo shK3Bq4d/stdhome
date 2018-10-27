@@ -131,7 +131,7 @@ function cdd() {
 }
 
 function ssh() {
-    local BIN OPTS
+    local BIN OPTS f
     BIN=ssh
     OPTS=""
 
@@ -139,8 +139,15 @@ function ssh() {
         case "$1" in \
         galaxy*)
             if hash sshpass 2>/dev/null; then
-                BIN=sshpass
-                OPTS="-f$HOME/.words/$1 ssh"
+				f=$HOME/.words/$1
+				if [[ -f $f ]]; then
+					BIN=sshpass
+					OPTS="-f$f ssh"
+				else
+					echo "you may set your password in $f"
+				fi
+			else
+				echo "~/bin/dot.bashfunctions install sshpass"
             fi
             ;;
         minikube|charlotte|$WORK_PC1|pfsense|apr16|acer2011|thinkpad|fw11*|motog*|ly1*|10.19.29.25*)
