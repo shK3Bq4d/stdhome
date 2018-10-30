@@ -146,7 +146,8 @@ au BufReadPost * if getfsize(bufname("%")) > 90*1024 |
 :set title
 :auto BufEnter * let &titlestring = "vim - " .$USER . "@" . hostname() . ":" . expand('%:p')
 
-au BufNewFile,BufRead *.yaml set cursorcolumn
+au BufNewFile,BufRead *.yaml set cursorcolumn ts=2 sw=2
+au BufNewFile,BufRead *.yml set cursorcolumn ts=2 sw=2
 au BufNewFile,BufRead *.json set filetype=json
 au BufNewFile,BufRead *.java set filetype=java
 au BufNewFile,BufRead *.js set filetype=javascript
