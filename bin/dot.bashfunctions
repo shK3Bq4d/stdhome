@@ -1,4 +1,4 @@
-# ex: set filetype=sh: #
+# ex: set filetype=sh expandtab ts=4 sw=4: #
 
 [ ${sudomr_hooks+x} ] && sudomr_hooks=()
 function sudomr() {
@@ -12,7 +12,7 @@ function sudomr() {
             sudo cp -R $RCD $NEWRCD
             f=$NEWRCD/../.sshrc
             sudo cp $SSHHOME/.sshrc $f
-            sudo chown -R "$1" $NEWRCD/..
+            sudo chown -R "$1" $NEWRCD/.:
         fi
     fi
 
@@ -47,6 +47,36 @@ export SSH_AUTH_SOCK=$SSH_AUTH_SOCK
 function abspath() {
     cd "$(mrdirname "$1")"
     echo -n "$PWD/$(mrbasename "$1")"
+}
+function mrargs() {
+    # does support spaces but not new lines when using following contruct
+    # mrargs * | while read i; do ls -l "$i"; sleep 2; done
+    if [[ -f "$@" || -d "$@" ]]; then
+        echo "$@"
+        return
+    fi
+    for v in "$@"; do
+        if [[ ! -f "$v" && ! -d "$v" ]]; then
+            >&2 echo "Does not exit $v"
+        fi
+    done
+    for v in "$@"; do
+        if [[ ! -f "$v" && ! -d "$v" ]]; then
+            return
+        fi
+    done
+    for v in "$@"; do
+        echo "$v"
+    done
+}
+function cpmr() {
+    local v $target
+    ts="$(date +'%Y.%m.%d-%H.%M')"
+    mrargs "$@" | while read v; do
+        [[ "${v}" == *".mrbkp20"* ]] && continue
+        target="${v}.mrbkp$ts"
+        cp -Rp "$v" "$target"
+    done
 }
 
 function pathprepend() {
@@ -139,15 +169,15 @@ function ssh() {
         case "$1" in \
         galaxy*)
             if hash sshpass 2>/dev/null; then
-				f=$HOME/.words/$1
-				if [[ -f $f ]]; then
-					BIN=sshpass
-					OPTS="-f$f ssh"
-				else
-					echo "you may set your password in $f"
-				fi
-			else
-				echo "~/bin/dot.bashfunctions install sshpass"
+                f=$HOME/.words/$1
+                if [[ -f $f ]]; then
+                    BIN=sshpass
+                    OPTS="-f$f ssh"
+                else
+                    echo "you may set your password in $f"
+                fi
+            else
+                echo "~/bin/dot.bashfunctions install sshpass"
             fi
             ;;
         minikube|charlotte|$WORK_PC1|pfsense|apr16|acer2011|thinkpad|fw11*|motog*|ly1*|10.19.29.25*)
