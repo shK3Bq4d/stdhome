@@ -123,7 +123,7 @@ alias minikube='nocorrect minikube'
 alias screen='nocorrect screen'
 alias watch='nocorrect watch'
 case $UNAME in \
-	freebsd) true;;
+	freebsd) alias grep='nocorrect grep --line-buffered -a --color=auto';;
 	*) alias grep='nocorrect grep --line-buffered -a --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn}'
 esac
 alias git='nocorrect git'
