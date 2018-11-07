@@ -636,3 +636,14 @@ dehumanise() {
        /TB$/{    printpower($1, 10, 12)}'
   #done
 }
+
+function systemd_mr_unitfiles() {
+
+    [[ $# -eq 0 ]] && G=. || G="$1"
+    find \
+        /usr/lib/systemd/system/ \
+        /etc/systemd/system/ \
+        -type f -name '*.service' \
+        2>/dev/null |
+        grep -E "$G"
+}

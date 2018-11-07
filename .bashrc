@@ -290,6 +290,7 @@ alias cp='cp -ip'
 alias ln='ln -i'
 alias rm='rm -i'
 
+alias grep='grep --line-buffered'
 alias igrep='grep -ia --line-buffered'
 alias cgrep='grep --color=always -a --line-buffered'
 alias fgrep='fgrep --color=auto -a --line-buffered'
