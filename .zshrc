@@ -265,6 +265,7 @@ function precmd() {
 
 #			echo "MR_LAST is $MR_LAST"
 	echo -ne "\033]0;"
+	echo -ne "$MR_URXVT_TITLE"
 	case "$cmd" in
 		mr_prompt)
 			if [[ $MR_LAST -eq 0 ]]; then
