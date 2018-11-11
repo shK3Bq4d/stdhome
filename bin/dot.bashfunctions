@@ -129,10 +129,12 @@ function mrdirname() {
 
 function py() {
     RET="$(~/bin/py "$@")"
+    rehash
     [[ $? -eq 0 && -f "$RET" ]] && $EDITOR "$RET"
 }
 function newsh() {
     RET="$(~/bin/newsh "$@")"
+    rehash
     [[ $? -eq 0 && -f "$RET" ]] && $EDITOR "$RET"
 }
 function cdd() {
