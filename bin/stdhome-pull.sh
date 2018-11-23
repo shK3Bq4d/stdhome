@@ -20,7 +20,7 @@ if [[ -f $f ]]; then
    	start_agent_if_not_started
 	mr_ssh_add
 fi
-test -x ~/bin/container-ip.sh && ~/bin/container-ip.sh
+test -x ~/bin/container-ip.sh && ~/bin/container-ip.sh &>/dev/null
 for remote in $(git remote show); do
 	if [[ "$remote" == ksgitlab ]] && [[ -f ~/.ssh/id_rsa_ks ]] && ! ssh-add -L | grep -q id_rsa_ks; then
 		ssh-add ~/.ssh/id_rsa_ks
