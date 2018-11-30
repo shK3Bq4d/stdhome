@@ -182,7 +182,7 @@ function ssh() {
                 echo "~/bin/dot.bashfunctions install sshpass"
             fi
             ;;
-        minikube|charlotte|$WORK_PC1|pfsense|apr16|acer2011|thinkpad|fw11*|motog*|ly1*|10.19.29.25*)
+        minikube|charlotte|$WORK_PC1|pfsense|apr16|acer2011|thinkpad|fw11*|motog*|ly1*|10.19.29.25*|10.19.29.60|piproj)
             ;;
         *)
             hash sshrc 2>/dev/null && BIN=sshrc
