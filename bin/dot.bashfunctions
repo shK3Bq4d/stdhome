@@ -660,7 +660,7 @@ function bc() {
         # bc
         command bc -ql
     else
-        bc 5+5
+        # bc 5+5
         command bc -ql <<< "$@" | sed -r -e '/\./s/0+$//'
     fi
 }
