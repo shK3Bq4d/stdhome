@@ -649,10 +649,18 @@ function systemd_mr_unitfiles() {
         2>/dev/null |
         grep -E "$G"
 }
-function mbc() {
-    if [[ -t 0 || $# -eq 0 ]]; then
-        bc -ql
+function bc() {
+    #[[ -t 0 ]] && echo tty || echo NOTTY
+    #[[ $# -eq 0 ]] && echo noarg || echo ARGS
+    #[[ "$@" =~ ^[0-9].* ]] && echo digit || echo NODIGIT
+    if [[ ! -t 0 ]]; then
+        # echo 5+5 | bc
+        command bc -ql | sed -r -e '/\./s/0+$//'
+    elif [[ $# -eq 0 ]]; then
+        # bc
+        command bc -ql
     else
-        bc -ql <<< "$@"
+        bc 5+5
+        command bc -ql <<< "$@" | sed -r -e '/\./s/0+$//'
     fi
 }
