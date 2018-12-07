@@ -649,3 +649,10 @@ function systemd_mr_unitfiles() {
         2>/dev/null |
         grep -E "$G"
 }
+function mbc() {
+    if [[ -t 0 || $# -eq 0 ]]; then
+        bc -ql
+    else
+        bc -ql <<< "$@"
+    fi
+}
