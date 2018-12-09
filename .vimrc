@@ -97,6 +97,13 @@ set t_Co=256
 "au WinLeave * set nocursorline nocursorcolumn
 "u WinEnter * set cursorline nocursorcolumn
 set cursorline nocursorcolumn
+
+" https://stackoverflow.com/questions/235439/vim-80-column-layout-concerns
+set colorcolumn=80
+"highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+"match OverLength /\%81v.\+/
+"match ErrorMsg '\%>80v.\+'
+
 :set number
 :set cmdheight=2
 :set laststatus=2
