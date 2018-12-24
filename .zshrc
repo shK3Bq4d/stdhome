@@ -107,6 +107,7 @@ unsetopt null_glob
 #source ~/bin/dot.bashfunctions
 source ~/.bashrc
 alias doc='nocorrect doc'
+alias castnow='nocorrect castnow'
 alias locate='nocorrect locate'
 alias sshfs='nocorrect sshfs'
 alias command='nocorrect command'
