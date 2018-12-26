@@ -220,7 +220,7 @@ if version >= 500
         silent !clear
         ":exec "silent !%:p 2>&1 \| tee" a:output 
         :exec "silent !" . $RCD . "/bin/notinpath/vimf6.sh %:p " . a:output 
-        :exec "pedit! +setlocal\\ buftype=nofile " . a:output
+        :exec "pedit! +setlocal\\ buftype=nofile\\ ft= " . a:output
         ":exec "silent AnsiEsc"
         
         silent redraw!
