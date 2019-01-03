@@ -30,6 +30,7 @@ export SSH_AUTH_SOCK=$SSH_AUTH_SOCK
     if [[ -z $SSHHOME ]]; then
         f=$HOME/.tmp/tmp/sudomr.bashrc
         [[ -f $f ]] && rm -f $f
+        [[ -d $HOME/.tmp/tmp ]] || mkdir -p $HOME/.tmp/tmp
         touch $f
     else
         [[ -z $f ]] && f=$SSHHOME/.sshrc
