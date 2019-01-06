@@ -9,10 +9,8 @@ path=($path $GOPATH/bin) # otherwise kubectl doesn't work per SSH (likely have P
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="robbyrussell"
-ZSH_THEME="random"
-ZSH_THEME=""
-ZSH_THEME="agnoster"
+ZSH_THEME="mr"
+test -f ~/.oh-my-zsh/custom/themes/${ZSH_THEME}.zsh-theme || ZSH_THEME="agnoster"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -331,8 +329,8 @@ if true; then
 	# https://github.com/robbyrussell/oh-my-zsh/tree/master/plugins/vi-mode
 	bindkey -v
 	#set -o vi
-	#bindkey "${terminfo[khome]}" beginning-of-line
-	#bindkey "${terminfo[kend]}" end-of-line
+	bindkey "${terminfo[khome]}" beginning-of-line
+	bindkey "${terminfo[kend]}" end-of-line
 	#echo bip
 else
 	# https://dougblack.io/words/zsh-vi-mode.html

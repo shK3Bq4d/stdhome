@@ -640,6 +640,27 @@ dehumanise() {
   #done
 }
 
+if hash less &>/dev/null; then
+    export MANPAGER="less -sR"
+    function less() {
+        #alias less='less --raw-control-chars --quit-if-one-screen --ignore-case --status-column --no-init'
+        if [[ $# -eq 1  && -f "$1" ]] && \
+            command find "$1" -type f -and -size -2M 2>/dev/null | command grep -qE .;
+        then
+            for i in \
+                /usr/share/source-highlight/src-hilite-lesspipe.sh \
+                /usr/bin/src-hilite-lesspipe.sh \
+                ;
+            do
+                if [[ -f $i ]]; then
+                    LESSOPEN="| $i %s" less -M --raw-control-chars --quit-if-one-screen --ignore-case --status-column --no-init "$@"
+                    return
+                fi
+            done
+        fi
+        command less -M --raw-control-chars --quit-if-one-screen --ignore-case --status-column --no-init "$@"
+    }
+fi
 function systemd_mr_unitfiles() {
 
     [[ $# -eq 0 ]] && G=. || G="$1"

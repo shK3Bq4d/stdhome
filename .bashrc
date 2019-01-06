@@ -320,10 +320,6 @@ for d in $RCD/py \
 done
 
 
-if hash less &>/dev/null; then
-    export MANPAGER="less -sR"
-    alias less='less --raw-control-chars --quit-if-one-screen --ignore-case --status-column --no-init'
-fi
 PERL_MB_OPT="--install_base \"$HOME/perl5\""; export PERL_MB_OPT;
 PERL_MM_OPT="INSTALL_BASE=$HOME/perl5"; export PERL_MM_OPT;
 
