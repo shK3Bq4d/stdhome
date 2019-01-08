@@ -504,3 +504,5 @@ set clipboard=
 :set nofixendofline
 :command! En :set spl=en
 :command! Fr :set spl=fr
+let &t_SI = "\<Esc>[5 q"
+let &t_EI = "\<Esc>[1 q"

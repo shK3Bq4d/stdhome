@@ -9,8 +9,10 @@ path=($path $GOPATH/bin) # otherwise kubectl doesn't work per SSH (likely have P
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
+
 ZSH_THEME="mr"
 test -f ~/.oh-my-zsh/custom/themes/${ZSH_THEME}.zsh-theme || ZSH_THEME="agnoster"
+ZSH_THEME="agnoster"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -55,7 +57,7 @@ HIST_STAMPS="dd.mm.yyyy"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-autosuggestions zsh-completions history-substring-search vi-mode z kubectl zsh-syntax-highlighting) # zsh-syntax-highlighting must be the last
+plugins=(git zsh-autosuggestions zsh-completions history-substring-search vi-mode-mr z kubectl zsh-syntax-highlighting) # zsh-syntax-highlighting must be the last
 # minikube # minikube init seams slowish
 # helm # doesn't complet
 typeset -U path
