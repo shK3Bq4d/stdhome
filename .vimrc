@@ -11,17 +11,17 @@ endif
 call add(g:pathogen_disabled, 'AutoComplPop')
 "call add(g:pathogen_disabled, 'youcompleteme')
 " should between youcomplete me or autocomplpop
-if hostname == $WORK_PC1 || hostname == "bipbip" 
+if hostname == $WORK_PC1 || hostname == "bipbip"
     "set complete=.,b,u,]
     "set wildmode=longest,list:longest
     "set completeopt=menu,preview
 else
 endif
 let airline#extensions#c_like_langs = ['c', 'cpp', 'cuda', 'go', 'javascript', 'java', 'ld', 'php']
-if hostname == "jly200" || hostname == "bipbip" 
+if hostname == "jly200" || hostname == "bipbip"
     let g:airline#extensions#whitespace#mixed_indent_algo = 2
 endif
-if hostname == "bipbip" || hostname == "bipbip" 
+if hostname == "bipbip" || hostname == "bipbip"
     call add(g:pathogen_disabled, 'vim-gitgutter')
 else
     " https://github.com/airblade/vim-gitgutter
@@ -39,7 +39,7 @@ else
     " if [[ "$@" == *diff* ]]; then
     "     unset GIT_DIR
     "     unset GIT_WORK_TREE
-    "     fi                                                                                   
+    "     fi
     "     echo "$(date) $0 $@" >> /tmp/mrgit
     " /usr/local/bin/git "$@" 2>&1 | tee -a /tmp/mrgit
 endif
@@ -48,7 +48,7 @@ try
 
 catch /^Vim\%((\a\+)\)\=:E117/
     " we fall back here in case of sshrc to remote host or sudomr on localhost
-    
+
     " The following block was found online and worked for sshrc, but not localsudomr
     " set default 'runtimepath' (without ~/.vim folders)
     "let &runtimepath = printf('%s/vimfiles,%s,%s/vimfiles/after', $VIM, $VIMRUNTIME, $VIM)
@@ -56,7 +56,7 @@ catch /^Vim\%((\a\+)\)\=:E117/
     "let s:portable = expand('<sfile>:p:h')
     " add the directory to 'runtimepath'
     "let &runtimepath = printf('%s,%s,%s/after', s:portable, &runtimepath, s:portable)
-    
+
 
     let &runtimepath = printf('%s/.vim,$VIMRUNTIME', $RCD)
     try
@@ -107,18 +107,18 @@ set colorcolumn=80
 :set number
 :set cmdheight=2
 :set laststatus=2
-:set statusline=%F%m%r%h%w\ 
-"set statusline+=%{fugitive#statusline()}\    
+:set statusline=%F%m%r%h%w\
+"set statusline+=%{fugitive#statusline()}\
 :set statusline+=[%{strlen(&fenc)?&fenc:&enc}]
-:set statusline+=\ [line\ %l\/%L:%c]          
-"set statusline+=%{rvm#statusline()}    
+:set statusline+=\ [line\ %l\/%L:%c]
+"set statusline+=%{rvm#statusline()}
 :set wildmenu
 :set wildmode=longest,list,full
 :set hidden
 :set showmatch "
 :set lazyredraw "
 " deactivate syntax for file greater than 90k
-au BufReadPost * if getfsize(bufname("%")) > 90*1024 | 
+au BufReadPost * if getfsize(bufname("%")) > 90*1024 |
 \ set syntax= |
 \ endif
 :set noexpandtab
@@ -155,6 +155,7 @@ au BufReadPost * if getfsize(bufname("%")) > 90*1024 |
 
 au BufNewFile,BufRead *.yaml set cursorcolumn ts=2 sw=2
 au BufNewFile,BufRead *.yml set cursorcolumn ts=2 sw=2
+au BufNewFile,BufRead *.py set filetype=python
 au BufNewFile,BufRead *.json set filetype=json
 au BufNewFile,BufRead *.java set filetype=java
 au BufNewFile,BufRead *.js set filetype=javascript
@@ -206,7 +207,7 @@ endfunc
 ":nmap <F6> :pc!<CR>:w<CR>:silent !chmod +x %:p<CR>:silent !%:p 2>&1 \| tee /tmp/%:t.tmp<CR>:pedit! +:42343234 /tmp/%:t.tmp<CR>:redraw!<CR><CR>
 ":nmap <F7> :pc!<CR>:w<CR>:pedit! +:42343234 `vim-exec.sh %:p`<CR>:redraw!<CR><CR>
 "let g:mrf6oldbuffer=""
-"if has('vim') 
+"if has('vim')
 if version >= 500
     func! MrF6()
         pc!
@@ -218,11 +219,11 @@ if version >= 500
         let a:output= $RCD . "/.tmp/vim/output/" . strftime("%Y.%m.%d-%H.%M.%S") . "-" . expand("%:t") . ".tmp"
         let g:mrf6oldbuffer=a:output
         silent !clear
-        ":exec "silent !%:p 2>&1 \| tee" a:output 
-        :exec "silent !" . $RCD . "/bin/notinpath/vimf6.sh %:p " . a:output 
+        ":exec "silent !%:p 2>&1 \| tee" a:output
+        :exec "silent !" . $RCD . "/bin/notinpath/vimf6.sh %:p " . a:output
         :exec "pedit! +setlocal\\ buftype=nofile\\ ft= " . a:output
         ":exec "silent AnsiEsc"
-        
+
         silent redraw!
     endfunc
 endif
@@ -258,7 +259,7 @@ command! -range=% MrMergeComma            :<line1>,<line2>!merge_comma.py
 :command! MrFixWhiteSpace :set expandtab | :silent! %s/[ \t]\+$// | :silent! %s/\t/    /g | norm! ``
 :command! -range=% MrTasksFromBullet :silent! <line1>,<line2>g/^\s*\*\s*[^\[ \t]/ s/\*\s\?/* [ ] / | :noh | norm! ``
 :command! -range=% MrTasksReset :silent! <line1>,<line2>s/\[.\]/[ ]/ | :noh | norm! ``
-:command! MrReloadVimrc :so $MYVIMRC | :noh 
+:command! MrReloadVimrc :so $MYVIMRC | :noh
 " See :h :tohtml and my application which is to use with html2confluence
 " script
 "By default, valid HTML 4.01 using cascading style sheets (CSS1) is generated.
@@ -282,8 +283,8 @@ map  <F9>      :GitGutterPreviewHunk<CR>
 imap <F9> <Esc>:GitGutterPreviewHunk<CR>
 map  <F10>      :set paste! wrap! number!<CR>:GitGutterToggle<CR>:redraw!<CR>
 imap <F10> <Esc>:set paste! wrap! number!<CR>:GitGutterToggle<CR>:redraw!<CR>
-noremap  <F11> <Esc>:syntax sync fromstart<CR>:autocmd BufEnter <buffer> syntax sync fromstart<CR> 
-inoremap <F11> <C-o>:syntax sync fromstart<CR>:autocmd BufEnter <buffer> syntax sync fromstart<CR> 
+noremap  <F11> <Esc>:syntax sync fromstart<CR>:autocmd BufEnter <buffer> syntax sync fromstart<CR>
+inoremap <F11> <C-o>:syntax sync fromstart<CR>:autocmd BufEnter <buffer> syntax sync fromstart<CR>
 nnoremap <silent> <F12>      :BufExplorer<CR>
 imap     <silent> <F12> <Esc>:BufExplorer<CR>
 :command! Gstagehunk :GitGutterStageHunk
@@ -318,8 +319,8 @@ endif
 imap <C-v> <Esc><C-v>a
 :set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
 
-inoremap <ScrollWheelUp> <Nop> 
-inoremap <ScrollWheelDown> <Nop> 
+inoremap <ScrollWheelUp> <Nop>
+inoremap <ScrollWheelDown> <Nop>
 
 func! MrSyntaxRange()
     try
@@ -445,7 +446,7 @@ fun! UpByIndent()
 endfun
 
 "http://lglinux.blogspot.ch/2008/01/rewrapping-paragraphs-in-vim.html
-"map <C-q> {gq} 
+"map <C-q> {gq}
 map <C-j> gq} '.
 
 nnoremap <c-p> :call UpByIndent()<cr>

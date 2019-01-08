@@ -334,6 +334,7 @@ if true; then
 	#set -o vi
 	bindkey "${terminfo[khome]}" beginning-of-line
 	bindkey "${terminfo[kend]}" end-of-line
+	bindkey ^O forward-word # zsh-autosuggestions
 	#echo bip
 else
 	# https://dougblack.io/words/zsh-vi-mode.html
@@ -364,3 +365,5 @@ zstyle ':completion:*' menu select=2
 #source ~/.bash_completion
 compdef _path_commands viw catw lessw
 alias z='nocorrect _z 2>&1' # at the end is necessary as it is defined elsewhere
+ZSH_AUTOSUGGEST_USE_ASYNC=1
+ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=25
