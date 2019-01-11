@@ -16,7 +16,7 @@ echo "DESKTOP_SESSION: $DESKTOP_SESSION" >>$LOG
 echo "GDMSESSION: $GDMSESSION" >>$LOG
 while read line; # subshell avoidance
 do
-	eval $line
+    eval $line
 done < <(grep -hE "^export (WORK)" ~/.std*)
 
 export TERMINAL=mrurxvt
@@ -25,7 +25,7 @@ export TERMINAL=mrurxvt
 if [ -n "$BASH_VERSION" ]; then
     # include .bashrc if it exists
     if [ -f "$HOME/.bashrc" ]; then
-	. "$HOME/.bashrc"
+    . "$HOME/.bashrc"
     fi
 fi
 
@@ -33,3 +33,11 @@ fi
 if [ -d "$HOME/bin" ] ; then
     PATH="$HOME/bin:$PATH"
 fi
+if [[ -z $HOSTNAMEF ]]; then
+    if [[ -L /usr/bin/timeout ]] && [[ $(readlink -f /usr/bin/timeout) == *busybox ]]; then
+        export HOSTNAMEF=$(timeout -t 3 hostname -f)
+    else
+        export HOSTNAMEF=$(timeout 3 hostname -f)
+    fi
+fi
+[[ -z $HOSTNAME ]] && export HOSTNAME=${HOSTNAMEF//\.*/}
