@@ -1,4 +1,4 @@
-" ex: set expandtab ts=4 sw=4:
+" ex: set expandtab ts=4 sw=4: 
 let g:pathogen_disabled = []
 let g:mapleader=" "
 let s:sys=system('uname -s | perl -pe "chomp"')
@@ -208,27 +208,8 @@ endfunc
 ":nmap <F7> :pc!<CR>:w<CR>:pedit! +:42343234 `vim-exec.sh %:p`<CR>:redraw!<CR><CR>
 "let g:mrf6oldbuffer=""
 "if has('vim')
-if version >= 500
-    func! MrF6()
-        pc!
-        if exists("g:mrf6oldbuffer")
-            exec "silent bw! " g:mrf6oldbuffer
-        end
-        w!
-        "silent !chmod +x %:p
-        let a:output= $RCD . "/.tmp/vim/output/" . strftime("%Y.%m.%d-%H.%M.%S") . "-" . expand("%:t") . ".tmp"
-        let g:mrf6oldbuffer=a:output
-        silent !clear
-        ":exec "silent !%:p 2>&1 \| tee" a:output
-        :exec "silent !" . $RCD . "/bin/notinpath/vimf6.sh %:p " . a:output
-        :exec "pedit! +setlocal\\ buftype=nofile\\ ft= " . a:output
-        ":exec "silent AnsiEsc"
-
-        silent redraw!
-    endfunc
-endif
-:nmap <F6> :call MrF6()<CR><CR>
-:imap <F6> <Esc>:call MrF6()<CR><CR>
+:map <F6> :call MrF6()<CR><CR>
+:map! <F6> <Esc>:call MrF6()<CR><CR>
 :nmap <F3> :AnsiEsc<CR><CR>
 ":nmap <F7> :pc!<CR>:let a:x=`date +'%Y'`<CR>:w<CR>:silent !chmod +x %:p<CR>:execute "silent !%:p 2>&1 \| tee /tmp/" . x . ".tmp"<CR>:pedit! +:42343234 /tmp/%:t.tmp<CR>:redraw!<CR><CR>
 
@@ -507,3 +488,31 @@ set clipboard=
 :command! Fr :set spl=fr
 let &t_SI = "\<Esc>[5 q"
 let &t_EI = "\<Esc>[1 q"
+
+if has ('autocmd') " Remain compatible with earlier versions
+ augroup vimrc     " Source vim configuration upon save
+    autocmd! BufWritePost $MYVIMRC source % | echom "Reloaded " . $MYVIMRC | redraw
+    autocmd! BufWritePost $MYGVIMRC if has('gui_running') | so % | echom "Reloaded " . $MYGVIMRC | endif | redraw
+  augroup END
+endif " has autocmd
+
+if version >= 500
+    :function! MrF6()
+        pc!
+        if exists("g:mrf6oldbuffer")
+            exec "silent bw! " g:mrf6oldbuffer
+        end
+        w!
+        "silent !chmod +x %:p
+        let a:output= $RCD . "/.tmp/vim/output/" . strftime("%Y.%m.%d-%H.%M.%S") . "-" . expand("%:t") . ".tmp"
+        let g:mrf6oldbuffer=a:output
+        silent !clear
+        ":exec "silent !%:p 2>&1 \| tee" a:output
+        :exec "silent !" . $RCD . "/bin/notinpath/vimf6.sh %:p " . a:output
+        :exec "pedit! +setlocal\\ buftype=nofile\\ ft= " . a:output
+        ":exec "silent AnsiEsc"
+
+        silent redraw!
+        return ""
+    endfunc
+endif
