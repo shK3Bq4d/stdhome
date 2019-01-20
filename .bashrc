@@ -251,7 +251,7 @@ cygwin*)
         fi
         export LC_TIME="en_DK.utf8"
     fi
-    alias dmesg="dmesg -HL auto"
+    alias dmesg="dmesg -HLauto"
     ;;
 esac
 export CDPATH=$CDPATH:$RCD/.cdpath

@@ -488,6 +488,7 @@ set clipboard=
 :command! Fr :set spl=fr
 let &t_SI = "\<Esc>[5 q"
 let &t_EI = "\<Esc>[1 q"
+" :set t_ti=""
 
 if has ('autocmd') " Remain compatible with earlier versions
  augroup vimrc     " Source vim configuration upon save
