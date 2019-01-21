@@ -334,7 +334,7 @@ if true; then
 	#set -o vi
 	bindkey "${terminfo[khome]}" beginning-of-line
 	bindkey "${terminfo[kend]}" end-of-line
-	bindkey ^O forward-word # zsh-autosuggestions
+	bindkey ^O vi-forward-blank-word # zsh-autosuggestions
 	#echo bip
 else
 	# https://dougblack.io/words/zsh-vi-mode.html
