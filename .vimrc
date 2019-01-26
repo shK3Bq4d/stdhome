@@ -1,4 +1,4 @@
-" ex: set expandtab ts=4 sw=4: 
+" ex: set expandtab ts=4 sw=4:
 let g:pathogen_disabled = []
 let g:mapleader=" "
 let s:sys=system('uname -s | perl -pe "chomp"')
@@ -450,6 +450,8 @@ map <C-ScrollWheelLeft> <nop>
 map <ScrollWheelRight> <nop>
 map <S-ScrollWheelRight> <nop>
 map <C-ScrollWheelRight> <nop>
+" terminal see tab as C-i
+map <C-i> <Esc>:bnext<CR>
 
 let g:airline_powerline_fonts = 1
 let g:airline_theme='papercolor'
