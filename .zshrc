@@ -63,9 +63,9 @@ plugins=(git zsh-autosuggestions zsh-completions history-substring-search vi-mod
 typeset -U path
 path=(~/bin $path) # otherwise kubectl doesn't work per SSH (likely have PATH exported from parent urxvt window when not using SSH)
 if [[ -f "$ZSH/oh-my-zsh.sh" ]]; then
-	source $ZSH/oh-my-zsh.sh
+    source $ZSH/oh-my-zsh.sh
 else
-	echo -e "oh-my-zsh absent\ninstall via sh -c \"\$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)\"\nor visit https://github.com/robbyrussell/oh-my-zsh"
+    echo -e "oh-my-zsh absent\ninstall via sh -c \"\$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)\"\nor visit https://github.com/robbyrussell/oh-my-zsh"
 fi
 setopt null_glob
 for f in \
@@ -125,8 +125,8 @@ alias minikube='nocorrect minikube'
 alias screen='nocorrect screen'
 alias watch='nocorrect watch'
 case $UNAME in \
-	freebsd) alias grep='nocorrect grep --line-buffered -a --color=auto';;
-	*) alias grep='nocorrect grep --line-buffered -a --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn}'
+    freebsd) alias grep='nocorrect grep --line-buffered -a --color=auto';;
+    *) alias grep='nocorrect grep --line-buffered -a --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn}'
 esac
 alias git='nocorrect git'
 
@@ -179,149 +179,149 @@ alias findf='find . -type f'
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=11'
 
 command_not_found_handler() {
-	echo "mr command_not_found_handler 0:$0 \$@: $@"
-	return 1
+    echo "mr command_not_found_handler 0:$0 \$@: $@"
+    return 1
 }
 function now_millis() {
-	case $UNAME in \
-	freebsd)
-		echo "$(($(date +%s)*1000))"
-		;;
-	*)
-		echo "$(($(date +%s%N)/1000000))"
-		;;
-	esac
+    case $UNAME in \
+    freebsd)
+        echo "$(($(date +%s)*1000))"
+        ;;
+    *)
+        echo "$(($(date +%s%N)/1000000))"
+        ;;
+    esac
 }
 function preexec() {
-	export MR_PREV_COMMAND="$MR_RUNNING_COMMAND"
-	export MR_RUNNING_COMMAND="$1"
-	#export MR_RUNNING="1"
-	export timer=$(now_millis)
-	export endtime=""
-	echo -ne "\033]0;\u231b $1 - $USER@$HOSTNAMEF\007"
+    export MR_PREV_COMMAND="$MR_RUNNING_COMMAND"
+    export MR_RUNNING_COMMAND="$1"
+    #export MR_RUNNING="1"
+    export timer=$(now_millis)
+    export endtime=""
+    echo -ne "\033]0;\u231b $1 - $USER@$HOSTNAMEF\007"
 }
 
 #setopt promptsubst #
 setopt prompt_subst
 DISABLE_AUTO_TITLE="true"
 function precmd() {
-	local MR_LAST=$?
-	if false; then
-		if [ $timer ]; then
-			now=$(now_millis)
-			elapsed=$(($now-$timer))
+    local MR_LAST=$?
+    if false; then
+        if [ $timer ]; then
+            now=$(now_millis)
+            elapsed=$(($now-$timer))
 
-			export RPROMPT="%F{cyan}${elapsed}ms %{$reset_color%}"
-			unset timer
-		fi
-	else
-		p=""
-		[[ -n $VIMRUNTIME ]] && p="${p}%F{red}:SH %{$reset_color%}"
-		if [ $timer ]; then
-			now=$(now_millis)
-			elapsed=$(($now-$timer))
-			endtime=$(date +'%_H:%M:%S') # it seems that the %* ZSH gets reevaluated when browsing history
-			p2=""
-			# days
-			(( $elapsed >= 86400000 ))                        && p2="${p2}$(($elapsed / 86400000))d"
-			# hours
-			(( $elapsed >= 3600000 ))                         && p2="${p2}$(($elapsed % 86400000 / 3600000))h"
-			# minutes
-			(( $elapsed >= 60000    && $elapsed >= 3600000 )) && p2="$(printf "%s%-.02d'" "${p2}" $(($elapsed % 3600000 / 60000 )))"
-			(( $elapsed >= 60000    && $elapsed <  3600000 )) && p2="${p2}$(($elapsed % 3600000 / 60000))'"
-			# seconds
-			if (( $elapsed >= 1000 && $elapsed < 86400000 )); then
-				(( $elapsed >= 60000)) \
-					&& p2="$(printf "%s%.02d\"" "${p2}" $(($elapsed % 60000 / 1000)))" \
-					|| p2="${p2} $(($elapsed / 1000))\""
-			fi
-			# milliseconds
-			(( $elapsed >= 1000     && $elapsed < 60000    )) && p2="$(printf "%s%-.03d" "${p2}" $(($elapsed % 1000)))"
-			(( $elapsed <  1000                            )) && p2="${p2} $(($elapsed))ms"
-			p="${p}%F{blue}$endtime %F{cyan}${p2}%{$reset_color%}"
-			#export RPROMPT="\$(reset_rprompt)%F{cyan}${p} %{$reset_color%}"
-			unset timer
-			unset endtime
-		fi
-		export RPROMPT="${p}"
-	fi
+            export RPROMPT="%F{cyan}${elapsed}ms %{$reset_color%}"
+            unset timer
+        fi
+    else
+        p=""
+        [[ -n $VIMRUNTIME ]] && p="${p}%F{red}:SH %{$reset_color%}"
+        if [ $timer ]; then
+            now=$(now_millis)
+            elapsed=$(($now-$timer))
+            endtime=$(date +'%_H:%M:%S') # it seems that the %* ZSH gets reevaluated when browsing history
+            p2=""
+            # days
+            (( $elapsed >= 86400000 ))                        && p2="${p2}$(($elapsed / 86400000))d"
+            # hours
+            (( $elapsed >= 3600000 ))                         && p2="${p2}$(($elapsed % 86400000 / 3600000))h"
+            # minutes
+            (( $elapsed >= 60000    && $elapsed >= 3600000 )) && p2="$(printf "%s%-.02d'" "${p2}" $(($elapsed % 3600000 / 60000 )))"
+            (( $elapsed >= 60000    && $elapsed <  3600000 )) && p2="${p2}$(($elapsed % 3600000 / 60000))'"
+            # seconds
+            if (( $elapsed >= 1000 && $elapsed < 86400000 )); then
+                (( $elapsed >= 60000)) \
+                    && p2="$(printf "%s%.02d\"" "${p2}" $(($elapsed % 60000 / 1000)))" \
+                    || p2="${p2} $(($elapsed / 1000))\""
+            fi
+            # milliseconds
+            (( $elapsed >= 1000     && $elapsed < 60000    )) && p2="$(printf "%s%-.03d" "${p2}" $(($elapsed % 1000)))"
+            (( $elapsed <  1000                            )) && p2="${p2} $(($elapsed))ms"
+            p="${p}%F{blue}$endtime %F{cyan}${p2}%{$reset_color%}"
+            #export RPROMPT="\$(reset_rprompt)%F{cyan}${p} %{$reset_color%}"
+            unset timer
+            unset endtime
+        fi
+        export RPROMPT="${p}"
+    fi
 
-	local cmd="$MR_RUNNING_COMMAND"
-	case "$cmd" in \
-		"")
-			#return
-			;;
-		*\033]0*)
-			# The command is trying to set the title bar as well;
-			# this is most likely the execution of $PROMPT_COMMAND.
-			# In any case nested escapes confuse the terminal, so don't
-			# output them.
-			#return
-			;;
-		mr_prompt)
-			;;
-		*)
-			#[[ $MR_RUNNING == "1" ]] && return
-			;;
-	esac
+    local cmd="$MR_RUNNING_COMMAND"
+    case "$cmd" in \
+        "")
+            #return
+            ;;
+        *\033]0*)
+            # The command is trying to set the title bar as well;
+            # this is most likely the execution of $PROMPT_COMMAND.
+            # In any case nested escapes confuse the terminal, so don't
+            # output them.
+            #return
+            ;;
+        mr_prompt)
+            ;;
+        *)
+            #[[ $MR_RUNNING == "1" ]] && return
+            ;;
+    esac
 
-#			echo "MR_LAST is $MR_LAST"
-	echo -ne "\033]0;"
-	echo -ne "$MR_URXVT_TITLE"
-	case "$cmd" in
-		mr_prompt)
-			if [[ $MR_LAST -eq 0 ]]; then
-				echo -ne '\u2713 '
-			else
-				echo -ne '\u2718 '
-			fi
-			;;
-		source*SSHOME*sshrc)
-			;;
-		"")
-			;;
-		*)
-			if [[ $MR_LAST -eq 0 ]]; then
-				echo -ne '\u2713 '
-			else
-				echo -ne '\u2718 '
-			fi
-			#echo -ne '\u2608 '
-			;;
-	esac
-	if [[ -n "$MR_TERM" ]]; then
-		echo -ne "$MR_TERM"
-	elif [[ -n "$SSH_CLIENT" ]]; then
-		echo -ne "ssh"
-	else
-		echo -ne "$TERM"
-	fi
-	echo -ne " - ${USER}@${HOSTNAMEF}:$PWD "
-	case "$cmd" in
-		mr_prompt)
-			#MR_RUNNING=0
-			echo -ne "${MR_PREV_COMMAND}"
-			;;
-		source*SSHOME*sshrc)
-			;;
-		*)
-			#[[ $MR_RUNNING == "0" ]] && MR_PREV_COMMAND="$cmd"
-			#MR_RUNNING=1
-			#MR_LAST_START=$SECONDS
-			#[[ -n "${COLUMNS+1}" ]] && export MR_COLUMNS=$COLUMNS
-			echo -ne "${cmd}"
-			;;
-	esac
-	echo -ne "\007"
+#            echo "MR_LAST is $MR_LAST"
+    echo -ne "\033]0;"
+    echo -ne "$MR_URXVT_TITLE"
+    case "$cmd" in
+        mr_prompt)
+            if [[ $MR_LAST -eq 0 ]]; then
+                echo -ne '\u2713 '
+            else
+                echo -ne '\u2718 '
+            fi
+            ;;
+        source*SSHOME*sshrc)
+            ;;
+        "")
+            ;;
+        *)
+            if [[ $MR_LAST -eq 0 ]]; then
+                echo -ne '\u2713 '
+            else
+                echo -ne '\u2718 '
+            fi
+            #echo -ne '\u2608 '
+            ;;
+    esac
+    if [[ -n "$MR_TERM" ]]; then
+        echo -ne "$MR_TERM"
+    elif [[ -n "$SSH_CLIENT" ]]; then
+        echo -ne "ssh"
+    else
+        echo -ne "$TERM"
+    fi
+    echo -ne " - ${USER}@${HOSTNAMEF}:$PWD "
+    case "$cmd" in
+        mr_prompt)
+            #MR_RUNNING=0
+            echo -ne "${MR_PREV_COMMAND}"
+            ;;
+        source*SSHOME*sshrc)
+            ;;
+        *)
+            #[[ $MR_RUNNING == "0" ]] && MR_PREV_COMMAND="$cmd"
+            #MR_RUNNING=1
+            #MR_LAST_START=$SECONDS
+            #[[ -n "${COLUMNS+1}" ]] && export MR_COLUMNS=$COLUMNS
+            echo -ne "${cmd}"
+            ;;
+    esac
+    echo -ne "\007"
 }
 bindkey "^[[A" history-substring-search-up
 bindkey "^[[B" history-substring-search-down
 bindkey '^r' history-incremental-search-backward
 reset_rprompt() {
-	echo "MR_REST=$MR_REST, timer is $timer"
-	export MR_REST=43243
-	unset timer
-	export RPROMPT=""
+    echo "MR_REST=$MR_REST, timer is $timer"
+    export MR_REST=43243
+    unset timer
+    export RPROMPT=""
 }
 setopt no_share_history # https://stackoverflow.com/questions/9502274/last-command-in-same-terminal
 
@@ -329,32 +329,33 @@ setopt no_share_history # https://stackoverflow.com/questions/9502274/last-comma
 test $UNAME = freebsd || unalias ll # defined as a function in .bashrc
 
 if true; then
-	# https://github.com/robbyrussell/oh-my-zsh/tree/master/plugins/vi-mode
-	bindkey -v
-	#set -o vi
-	bindkey "${terminfo[khome]}" beginning-of-line
-	bindkey "${terminfo[kend]}" end-of-line
-	bindkey ^O vi-forward-blank-word # zsh-autosuggestions
-	#echo bip
+    # https://github.com/robbyrussell/oh-my-zsh/tree/master/plugins/vi-mode
+    bindkey -v
+    #set -o vi
+    bindkey "${terminfo[khome]}" beginning-of-line
+    bindkey "${terminfo[kend]}" end-of-line
+    bindkey '^a' vi-forward-blank-word # zsh-autosuggestions
+    bindkey '^o' autosuggest-accept
+    #echo bip
 else
-	# https://dougblack.io/words/zsh-vi-mode.html
-	bindkey -v
-	bindkey '^P' up-history
-	bindkey '^N' down-history
-	bindkey '^?' backward-delete-char
-	bindkey '^h' backward-delete-char
-	bindkey '^w' backward-kill-word
-	function zle-line-init zle-keymap-select {
-		VIM_PROMPT="%{$fg_bold[yellow]%} [% NORMAL]%  %{$reset_color%}"
-		RPS1="${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/} $EPS1"
-		zle reset-prompt
-	}
-	zle -N zle-line-init
-	zle -N zle-keymap-select
-	export KEYTIMEOUT=1
-	autoload -z edit-command-line
-	zle -N edit-command-line
-	bindkey "^V" edit-command-line
+    # https://dougblack.io/words/zsh-vi-mode.html
+    bindkey -v
+    bindkey '^P' up-history
+    bindkey '^N' down-history
+    bindkey '^?' backward-delete-char
+    bindkey '^h' backward-delete-char
+    bindkey '^w' backward-kill-word
+    function zle-line-init zle-keymap-select {
+        VIM_PROMPT="%{$fg_bold[yellow]%} [% NORMAL]%  %{$reset_color%}"
+        RPS1="${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/} $EPS1"
+        zle reset-prompt
+    }
+    zle -N zle-line-init
+    zle -N zle-keymap-select
+    export KEYTIMEOUT=1
+    autoload -z edit-command-line
+    zle -N edit-command-line
+    bindkey "^V" edit-command-line
 fi
 
 fpath=(~/.zsh/completion $fpath)
