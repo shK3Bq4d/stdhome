@@ -539,7 +539,7 @@ function mr_ssh_add {
      if /usr/bin/ssh-add -l &>/dev/null; then
          true
      else
-         echo -n "$HOSTNAMEF: "
+         echo -n "ssh-add dot.bashfunctions $HOSTNAMEF: "
          /usr/bin/ssh-add -t 43200
      fi
 }
