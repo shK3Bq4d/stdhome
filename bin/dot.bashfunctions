@@ -494,6 +494,15 @@ function ps_parent() {
         PID=$(cut -d ' ' -f 4 /proc/$PID/stat)
     done
 }
+function ks_k8s() {
+    case $HOSTNAMEF in \
+    *-k8s-master*) true ;;
+    *) return ;;
+    esac
+    [[ $EUID -eq 0 ]] \
+    && alias kubectl="     kubectl --kubeconfig=/root/admin.conf" \
+    || alias kubectl="sudo kubectl --kubeconfig=/root/admin.conf"
+}
 function kafka_mr() {
     export KAFKA_JMX_OPTS=" "
     KAFKA_BIN_DIR="$(dirname $({ command locate -e kafka-console-consumer.sh | grep -E 'bin.kafka-console-consumer.sh$'; echo /opt/kafka/bin/mrdefault; } | head -n 1))"
