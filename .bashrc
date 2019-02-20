@@ -289,6 +289,7 @@ alias mv='mv -i'
 alias cp='cp -ip'
 alias ln='ln -i'
 alias rm='rm -i'
+alias chmod='chmod --preserve-root'
 
 alias grep='grep --line-buffered'
 alias igrep='grep -ia --line-buffered'
