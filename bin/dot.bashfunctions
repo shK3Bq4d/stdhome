@@ -759,3 +759,7 @@ os_detection() {
 uname_os_detection() {
     os_detection
 }
+"git-clone.py"() {
+    command git-clone.py $@ &&
+    cd $(cat ~/.tmp/git-clone.py.txt)
+}
