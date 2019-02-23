@@ -124,6 +124,10 @@ alias kubectl='nocorrect kubectl'
 alias minikube='nocorrect minikube'
 alias screen='nocorrect screen'
 alias watch='nocorrect watch'
+"git-clone.py"() {
+    command git-clone.py $@ &&
+    cd $(cat ~/.tmp/git-clone.py.txt)
+}
 case $UNAME in \
     freebsd) alias grep='nocorrect grep --line-buffered -a --color=auto';;
     *) alias grep='nocorrect grep --line-buffered -a --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn}'
