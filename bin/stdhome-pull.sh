@@ -15,7 +15,7 @@ cd $DIR
 branch=stdhome
 
 f=$DIR/bin/dot.bashfunctions
-if ! git config --list | grep -qE '^remote\.[^.]*\.url=http' && con[[ -f $f ]]; then
+if [[ -f $f && -f ~/.ssh/id_rsa ]] && ! git config --list | grep -qE '^remote\.[^.]*\.url=http'; then
     source $f
        start_agent_if_not_started
     mr_ssh_add
