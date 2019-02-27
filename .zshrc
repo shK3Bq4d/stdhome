@@ -203,10 +203,8 @@ function preexec() {
     #export MR_RUNNING="1"
     export timer=$(now_millis)
     export endtime=""
-    test -f /.dockerenv \
-    && echo -ne "\033]0; $1 - $USER@$HOSTNAMEF\007" \
-    || echo -ne "\033]0;\u231b $1 - $USER@$HOSTNAMEF\007"
-    #echo -e "\u231b" # zsh: character not in range, preexec:6: character not in range
+    echo -ne "\033]0;\u231b $1 - $USER@$HOSTNAMEF\007"
+    #echo -e "\u231b" # zsh: character not in range, preexec:6: character not in range: apt install locales-all
 }
 
 #setopt promptsubst #
