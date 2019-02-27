@@ -68,7 +68,9 @@ find $STDHOME_DIRNAME -xdev -name .git -prune -o \( -type f -or -type l \) -prin
 		esac
         # substring the first characters of f corresponding to the length of $PWD
 		echo "iterating over f $f"
-		< /dev/tty stdhome-install-onefile.sh -a "$ACTION" "$f"
+		# < /dev/tty removed to allow run in docker container
+		#< /dev/tty stdhome-install-onefile.sh -a "$ACTION" "$f"
+		echo '' | stdhome-install-onefile.sh -a "$ACTION" "$f"
     done
 find $STDHOME_DIRNAME/bin/githooks -maxdepth 1 -mindepth 1 -type f -print0 | sort -z |
     while read -r -d '' f; do

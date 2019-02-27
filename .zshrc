@@ -2,6 +2,7 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
+test 
 export ZSH=$HOME/.oh-my-zsh
 export GOPATH=~/go
 path=($path $GOPATH/bin) # otherwise kubectl doesn't work per SSH (likely have PATH exported from parent urxvt window when not using SSH)
@@ -203,6 +204,7 @@ function preexec() {
     export timer=$(now_millis)
     export endtime=""
     echo -ne "\033]0;\u231b $1 - $USER@$HOSTNAMEF\007"
+    #echo -e "\u231b" # zsh: character not in range, preexec:6: character not in range: apt install locales-all
 }
 
 #setopt promptsubst #

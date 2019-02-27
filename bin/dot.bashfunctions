@@ -243,7 +243,7 @@ mrfind () {
     echo "${out}" | xargs -d "${sep}" --verbose /usr/bin/find 2>&1| grep -v "Permission denied"
 }
 
-if [[ $UNAME = freebsd ]]; then
+if [[ ${UNAME:-} = freebsd ]]; then
     function cdl () {
         local param
         local extra
