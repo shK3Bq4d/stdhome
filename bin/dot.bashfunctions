@@ -494,6 +494,7 @@ function ps_parent() {
         PID=$(cut -d ' ' -f 4 /proc/$PID/stat)
     done
 }
+
 function ks_k8s() {
     case $HOSTNAMEF in \
     *-k8s-master*) true ;;
@@ -502,7 +503,70 @@ function ks_k8s() {
     [[ $EUID -eq 0 ]] \
     && alias kubectl="     kubectl --kubeconfig=/root/admin.conf" \
     || alias kubectl="sudo kubectl --kubeconfig=/root/admin.conf"
+    eval $(kubectl completion bash)
+    alias kaf='kubectl apply -f'
+    alias kb='kubectl --context=bravo.clusters.greypay.net'
+    alias kc='kubectl --context=charlie.clusters.greypay.net'
+    alias kccc='kubectl config current-context'
+    alias kcdc='kubectl config delete-context'
+    alias kcp='kubectl cp'
+    alias kcsc='kubectl config set-context'
+    alias kcuc='kubectl config use-context'
+    alias kdcm='kubectl describe configmap'
+    alias kdd='kubectl describe deployment'
+    alias kdel='kubectl delete'
+    alias kdelcm='kubectl delete configmap'
+    alias kdeld='kubectl delete deployment'
+    alias kdelf='kubectl delete -f'
+    alias kdeli='kubectl delete ingress'
+    alias kdelno='kubectl delete node'
+    alias kdelns='kubectl delete namespace'
+    alias kdelp='kubectl delete pods'
+    alias kdels='kubectl delete svc'
+    alias kdelsec='kubectl delete secret'
+    alias kdi='kubectl describe ingress'
+    alias kdno='kubectl describe node'
+    alias kdns='kubectl describe namespace'
+    alias kdp='kubectl describe pods'
+    alias kds='kubectl describe svc'
+    alias kdsec='kubectl describe secret'
+    alias kecm='kubectl edit configmap'
+    alias ked='kubectl edit deployment'
+    alias kei='kubectl edit ingress'
+    alias keno='kubectl edit node'
+    alias kens='kubectl edit namespace'
+    alias kep='kubectl edit pods'
+    alias kes='kubectl edit svc'
+    alias keti='kubectl exec -ti'
+    alias kga='kubectl get all'
+    alias kgaa='kubectl get all --all-namespaces'
+    alias kgcm='kubectl get configmaps'
+    alias kgd='kubectl get deployment'
+    alias kgdw='kgd --watch'
+    alias kgdwide='kgd -o wide'
+    alias kgi='kubectl get ingress'
+    alias kgno='kubectl get nodes'
+    alias kgns='kubectl get namespaces'
+    alias kgp='kubectl get pods'
+    alias kgpl='kgp -l'
+    alias kgpw='kgp --watch'
+    alias kgpwide='kgp -o wide'
+    alias kgrs='kubectl get rs'
+    alias kgs='kubectl get svc'
+    alias kgsec='kubectl get secret'
+    alias kgsw='kgs --watch'
+    alias kgswide='kgs -o wide'
+    alias kl='kubectl logs'
+    alias klf='kubectl logs -f'
+    alias kp='kubectl --context=prod.clusters.greypay.net'
+    alias kpf='kubectl port-forward'
+    alias krh='kubectl rollout history'
+    alias krsd='kubectl rollout status deployment'
+    alias kru='kubectl rollout undo'
+    alias ks='kubectl --context=staging.clusters.greypay.net'
+    alias ksd='kubectl scale deployment'
 }
+
 function kafka_mr() {
     export KAFKA_JMX_OPTS=" "
     KAFKA_BIN_DIR="$(dirname $({ command locate -e kafka-console-consumer.sh | grep -E 'bin.kafka-console-consumer.sh$'; echo /opt/kafka/bin/mrdefault; } | head -n 1))"
@@ -522,6 +586,7 @@ BL:             $BL
 BSS:            $BSS
          " | grep -iE --color=always '^|kafka'
 }
+
 function stdworkon() {
     if [[ $# -ne 1 ]]; then
         echo "FATAL: nb args not equal to 1. Ex: stdworkon private"
@@ -536,6 +601,7 @@ function stdworkon() {
     echo "export GIT_DIR=\"$d\""
     export GIT_DIR="$d"
 }
+
 function .() {
     if [[ $# -eq 0 ]]; then
         cd ..
@@ -543,7 +609,9 @@ function .() {
         source "$@"
     fi
 }
+
 SSH_ENV=$HOME/.ssh/environment
+
 function mr_ssh_add {
      if /usr/bin/ssh-add -l &>/dev/null; then
          true
@@ -552,6 +620,7 @@ function mr_ssh_add {
          /usr/bin/ssh-add -t 43200
      fi
 }
+
 function start_agent {
     if [[ -d $(dirname $SSH_ENV) ]]; then
         echo "Initialising new SSH agent..."
@@ -562,6 +631,7 @@ function start_agent {
         source ${SSH_ENV} > /dev/null
     fi
 }
+
 function start_agent_if_not_started {
     if [ -f "${SSH_ENV}" ]; then
         source ${SSH_ENV} > /dev/null
@@ -587,9 +657,11 @@ function start_agent_if_not_started {
          start_agent;
     fi
 }
+
 function mrless() {
     less --raw-control-chars --quit-if-one-screen --ignore-case --status-column --no-init
 }
+
 function aliashelp() {
     # hardcoded for zsh
     arg1=$1
