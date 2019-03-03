@@ -2,7 +2,6 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-test 
 export ZSH=$HOME/.oh-my-zsh
 export GOPATH=~/go
 path=($path $GOPATH/bin) # otherwise kubectl doesn't work per SSH (likely have PATH exported from parent urxvt window when not using SSH)
@@ -130,11 +129,18 @@ alias watch='nocorrect watch'
     cd $(cat ~/.tmp/git-clone.py.txt)
 }
 "kubectl-get-yaml.py"() {
-	local mrcolorsafe
-	mrcolorsafe=0
-	test -t 1 && mrcolorsafe=1
-	MRCOLORSAFE=$mrcolorsafe command kubectl-get-yaml.py "$@" | less
+    local mrcolorsafe
+    mrcolorsafe=0
+    test -t 1 && mrcolorsafe=1
+    MRCOLORSAFE=$mrcolorsafe command kubectl-get-yaml.py "$@" | less
 }
+complete_function() {
+    local f=$1; shift
+    compdef -e "words[1]=( ${${(qq)@}} ); (( CURRENT += $# - 1 )); _normal" $f
+  }
+complete_function kubectl-get-yaml.py   kubectl get
+complete_function kubectl-watch-pods.sh kubectl get pods
+
 case $UNAME in \
     freebsd) alias grep='nocorrect grep --line-buffered -a --color=auto';;
     *) alias grep='nocorrect grep --line-buffered -a --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn}'
