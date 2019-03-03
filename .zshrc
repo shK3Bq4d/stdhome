@@ -129,6 +129,9 @@ alias watch='nocorrect watch'
     command git-clone.py $@ &&
     cd $(cat ~/.tmp/git-clone.py.txt)
 }
+"kubectl-get-yaml.py"() {
+	MRCOLORSAFE=1 command kubectl-get-yaml.py "$@" | less
+}
 case $UNAME in \
     freebsd) alias grep='nocorrect grep --line-buffered -a --color=auto';;
     *) alias grep='nocorrect grep --line-buffered -a --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn}'
