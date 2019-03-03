@@ -130,7 +130,10 @@ alias watch='nocorrect watch'
     cd $(cat ~/.tmp/git-clone.py.txt)
 }
 "kubectl-get-yaml.py"() {
-	MRCOLORSAFE=1 command kubectl-get-yaml.py "$@" | less
+	local mrcolorsafe
+	mrcolorsafe=0
+	test -t 1 && mrcolorsafe=1
+	MRCOLORSAFE=$mrcolorsafe command kubectl-get-yaml.py "$@" | less
 }
 case $UNAME in \
     freebsd) alias grep='nocorrect grep --line-buffered -a --color=auto';;
