@@ -831,3 +831,21 @@ os_detection() {
 uname_os_detection() {
     os_detection
 }
+mrcd() {
+    local d
+    for var in "$@"; do
+        if [[ -d "$var" ]]; then
+            cd "$var"
+        else
+            d="$(find . -type d -iname '*'"$var"'*' | awk '{ print length, $0 }' | sort -n -s | cut -d" " -f2- | head -n 1)"
+            test -z "$d" && echo "stopped at $var" && return
+            cd "$d"
+        fi
+    done
+}
+alias bin='mrcd ~/bin $*'
+alias cddoc='mrcd ~/doc $*'
+alias dl='mrcd ~/Downloads $*'
+alias music='mrcd ~/Music $*'
+alias pic='mrcd ~/Pictures $*'
+alias cdgit='mrcd ~/git $*'
