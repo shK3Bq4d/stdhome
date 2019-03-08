@@ -19,6 +19,7 @@ export UNAME="$(uname)"
 if is_zsh; then
     UNAME="$UNAME:l"
 else
+    alias nocorrect=''
     UNAME="${UNAME,,}"
     shopt -s histappend
     if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
