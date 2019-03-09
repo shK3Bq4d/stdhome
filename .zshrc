@@ -51,7 +51,7 @@ ENABLE_CORRECTION="true"
 HIST_STAMPS="dd.mm.yyyy"
 
 typeset -A ZSH_HIGHLIGHT_STYLES
-ZSH_HIGHLIGHT_STYLES[comment]='fg=blue,italic'
+ZSH_HIGHLIGHT_STYLES[comment]='fg=blue,underline,italic'
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
