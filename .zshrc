@@ -142,6 +142,7 @@ complete_function() {
   }
 complete_function kubectl-get-yaml.py   kubectl get
 complete_function kubectl-watch-pods.sh kubectl get pods
+complete_function kubectl-debug-tail-pod.sh kubectl get pods
 
 case $UNAME in \
     freebsd) alias grep='nocorrect grep --line-buffered -a --color=auto';;
