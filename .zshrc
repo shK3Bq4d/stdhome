@@ -50,6 +50,8 @@ ENABLE_CORRECTION="true"
 # HIST_STAMPS="mm/dd/yyyy"
 HIST_STAMPS="dd.mm.yyyy"
 
+typeset -A ZSH_HIGHLIGHT_STYLES
+ZSH_HIGHLIGHT_STYLES[comment]='bg=red,fg=black,italic'
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
