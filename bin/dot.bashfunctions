@@ -843,9 +843,9 @@ mrcd() {
         fi
     done
 }
-alias bin='mrcd ~/bin $*'
-alias cddoc='mrcd ~/doc $*'
-alias dl='mrcd ~/Downloads $*'
-alias music='mrcd ~/Music $*'
-alias pic='mrcd ~/Pictures $*'
-alias gi='mrcd ~/git $*'
+alias bin='nocorrect mrcd ~/bin $*'
+alias cddoc='nocorrect mrcd ~/doc $*'
+alias dl='nocorrect mrcd ~/Downloads $*'
+alias music='nocorrect mrcd ~/Music $*'
+alias pic='nocorrect mrcd ~/Pictures $*'
+alias gi='nocorrect mrcd ~/git $*'
