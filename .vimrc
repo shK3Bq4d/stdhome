@@ -224,6 +224,14 @@ func! MrBlockToUnicodeFunc()
 endfunc
 command! -range=% MrBlockToUnicode :<line1>,<line2>:call MrBlockToUnicodeFunc()
 
+func! MrFixWhiteSpaceFunc()
+	":<line1>,<line2>!fix-whitespaces.py &spl
+	"exec ":<line1>,<line2>!tr '[:lower:]' '[:upper:]'"
+	exec "silent !tac"
+endfunc
+command! -range=% MrFixWhiteSpace2 :<line1>,<line2>:call MrFixWhiteSpaceFunc()
+command! -range=% MrFixWhiteSpace exec ":<line1>,<line2>!fix-whitespaces.py --tab-stops " . &ts
+
 :command! MrConfluence :TOhtml | :%!html2confluencewiki_bis.py
 :command! MrAlign0space :AlignCtrl "Ilp0P0=" '='
 :command! MrAlign0left1right :AlignCtrl "Ilp0P1" '='
@@ -237,7 +245,7 @@ command! -range=% RemoveTrailingWhitespace <line1>,<line2>s/\(\s\| \)\+$// | nor
 command! -range=% RT                       <line1>,<line2>RemoveTrailingWhitespace
 command! -range=% MrMergeSingleQuote      :<line1>,<line2>!merge_single_quote.py
 command! -range=% MrMergeComma            :<line1>,<line2>!merge_comma.py
-:command! MrFixWhiteSpace :set expandtab | :silent! %s/[ \t]\+$// | :silent! %s/\t/    /g | norm! ``
+":command! MrFixWhiteSpace :set expandtab | :silent! %s/[ \t]\+$// | :silent! %s/\t/    /g | norm! ``
 :command! -range=% MrTasksFromBullet :silent! <line1>,<line2>g/^\s*\*\s*[^\[ \t]/ s/\*\s\?/* [ ] / | :noh | norm! ``
 :command! -range=% MrTasksReset :silent! <line1>,<line2>s/\[.\]/[ ]/ | :noh | norm! ``
 :command! MrReloadVimrc :so $MYVIMRC | :noh
