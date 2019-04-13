@@ -225,9 +225,9 @@ endfunc
 command! -range=% MrBlockToUnicode :<line1>,<line2>:call MrBlockToUnicodeFunc()
 
 func! MrFixWhiteSpaceFunc()
-	":<line1>,<line2>!fix-whitespaces.py &spl
-	"exec ":<line1>,<line2>!tr '[:lower:]' '[:upper:]'"
-	exec "silent !tac"
+    ":<line1>,<line2>!fix-whitespaces.py &spl
+    "exec ":<line1>,<line2>!tr '[:lower:]' '[:upper:]'"
+    exec "silent !tac"
 endfunc
 command! -range=% MrFixWhiteSpace2 :<line1>,<line2>:call MrFixWhiteSpaceFunc()
 command! -range=% MrFixWhiteSpace exec ":<line1>,<line2>!fix-whitespaces.py --tab-stops " . &ts
