@@ -22,9 +22,9 @@ if [[ -f $f && -f ~/.ssh/id_rsa ]] && ! git config --list | grep -qE '^remote\.[
 fi
 test -x ~/bin/container-ip.sh && ~/bin/container-ip.sh &>/dev/null
 for remote in $(git remote show); do
-    if [[ "$remote" == ksgitlab ]] && [[ -f ~/.ssh/id_rsa_ks ]] && ! ssh-add -L | grep -q id_rsa_ks; then
-        ssh-add ~/.ssh/id_rsa_ks
-    fi
+    #if [[ "$remote" == ksgitlab ]] && [[ -f ~/.ssh/id_rsa_ks ]] && ! ssh-add -L | grep -q id_rsa_ks; then
+    #    ssh-add ~/.ssh/id_rsa_ks
+    #fi
     git fetch $remote $branch
 done
 git remote show | grep -q . && \
@@ -33,22 +33,18 @@ set -x
 bash -x $DIR/bin/stdhome-remove-deadlinks.sh
 $DIR/bin/stdothers.sh | while read repo; do
     set -x
-    #export GIT_DIR="$repo/.git"
-    #export GIT_WORK_TREE="$HOME"
-    #git config core.worktree "$GIT_WORK_TREE"
     cd $repo
     branch=$(basename $repo noexternalcheckout)
     test $branch == stdtsys && branch=$(git rev-parse --abbrev-ref HEAD)
     for remote in $(git remote show); do
-        if [[ "$remote" == ksgitlab ]] && [[ -f ~/.ssh/id_rsa_ks ]] && ! ssh-add -L | grep -q id_rsa_ks; then
-            ssh-add ~/.ssh/id_rsa_ks
-        fi
+        #if [[ "$remote" == ksgitlab ]] && [[ -f ~/.ssh/id_rsa_ks ]] && ! ssh-add -L | grep -q id_rsa_ks; then
+        #    ssh-add ~/.ssh/id_rsa_ks
+        #fi
         curbranch=$(git rev-parse --abbrev-ref HEAD)
         if [[ "$branch" != "$curbranch" ]]; then
             git checkout -b "$branch" &>/dev/null || git checkout "$branch"
             git branch -D master || true
         fi
-        #git pull $remote $branch --no-rebase
         git fetch $remote $branch
     done
     git remote show | grep -q . && \
