@@ -13,7 +13,7 @@ set -euo pipefail
 DIR="$( cd -P "$( dirname "$(readlink -f "${BASH_SOURCE[0]}")" )" && pwd )"
 cd $($DIR/stdhome-dirname.sh)
 cd ..
-excludepattern='noexternalcheckout|stdhome' 
+excludepattern='noexternalcheckout|stdhome|stdks' 
 [[ $# -eq 1 && $1 == '-e' ]] && excludepattern='stdhome' 
 ls -1d std*/ |\
 	grep -vE "$excludepattern" |\
