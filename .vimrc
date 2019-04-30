@@ -177,8 +177,13 @@ set viminfo+=n$RCD/.tmp/vim/viminfo
 let g:lucius_no_term_bg=1 " s'assure que le colorscheme lucius ne set pas le background color
 "colorscheme desert
 try
+    let g:lucius_style="light"
     colorscheme lucius
-    LuciusLight
+    try
+        LuciusLight
+    catch /^Vim\%((\a\+)\)\=:E492/
+        " old version of Lucius exported the command, now let g:lucius_style="light" is the way to go
+    endtry
 catch /^Vim\%((\a\+)\)\=:E185/
     colorscheme default
     " deal with it
