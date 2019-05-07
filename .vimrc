@@ -358,6 +358,14 @@ func! MrSyntaxRange()
         " deal with it
     endtry
     try
+        call SyntaxRange#Include('@begin=tf@'      ,'@end=tf@'      ,'tf','NonText')
+        call SyntaxRange#Include('```tf'      ,'```'      ,'tf','NonText')
+    catch /^Vim\%((\a\+)\)\=:E117/
+        " deal with it
+    catch /^Vim\%((\a\+)\)\=:E484/
+        " deal with it
+    endtry
+    try
         call SyntaxRange#Include('@begin=json@'      ,'@end=json@'      ,'javascript','NonText')
         call SyntaxRange#Include('```json'      ,'```'      ,'javascript','NonText')
     catch /^Vim\%((\a\+)\)\=:E117/
