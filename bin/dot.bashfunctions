@@ -133,11 +133,18 @@ function py() {
     rehash
     [[ $? -eq 0 && -f "$RET" ]] && $EDITOR "$RET"
 }
+
 function newsh() {
     RET="$(~/bin/newsh "$@")"
     rehash
     [[ $? -eq 0 && -f "$RET" ]] && $EDITOR "$RET"
 }
+
+function newansible() {
+    RET="$(~/bin/newansible "$@")"
+    [[ $? -eq 0 && -f "$RET" ]] && $EDITOR "$RET"
+}
+
 function cdd() {
     local DIR
     local idx
