@@ -146,6 +146,9 @@ complete_function kubectl-get-yaml.py       kubectl get
 complete_function kubectl-watch-pods.sh     kubectl get pods
 complete_function kubectl-watch-events.sh   kubectl get events
 complete_function kubectl-debug-tail-pod.sh kubectl get pods
+compdef "ssh-no-host-checking"=ssh
+compdef ssh-vagrant=ssh
+#complete_function ssh-no-host-checking ssh
 
 case $UNAME in \
     freebsd) alias grep='nocorrect grep --line-buffered -a --color=auto';;
