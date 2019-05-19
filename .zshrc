@@ -109,6 +109,7 @@ unsetopt null_glob
 #
 #source ~/bin/dot.bashfunctions
 source ~/.bashrc
+alias setxkbmap='nocorrect setxkbmap'
 alias vagrant='nocorrect vagrant'
 alias doc='nocorrect doc'
 alias az='nocorrect az'
