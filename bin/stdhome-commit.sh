@@ -6,27 +6,27 @@ unset GIT_WORK_TREE
 DIR="$( cd -P "$( dirname $(readlink  -f "${BASH_SOURCE[0]}" ) )/.." && pwd )"
 
 if [[ ! -f ~/.gitconfig ]]; then
-	echo -n "Enter your name and press [ENTER]: "
-	read name
-	echo -n "Enter your email and press [ENTER]: "
-	read email
-	echo "
+    echo -n "Enter your name and press [ENTER]: "
+    read name
+    echo -n "Enter your email and press [ENTER]: "
+    read email
+    echo "
 [user]
     name = $name
-	email = $email
-	" > ~/.gitconfig
+    email = $email
+    " > ~/.gitconfig
 fi
 
 
 cd $DIR
 $DIR/bin/stdhome-remove-deadlinks.sh
 git commit -am "auto commit $(date)" || true
-$DIR/bin/stdothers.sh | while read repo; do
-	if [[ "$repo" == *stdtsys ]]; then
-		continue
-	fi
-	cd $repo
-	git commit -am "auto commit $(date)" || true
+$DIR/bin/stdothers.sh | grep -vE 'stdks' | while read repo; do
+    if [[ "$repo" == *stdtsys ]]; then
+        continue
+    fi
+    cd $repo
+    git commit -am "auto commit $(date)" || true
 done
 $DIR/bin/stdhome-pull.sh
 $DIR/bin/stdhome-push.sh

@@ -23,7 +23,7 @@ for remote in $(git remote show); do
         git push $remote $branch
     fi
 done
-$DIR/bin/stdothers.sh | while read repo; do
+$DIR/bin/stdothers.sh | grep -vE 'stdks' | while read repo; do
     set -x
     cd $repo
     branch=$(basename $repo noexternalcheckout)

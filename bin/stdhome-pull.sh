@@ -31,7 +31,7 @@ git remote show | grep -q . && \
     git merge -m automerge $(git remote show | sed -r -e "s/$/\\/$branch/")
 set -x
 bash -x $DIR/bin/stdhome-remove-deadlinks.sh
-$DIR/bin/stdothers.sh | while read repo; do
+$DIR/bin/stdothers.sh | grep -vE 'stdks' | while read repo; do
     set -x
     cd $repo
     branch=$(basename $repo noexternalcheckout)
