@@ -129,6 +129,7 @@ alias kubectl='nocorrect kubectl'
 alias minikube='nocorrect minikube'
 alias screen='nocorrect screen'
 alias watch='nocorrect watch'
+alias ncal='ncal -M'
 "git-clone.py"() {
     command git-clone.py $@ &&
     cd $(cat ~/.tmp/git-clone.py.txt)
