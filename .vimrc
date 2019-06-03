@@ -472,7 +472,7 @@ map <ScrollWheelRight> <nop>
 map <S-ScrollWheelRight> <nop>
 map <C-ScrollWheelRight> <nop>
 " terminal see tab as C-i
-map <C-i> <Esc>:bnext<CR>
+"map <C-i> <Esc>:bnext<CR>
 
 let g:airline_powerline_fonts = 1
 let g:airline_theme='papercolor'
