@@ -196,9 +196,7 @@ alias -g N2='2>/dev/null'
 
 alias -g NH='&>/dev/null &'
 
-alias -g X='2>&1|xargs -'
-alias -g X1='2>/dev/null|X'
-alias -g X2='2>&1 >/dev/null|X'
+alias -g X='|xargs --open-tty --verbose --no-run-if-empty'
 
 alias findf='find . -type f'
 

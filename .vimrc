@@ -132,7 +132,7 @@ au BufReadPost * if getfsize(bufname("%")) > 90*1024 |
 ":nnoremap z y
 
 ":map <C-q> <Esc>:qa!<CR>
-:map <C-i> :set cursorcolumn<CR><C-q>
+:map <C-a> :set cursorcolumn<CR><C-q>
 :nnoremap ö :
 :nnoremap Z Y
 :nnoremap zz yy
@@ -472,7 +472,7 @@ map <ScrollWheelRight> <nop>
 map <S-ScrollWheelRight> <nop>
 map <C-ScrollWheelRight> <nop>
 " terminal see tab as C-i
-"map <C-i> <Esc>:bnext<CR>
+map <C-i> <Esc>:bnext<CR>
 
 let g:airline_powerline_fonts = 1
 let g:airline_theme='papercolor'
