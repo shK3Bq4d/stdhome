@@ -197,6 +197,10 @@ alias -g N2='2>/dev/null'
 alias -g NH='&>/dev/null &'
 
 alias -g X='|xargs --open-tty --verbose --no-run-if-empty'
+alias -g 'X@'='|xargs --open-tty --verbose --no-run-if-empty -I@'
+alias -g X1='|xargs --open-tty --verbose --no-run-if-empty -n 1'
+alias -g 'X@1'='|xargs --open-tty --verbose --no-run-if-empty -I@ -n 1'
+alias -g 'X1@'='|xargs --open-tty --verbose --no-run-if-empty -I@ -n 1'
 
 alias findf='find . -type f'
 
