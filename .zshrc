@@ -59,7 +59,7 @@ ZSH_HIGHLIGHT_STYLES[comment]='fg=blue,underline,italic'
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-autosuggestions history-substring-search vi-mode-mr z kubectl zsh-syntax-highlighting) # zsh-syntax-highlighting must be the last
+plugins=(git zsh-autosuggestions history-substring-search vi-mode-mr z kubectl ansible zsh-syntax-highlighting) # zsh-syntax-highlighting must be the last
 # minikube # minikube init seams slowish
 # helm # doesn't complet
 typeset -U path
@@ -389,7 +389,7 @@ else
     bindkey "^V" edit-command-line
 fi
 
-fpath=(~/.zsh/completion $fpath)
+fpath=(~/.zsh/completion ~/.zsh/completion/*/ ~/.oh/$fpath)
 autoload -U compinit
 compinit
 # show completion menu when number of options is at least 2
