@@ -171,7 +171,9 @@ function cdd() {
 }
 
 function ssh() {
-    local BIN OPTS f
+    local BIN OPTS f p
+    p="$PATH"
+    test $UNAME = freebsd && test -f /usr/local/bin/ssh && p="/usr/local/bin:$PATH"
     BIN=ssh
     OPTS=""
 
@@ -209,7 +211,7 @@ function ssh() {
         *)
             ;;
     esac
-    TERM=$TERM command $BIN $(echo $OPTS) "$@"
+    PATH="$p" TERM=$TERM command $BIN $(echo $OPTS) "$@"
 }
 
 tomr () {
