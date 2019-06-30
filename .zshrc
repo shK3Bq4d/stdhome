@@ -202,6 +202,24 @@ alias -g X1='|xargs --open-tty --verbose --no-run-if-empty -n 1'
 alias -g 'X@1'='|xargs -n 1 |xargs --open-tty --verbose --no-run-if-empty -I@'
 alias -g 'X1@'='|xargs -n 1 |xargs --open-tty --verbose --no-run-if-empty -I@'
 
+alias -g P1='|awk "{ print \$1 }"'
+alias -g P2='|awk "{ print \$2 }"'
+alias -g P3='|awk "{ print \$3 }"'
+alias -g P4='|awk "{ print \$4 }"'
+alias -g P5='|awk "{ print \$5 }"'
+alias -g P6='|awk "{ print \$6 }"'
+alias -g P7='|awk "{ print \$7 }"'
+alias -g P8='|awk "{ print \$8 }"'
+alias -g P9='|awk "{ print \$9 }"'
+
+alias -g P12='|awk "{ print \$1 \" \" \$2 }"'
+alias -g P13='|awk "{ print \$1 \" \" \$3 }"'
+alias -g P23='|awk "{ print \$2 \" \" \$3 }"'
+
+alias -g P21='|awk "{ print \$2 \" \" \$1 }"'
+alias -g P31='|awk "{ print \$3 \" \" \$1 }"'
+alias -g P32='|awk "{ print \$3 \" \" \$2 }"'
+
 alias findf='find . -type f'
 
 # https://github.com/robbyrussell/oh-my-zsh/pull/3434/files
