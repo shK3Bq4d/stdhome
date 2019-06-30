@@ -389,7 +389,7 @@ else
     bindkey "^V" edit-command-line
 fi
 
-fpath=(~/.zsh/completion ~/.zsh/completion/*/ ~/.oh/$fpath)
+fpath=(~/.zsh/completion ~/.zsh/completion/*/ $fpath)
 autoload -U compinit
 compinit
 # show completion menu when number of options is at least 2
