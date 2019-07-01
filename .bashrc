@@ -68,9 +68,9 @@ if ! hash chmod &>/dev/null; then
 fi
 if [[ -z $HOSTNAMEF ]]; then
     if [[ -L /usr/bin/timeout ]] && [[ $(readlink -f /usr/bin/timeout) == *busybox ]]; then
-        export HOSTNAMEF=$(timeout -t 3 hostname -f)
+        export HOSTNAMEF=$(timeout -t 3 hostname -f | tr '[:upper:]' '[:lower:]')
     else
-        export HOSTNAMEF=$(timeout 3 hostname -f)
+        export HOSTNAMEF=$(timeout 3 hostname -f | tr '[:upper:]' '[:lower:]')
     fi
 fi
 [[ -z $HOSTNAME ]] && export HOSTNAME=${HOSTNAMEF//\.*/}
