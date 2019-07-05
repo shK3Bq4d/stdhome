@@ -237,6 +237,7 @@ cygwin*)
 *)
     #mrbg() { nohup "$@" &>/dev/null &; disown; }
     alias xargs='xargs -r'
+    alias chmod='chmod --preserve-root'
     function ll() {
         if [[ -z "$1" ]]; then
             ls -lhFa --group-directories-first
@@ -291,7 +292,6 @@ alias mv='mv -i'
 alias cp='cp -ip'
 alias ln='ln -i'
 alias rm='rm -i'
-alias chmod='chmod --preserve-root'
 
 alias grep='grep --line-buffered'
 alias igrep='grep -ia --line-buffered'
