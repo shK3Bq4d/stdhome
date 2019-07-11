@@ -506,7 +506,11 @@ endfunction
 "call Py3()   " default to Py3 because I try to use it when possible
 call Py2()   " default to Py2 because of legacy scripts
 set clipboard=
-:set nofixendofline
+try
+    :set nofixendofline
+catch /./
+    " no supported in old versions
+endtry
 :command! En :set spl=en
 :command! Fr :set spl=fr
 let &t_SI = "\<Esc>[5 q"
