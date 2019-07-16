@@ -507,7 +507,7 @@ endfunction
 call Py2()   " default to Py2 because of legacy scripts
 set clipboard=
 try
-    :set nofixendofline
+    :set fixendofline
 catch /./
     " no supported in old versions
 endtry
