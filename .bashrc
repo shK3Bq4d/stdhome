@@ -221,6 +221,7 @@ freebsd)
     export LANG=en_US.UTF-8
     export LC_MESSAGES=C
     alias watch='gnu-watch'
+    alias tac='tail -r'
     ! hash md5sum 2>/dev/null && hash md5deep 2>/dev/null && alias md5sum=md5deep
     alias netstat='echo use sockcat -l or command netstat'
     #alias locate='locate -i'
