@@ -230,7 +230,7 @@ freebsd)
     alias ,='ls -lhFa'
     alias updatedb='/usr/libexec/locate.updatedb'
     ;;
-cygwin*)
+cygwin*|msys*)
     alias pkill='taskkill.exe /f /im $*'
     alias ps='tasklist.exe'
     alias xargs='xargs -r'
@@ -327,7 +327,7 @@ done
 PERL_MB_OPT="--install_base \"$HOME/perl5\""; export PERL_MB_OPT;
 PERL_MM_OPT="INSTALL_BASE=$HOME/perl5"; export PERL_MM_OPT;
 
-if [[ $UID -ne 0 ]]; then
+if [[ $UID -ne 0 && $UNAME != cygwin* && $UNAME != msys* ]]; then
     # Source SSH settings, if applicable
 
     if [[ -z ${SSH_CLIENT+1} ]]; then # only start agent if not running inside SSH session

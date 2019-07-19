@@ -174,6 +174,8 @@ alias -g T='2>&1|tail'
 alias -g T1='2>/dev/null|T'
 alias -g T2='2>&1 >/dev/null|T'
 
+alias -g XV="|xargs bash -c '</dev/tty vim \$@' ignoreme" # doesn't work
+
 alias -g C='2>&1|cat'
 alias -g C1='2>/dev/null|C'
 alias -g C2='2>&1 >/dev/null|C'
