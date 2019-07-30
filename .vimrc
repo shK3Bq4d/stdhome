@@ -457,7 +457,9 @@ nnoremap <c-p> :call UpByIndent()<cr>
 
 " disable mouse interactions "
 set mouse=
-set ttymouse=
+if empty($SSH_CLIENT) " mintty citrix problem
+    set ttymouse=
+endif
 autocmd BufEnter * set mouse=
 map <ScrollWheelUp> <nop>
 map <S-ScrollWheelUp> <nop>
