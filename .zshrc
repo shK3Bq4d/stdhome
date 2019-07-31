@@ -153,9 +153,24 @@ compdef ssh-vagrant=ssh
 #complete_function ssh-no-host-checking ssh
 
 case $UNAME in \
-    freebsd) alias grep='nocorrect grep --line-buffered -a --color=auto';;
-    *) alias grep='nocorrect grep --line-buffered -a --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn}'
+freebsd)
+	alias grep='nocorrect grep --line-buffered -a --color=auto'
+	alias -g X='|xargs -o'
+	alias -g 'X@'='|xargs -o -I@'
+	alias -g X1='|xargs -o -n 1'
+	alias -g 'X@1'='|xargs -n 1 |xargs -o -I@'
+	alias -g 'X1@'='|xargs -n 1 |xargs -o -I@'
+	;;
+*)
+	alias grep='nocorrect grep --line-buffered -a --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn}'
+	alias -g X='|xargs --open-tty --verbose --no-run-if-empty'
+	alias -g 'X@'='|xargs --open-tty --verbose --no-run-if-empty -I@'
+	alias -g X1='|xargs --open-tty --verbose --no-run-if-empty -n 1'
+	alias -g 'X@1'='|xargs -n 1 |xargs --open-tty --verbose --no-run-if-empty -I@'
+	alias -g 'X1@'='|xargs -n 1 |xargs --open-tty --verbose --no-run-if-empty -I@'
+	;;
 esac
+alias -g XV="|xargs bash -c '</dev/tty vim \$@' ignoreme" # doesn't work
 alias git='nocorrect git'
 
 alias -g LA='$(last)'
@@ -174,7 +189,6 @@ alias -g T='2>&1|tail'
 alias -g T1='2>/dev/null|T'
 alias -g T2='2>&1 >/dev/null|T'
 
-alias -g XV="|xargs bash -c '</dev/tty vim \$@' ignoreme" # doesn't work
 
 alias -g C='2>&1|cat'
 alias -g C1='2>/dev/null|C'
@@ -198,11 +212,6 @@ alias -g N2='2>/dev/null'
 
 alias -g NH='&>/dev/null &'
 
-alias -g X='|xargs --open-tty --verbose --no-run-if-empty'
-alias -g 'X@'='|xargs --open-tty --verbose --no-run-if-empty -I@'
-alias -g X1='|xargs --open-tty --verbose --no-run-if-empty -n 1'
-alias -g 'X@1'='|xargs -n 1 |xargs --open-tty --verbose --no-run-if-empty -I@'
-alias -g 'X1@'='|xargs -n 1 |xargs --open-tty --verbose --no-run-if-empty -I@'
 
 alias -g P1='|awk "{ print \$1 }"'
 alias -g P2='|awk "{ print \$2 }"'
