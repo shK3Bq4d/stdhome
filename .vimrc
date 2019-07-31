@@ -318,7 +318,6 @@ inoremap <ScrollWheelDown> <Nop>
 
 func! MrSyntaxRange()
     try
-        call SyntaxRange#Include('@begin=markdown@'       ,'@end=markdown@'       ,'markdown'       ,'NonText')
         call SyntaxRange#Include('```markdown'       ,'```'       ,'markdown'       ,'NonText')
     catch /^Vim\%((\a\+)\)\=:E117/
         " deal with it
@@ -326,7 +325,6 @@ func! MrSyntaxRange()
         " deal with it
     endtry
     try
-        call SyntaxRange#Include('@begin=css@'       ,'@end=css@'       ,'css'       ,'NonText')
         call SyntaxRange#Include('```css'       ,'```'       ,'css'       ,'NonText')
     catch /^Vim\%((\a\+)\)\=:E117/
         " deal with it
@@ -334,7 +332,6 @@ func! MrSyntaxRange()
         " deal with it
     endtry
     try
-        call SyntaxRange#Include('@begin=docker@'    ,'@end=docker@'    ,'Dockerfile','NonText')
         call SyntaxRange#Include('```docker'    ,'```'    ,'Dockerfile','NonText')
     catch /^Vim\%((\a\+)\)\=:E117/
         " deal with it
@@ -342,7 +339,6 @@ func! MrSyntaxRange()
         " deal with it
     endtry
     try
-        call SyntaxRange#Include('@begin=html@'      ,'@end=html@'      ,'html'      ,'NonText')
         call SyntaxRange#Include('```html'      ,'```'      ,'html'      ,'NonText')
     catch /^Vim\%((\a\+)\)\=:E117/
         " deal with it
@@ -350,7 +346,7 @@ func! MrSyntaxRange()
         " deal with it
     endtry
     try
-        call SyntaxRange#Include('@begin=javascript@','@end=javascript@','javascript','NonText')
+        call SyntaxRange#Include('```js','```','javascript','NonText')
         call SyntaxRange#Include('```javascript','```','javascript','NonText')
     catch /^Vim\%((\a\+)\)\=:E117/
         " deal with it
@@ -358,7 +354,6 @@ func! MrSyntaxRange()
         " deal with it
     endtry
     try
-        call SyntaxRange#Include('@begin=tf@'      ,'@end=tf@'      ,'tf','NonText')
         call SyntaxRange#Include('```tf'      ,'```'      ,'tf','NonText')
     catch /^Vim\%((\a\+)\)\=:E117/
         " deal with it
@@ -366,7 +361,6 @@ func! MrSyntaxRange()
         " deal with it
     endtry
     try
-        call SyntaxRange#Include('@begin=json@'      ,'@end=json@'      ,'javascript','NonText')
         call SyntaxRange#Include('```json'      ,'```'      ,'javascript','NonText')
     catch /^Vim\%((\a\+)\)\=:E117/
         " deal with it
@@ -374,7 +368,6 @@ func! MrSyntaxRange()
         " deal with it
     endtry
     try
-        call SyntaxRange#Include('@begin=puppet@'    ,'@end=puppet@'    ,'puppet',    'NonText')
         call SyntaxRange#Include('```puppet'    ,'```'    ,'puppet',    'NonText')
     catch /^Vim\%((\a\+)\)\=:E117/
         " deal with it
@@ -382,7 +375,6 @@ func! MrSyntaxRange()
         " deal with it
     endtry
     try
-        call SyntaxRange#Include('@begin=python@'    ,'@end=python@'    ,'python'    ,'NonText')
         call SyntaxRange#Include('```python'       ,'```'           ,'python'    ,'NonText')
     catch /^Vim\%((\a\+)\)\=:E117/
         " deal with it
@@ -390,23 +382,14 @@ func! MrSyntaxRange()
         " deal with it
     endtry
     try
-        call SyntaxRange#Include('@begin=ruby@'      ,'@end=ruby@'      ,'ruby',      'NonText')
-        call SyntaxRange#Include('```ruby'      ,'```'      ,'ruby',      'NonText')
-    catch /^Vim\%((\a\+)\)\=:E117/
-        " deal with it
-    catch /^Vim\%((\a\+)\)\=:E484/
-        " deal with it
-    endtry
-    try
-        call SyntaxRange#Include('@begin=sh@'        ,'@end=sh@'        ,'sh'        ,'NonText')
         call SyntaxRange#Include('```sh'        ,'```'        ,'sh'        ,'NonText')
+        call SyntaxRange#Include('```bash'        ,'```'        ,'sh'        ,'NonText')
     catch /^Vim\%((\a\+)\)\=:E117/
         " deal with it
     catch /^Vim\%((\a\+)\)\=:E484/
         " deal with it
     endtry
     try
-        call SyntaxRange#Include('@begin=sql@'       ,'@end=sql@'       ,'sql'       ,'NonText')
         call SyntaxRange#Include('```sql'       ,'```'       ,'sql'       ,'NonText')
     catch /^Vim\%((\a\+)\)\=:E117/
         " deal with it
@@ -414,7 +397,6 @@ func! MrSyntaxRange()
         " deal with it
     endtry
     try
-        call SyntaxRange#Include('@begin=xml@'       ,'@end=xml@'       ,'xml'       ,'NonText')
         call SyntaxRange#Include('```xml'       ,'```'       ,'xml'       ,'NonText')
     catch /^Vim\%((\a\+)\)\=:E117/
         " deal with it
@@ -422,7 +404,6 @@ func! MrSyntaxRange()
         " deal with it
     endtry
     try
-        call SyntaxRange#Include('@begin=yaml@'      ,'@end=yaml@'      ,'yaml',      'NonText')
         call SyntaxRange#Include('```yaml'      ,'```'      ,'yaml',      'NonText')
     catch /^Vim\%((\a\+)\)\=:E117/
         " deal with it
