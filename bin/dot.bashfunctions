@@ -167,7 +167,7 @@ function ssh() {
 
     if [[ $# -eq 1 ]] && [[ -f $HOME/.sshrc ]]; then
         case "$1" in \
-        galaxy*|xoom|motog|huawei19)
+        galaxy*|xoom|motog|huawei19|s3mini)
             if hash sshpass 2>/dev/null; then
                 f=$HOME/.words/$1
                 if [[ -f $f ]]; then
