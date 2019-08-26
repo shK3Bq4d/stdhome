@@ -610,7 +610,7 @@ function .() {
 SSH_ENV=$HOME/.ssh/environment
 
 function mr_ssh_add {
-     if /usr/bin/ssh-add -l &>/dev/null; then
+     if /usr/bin/ssh-add -l | grep -w $HOME/.ssh/id_rsa &>/dev/null; then
          true
      else
          echo -n "ssh-add dot.bashfunctions $HOSTNAMEF: "
