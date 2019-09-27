@@ -15,7 +15,7 @@ set visible-stats On
 
 set show-mode-in-prompt on
 # activating  vi-ins-mode-string and vi-cmd-mode-string looks good in bash
-# and python -i. For ZSH, I had to add 
+# and python -i. For ZSH, I had to add
 # ~/.oh-my-zsh/custom/plugins/vi-mode-mr/vi-mode-mr.plugin.zsh
 set vi-ins-mode-string \1\e[5 q\2
 set vi-cmd-mode-string \1\e[1 q\2
