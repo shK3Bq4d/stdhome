@@ -429,6 +429,12 @@ compinit
 zstyle ':completion:*' menu select=2
 #source ~/.bash_completion
 compdef _path_commands viw catw lessw
+f=~/.zsh/completion/std/bash.az.completion
+if [[ -f $f ]]; then
+	# https://stackoverflow.com/questions/49273395/how-to-enable-command-completion-for-azure-cli-in-zsh
+	autoload -U +X bashcompinit && bashcompinit
+	source $f
+fi
 alias z='nocorrect _z 2>&1' # at the end is necessary as it is defined elsewhere
 ZSH_AUTOSUGGEST_USE_ASYNC=1
 ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=25
