@@ -623,7 +623,10 @@ function mr_ssh_add {
              *jexternalssh) t="";;
          esac
          echo -n "ssh-add dot.bashfunctions $HOSTNAMEF $t: "
-         /usr/bin/ssh-add $t $f
+         echo
+         is_zsh \
+         && /usr/bin/ssh-add ${=t} $f \
+         || /usr/bin/ssh-add ${t}  $f 
      done
 }
 
