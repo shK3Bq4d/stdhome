@@ -499,7 +499,7 @@ alias head80="head -n 80"
 alias head90="head -n 90"
 alias head100="head -n 100"
 alias cdreal="cd \$(realpath .)"
-
+alias sed="sed -u"
 
 is_zsh && setopt null_glob
 for f in \
