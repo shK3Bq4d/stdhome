@@ -309,6 +309,7 @@ else
     "vmap <C-a> :1,$y<CR>:call system("xclip -i -selection clipboard", getreg("\""))<CR>
     "nmap <C-a> :1,$y<CR>:call system("xclip -i -selection clipboard", getreg("\""))<CR>
     map <C-v> o<Esc>"*p
+    map <C-s> O<Esc>"*P
 endif
 imap <C-v> <Esc><C-v>a
 :set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
