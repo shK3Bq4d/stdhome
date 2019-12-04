@@ -517,7 +517,7 @@ is_zsh && unsetopt null_glob
 [[ -n "$GIT_AUTHOR_EMAIL" && -z "$GIT_COMMITTER_EMAIL" ]] && export GIT_COMMITTER_EMAIL="$GIT_AUTHOR_EMAIL"
 
 # to be run very last so a control-C due to non-connectivity doesn't prevent all the other stuff to run
-if [[ -f ~/.tmp/touch/stdhome-pull && ! -f ~/.tm/touch/stdhome-pull-automation-disabled ]]; then
+if [[ -f ~/.tmp/touch/stdhome-pull && ! -f ~/.tmp/touch/stdhome-pull-automation-disabled ]]; then
     if find ~/.tmp/touch/stdhome-pull -mtime +1 | grep -qE . && hash stdhome-pull.sh 2>/dev/null; then
         #stdhome-merge.sh
         #stdhome-fetch.sh &
