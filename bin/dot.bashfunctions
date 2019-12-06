@@ -837,9 +837,15 @@ os_detection() {
     printf '%-13s %s\n' MACH "$MACH"
     echo ""
 }
+
 uname_os_detection() {
     os_detection
 }
+
+githubkeys() {
+    curl -L https://github.com/shk3bq4d.keys
+}
+
 mrcd() {
     local d
     for var in "$@"; do
