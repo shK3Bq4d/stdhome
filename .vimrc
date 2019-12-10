@@ -1,14 +1,19 @@
 " ex: set expandtab ts=4 sw=4:
+if version >= 500
 let g:pathogen_disabled = []
 let g:mapleader=" "
 let s:sys=system('uname -s | perl -pe "chomp"')
 let hostname = substitute(system('hostname'), '\n', '', '')
+endif
 if s:sys == "Cygwin_NT""
     call add(g:pathogen_disabled, 'AutoComplPop')
 else
     call add(g:pathogen_disabled, 'ingo-library')
 endif
+if version >= 500
 call add(g:pathogen_disabled, 'AutoComplPop')
+let airline#extensions#c_like_langs = ['c', 'cpp', 'cuda', 'go', 'javascript', 'java', 'ld', 'php']
+endif
 "call add(g:pathogen_disabled, 'youcompleteme')
 " should between youcomplete me or autocomplpop
 if hostname == $WORK_PC1 || hostname == "bipbip"
@@ -17,7 +22,6 @@ if hostname == $WORK_PC1 || hostname == "bipbip"
     "set completeopt=menu,preview
 else
 endif
-let airline#extensions#c_like_langs = ['c', 'cpp', 'cuda', 'go', 'javascript', 'java', 'ld', 'php']
 if hostname == "jly200" || hostname == "bipbip"
     let g:airline#extensions#whitespace#mixed_indent_algo = 2
 endif
@@ -43,6 +47,7 @@ else
     "     echo "$(date) $0 $@" >> /tmp/mrgit
     " /usr/local/bin/git "$@" 2>&1 | tee -a /tmp/mrgit
 endif
+if version >= 500
 try
     execute pathogen#infect()
 
@@ -70,6 +75,7 @@ let main_syntax = '' " trying to solve a bug in /usr/local/share/vim/vim80/synta
 
 
 syntax on
+endif
 filetype plugin indent on
 " 256 colors support
 set t_Co=256
@@ -151,7 +157,6 @@ au BufReadPost * if getfsize(bufname("%")) > 90*1024 |
 :set scrolloff=5 " keep 10 lines (top/bottom) for scope
 ":auto BufEnter * let &titlestring = "vi" . strpart(v:servername, 3, 1) . " %t     " . expand("%:p:h:h:t") . "\\" . expand("%:p:h:t") . " %=%l/%L-%P "
 :set title
-:auto BufEnter * let &titlestring = "vim - " .$USER . "@" . hostname() . ":" . expand('%:p')
 
 au BufNewFile,BufRead *.yaml set cursorcolumn ts=2 sw=2
 au BufNewFile,BufRead *.yml set cursorcolumn ts=2 sw=2
@@ -174,6 +179,8 @@ set undofile
 set viminfo+=n$RCD/.tmp/vim/viminfo
 
 "colorscheme desert
+if version >= 500
+auto BufEnter * let &titlestring = "vim - " .$USER . "@" . hostname() . ":" . expand('%:p')
 let g:lucius_no_term_bg=1 " s'assure que le colorscheme lucius ne set pas le background color
 "colorscheme desert
 try
@@ -188,6 +195,7 @@ catch /^Vim\%((\a\+)\)\=:E185/
     colorscheme default
     " deal with it
 endtry
+endif
 set guifont=Consolas:h10
 :set sidescroll=1 listchars=extends:>,precedes:< sidescrolloff=6
 :nmap <silent> <C-k> :wincmd k<CR>
@@ -197,12 +205,14 @@ set guifont=Consolas:h10
 " http://vimdoc.sourceforge.net/htmldoc/cmdline.html#filename-modifiers
 " http://stackoverflow.com/questions/3712725/can-i-change-vim-completion-preview-window-height
 :set previewheight=30
+if version >= 500
 au BufEnter ?* call PreviewHeightWorkAround()
 func! PreviewHeightWorkAround()
     if &previewwindow
         exec 'setlocal winheight='.&previewheight
     endif
 endfunc
+endif
 ":nmap <F6> :w<CR>:silent !chmod +x %:p<CR>:silent !%:p 2>&1 \| tee d:/tmp/%:t.tmp<CR>:silent! :bd! d:/tmp/%:t.tmp<CR>:sview d:/tmp/%:t.tmp<CR>:redraw!<CR>
 ":nmap <F6> :w<CR>:silent !chmod +x %:p<CR>:silent !%:p 2>&1 \| tee ~/.vim/output<CR>:silent! :bd output<CR>:sview ~/.vim/output<CR>:redraw!<CR>
 
@@ -218,6 +228,7 @@ endfunc
 :nmap <F3> :AnsiEsc<CR><CR>
 ":nmap <F7> :pc!<CR>:let a:x=`date +'%Y'`<CR>:w<CR>:silent !chmod +x %:p<CR>:execute "silent !%:p 2>&1 \| tee /tmp/" . x . ".tmp"<CR>:pedit! +:42343234 /tmp/%:t.tmp<CR>:redraw!<CR><CR>
 
+if version >= 500
 
 func! MrBlockToUnicodeFunc()
     :silent! s/|/│/g
@@ -264,6 +275,9 @@ let g:html_use_css=0
 " up as you see it in Vim, but without wrapping.    If you prefer wrapping, at the
 " risk of making some things look a bit different, use: >
 let g:html_no_pre=1
+:command! Gstagehunk :GitGutterStageHunk
+:command! Gundohunk :GitGutterUndoHunk
+endif
 
 " http://vim.wikia.com/wiki/Fix_syntax_highlighting
 
@@ -281,8 +295,6 @@ noremap  <F11> <Esc>:syntax sync fromstart<CR>:autocmd BufEnter <buffer> syntax 
 inoremap <F11> <C-o>:syntax sync fromstart<CR>:autocmd BufEnter <buffer> syntax sync fromstart<CR>
 nnoremap <silent> <F12>      :BufExplorer<CR>
 imap     <silent> <F12> <Esc>:BufExplorer<CR>
-:command! Gstagehunk :GitGutterStageHunk
-:command! Gundohunk :GitGutterUndoHunk
 set nocp
 
 
@@ -317,6 +329,7 @@ imap <C-v> <Esc><C-v>a
 inoremap <ScrollWheelUp> <Nop>
 inoremap <ScrollWheelDown> <Nop>
 
+if version >= 500
 func! MrSyntaxRange()
     try
         call SyntaxRange#Include('```markdown'       ,'```'       ,'markdown'       ,'NonText')
@@ -428,6 +441,7 @@ fun! UpByIndent()
         endif
     endwhile
 endfun
+endif
 
 "http://lglinux.blogspot.ch/2008/01/rewrapping-paragraphs-in-vim.html
 "map <C-q> {gq}
@@ -458,6 +472,7 @@ map <C-ScrollWheelRight> <nop>
 " terminal see tab as C-i
 map <C-i> <Esc>:bnext<CR>
 
+if version >= 500
 let g:airline_powerline_fonts = 1
 let g:airline_theme='papercolor'
 let g:airline#extensions#tabline#enabled = 1
@@ -507,6 +522,7 @@ if has ('autocmd') " Remain compatible with earlier versions
     autocmd! BufWritePost $MYGVIMRC if has('gui_running') | so % | echom "Reloaded " . $MYGVIMRC | endif | redraw
   augroup END
 endif " has autocmd
+endif
 
 if version >= 500
     :function! MrF6()

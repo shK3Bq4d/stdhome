@@ -36,10 +36,10 @@ export SSH_AUTH_SOCK=$SSH_AUTH_SOCK
         [[ -z $f ]] && f=$SSHHOME/.sshrc
     fi
     echo "$commands" | sudo tee -a $f >/dev/null
+    unalias .
     is_zsh \
     && sudo ${=user} bash --rcfile $f \
     || sudo ${user}  bash --rcfile $f
-
     if [[ -z $SSHHOME ]]; then
         rm -f $f
     else

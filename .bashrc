@@ -23,6 +23,7 @@ else
     UNAME="${UNAME,,}"
     shopt -s histappend
     if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
+        unalias . &>/dev/null
         # on ubuntu /etc/bash_completion is /usr/share/bash-completion/bash_completion
         # which sources ~/.bash_completion
         source /etc/bash_completion
@@ -250,8 +251,10 @@ cygwin*|msys*)
     #alias locate='locate -i --regex'
     if [[ -z "${SUDO_USER+1}" ]]; then
         if [[ -d /usr/share/X11/locale/en_US.UTF-8 ]]; then
-            export LC_ALL="en_US.UTF-8"
-            export LC_CTYPE="en_US.UTF-8"
+            if [[ ! -f /etc/locale.gen ]] || grep -qx "en_US.UTF-8"  /etc/locale.gen >/dev/null; then
+                export LC_ALL="en_US.UTF-8"
+                export LC_CTYPE="en_US.UTF-8"
+            fi
         fi
         export LC_TIME="en_DK.utf8"
     fi
@@ -264,15 +267,6 @@ if hash javac &>/dev/null; then
     export JAVA_HOME=$(mrdirname $(mrdirname $(which javac)))
 fi
 
-alias ........='cd ../../../../../../../..'
-alias .......='cd ../../../../../../..'
-alias ......='cd ../../../../../..'
-alias .....='cd ../../../../..'
-alias ....='cd ../../../..'
-alias ...='cd ../../..'
-alias ..='cd ../..'
-alias .='cd ..'
-alias vi-='vi -'
 
 if hash ack-grep &>/dev/null; then
     alias ack='ack-grep --follow $*'
@@ -524,5 +518,13 @@ if [[ -f ~/.tmp/touch/stdhome-pull && ! -f ~/.tmp/touch/stdhome-pull-automation-
         stdhome-pull.sh
     fi
 fi
-
+alias ........='cd ../../../../../../../..'
+alias .......='cd ../../../../../../..'
+alias ......='cd ../../../../../..'
+alias .....='cd ../../../../..'
+alias ....='cd ../../../..'
+alias ...='cd ../../..'
+alias ..='cd ../..'
+alias .='cd ..'
+alias vi-='vi -'
 true # so prompt is green
