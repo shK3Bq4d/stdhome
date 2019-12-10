@@ -28,9 +28,8 @@ export VIMINIT='so $NEWRCD/.vimrc'
 export SSH_AUTH_SOCK=$SSH_AUTH_SOCK
 "
     if [[ -z $SSHHOME ]]; then
-        f=$HOME/.tmp/tmp/sudomr.bashrc
+        f=$(mktemp -d)/sudomr.bashrc
         [[ -f $f ]] && rm -f $f
-        [[ -d $HOME/.tmp/tmp ]] || mkdir -p $HOME/.tmp/tmp
         touch $f
     else
         [[ -z $f ]] && f=$SSHHOME/.sshrc
@@ -629,7 +628,7 @@ function mr_ssh_add {
          echo
          is_zsh \
          && /usr/bin/ssh-add ${=t} $f \
-         || /usr/bin/ssh-add ${t}  $f 
+         || /usr/bin/ssh-add ${t}  $f
      done
 }
 
