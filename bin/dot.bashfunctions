@@ -12,7 +12,7 @@ function sudomr() {
             sudo cp -R $RCD $NEWRCD
             f=$NEWRCD/../.sshrc
             sudo cp $SSHHOME/.sshrc $f
-            sudo chown -R "$1" $NEWRCD/.:
+            sudo chown -R "$1" $NEWRCD/..
         fi
     fi
 
@@ -29,13 +29,15 @@ export SSH_AUTH_SOCK=$SSH_AUTH_SOCK
 "
     if [[ -z $SSHHOME ]]; then
         f=$(mktemp -d)/sudomr.bashrc
+        chmod a+rx $(dirname $f)
         [[ -f $f ]] && rm -f $f
         touch $f
+        chmod a+r $f
     else
         [[ -z $f ]] && f=$SSHHOME/.sshrc
     fi
     echo "$commands" | sudo tee -a $f >/dev/null
-    unalias .
+    unalias . 2>/dev/null
     is_zsh \
     && sudo ${=user} bash --rcfile $f \
     || sudo ${user}  bash --rcfile $f
