@@ -23,6 +23,7 @@ else
     UNAME="${UNAME,,}"
     shopt -s histappend
     if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
+        unalias . &>/dev/null
         # on ubuntu /etc/bash_completion is /usr/share/bash-completion/bash_completion
         # which sources ~/.bash_completion
         source /etc/bash_completion
@@ -251,8 +252,10 @@ cygwin*|msys*)
     #alias locate='locate -i --regex'
     if [[ -z "${SUDO_USER+1}" ]]; then
         if [[ -d /usr/share/X11/locale/en_US.UTF-8 ]]; then
-            export LC_ALL="en_US.UTF-8"
-            export LC_CTYPE="en_US.UTF-8"
+            if [[ ! -f /etc/locale.gen ]] || grep -qx "en_US.UTF-8"  /etc/locale.gen >/dev/null; then
+                export LC_ALL="en_US.UTF-8"
+                export LC_CTYPE="en_US.UTF-8"
+            fi
         fi
         export LC_TIME="en_DK.utf8"
     fi
@@ -265,15 +268,6 @@ if hash javac &>/dev/null; then
     export JAVA_HOME=$(mrdirname $(mrdirname $(which javac)))
 fi
 
-alias ........='cd ../../../../../../../..'
-alias .......='cd ../../../../../../..'
-alias ......='cd ../../../../../..'
-alias .....='cd ../../../../..'
-alias ....='cd ../../../..'
-alias ...='cd ../../..'
-alias ..='cd ../..'
-alias .='cd ..'
-alias vi-='vi -'
 
 if hash ack-grep &>/dev/null; then
     alias ack='ack-grep --follow $*'
@@ -500,7 +494,7 @@ alias head80="head -n 80"
 alias head90="head -n 90"
 alias head100="head -n 100"
 alias cdreal="cd \$(realpath .)"
-
+alias sed="sed -u"
 
 is_zsh && setopt null_glob
 for f in \
@@ -518,12 +512,20 @@ is_zsh && unsetopt null_glob
 [[ -n "$GIT_AUTHOR_EMAIL" && -z "$GIT_COMMITTER_EMAIL" ]] && export GIT_COMMITTER_EMAIL="$GIT_AUTHOR_EMAIL"
 
 # to be run very last so a control-C due to non-connectivity doesn't prevent all the other stuff to run
-if [[ -f ~/.tmp/touch/stdhome-pull ]]; then
+if [[ -f ~/.tmp/touch/stdhome-pull && ! -f ~/.tmp/touch/stdhome-pull-automation-disabled ]]; then
     if find ~/.tmp/touch/stdhome-pull -mtime +1 | grep -qE . && hash stdhome-pull.sh 2>/dev/null; then
         #stdhome-merge.sh
         #stdhome-fetch.sh &
         stdhome-pull.sh
     fi
 fi
-
+alias ........='cd ../../../../../../../..'
+alias .......='cd ../../../../../../..'
+alias ......='cd ../../../../../..'
+alias .....='cd ../../../../..'
+alias ....='cd ../../../..'
+alias ...='cd ../../..'
+alias ..='cd ../..'
+alias .='cd ..'
+alias vi-='vi -'
 true # so prompt is green

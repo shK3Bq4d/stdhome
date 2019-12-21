@@ -113,26 +113,31 @@ unsetopt null_glob
 #
 #source ~/bin/dot.bashfunctions
 source ~/.bashrc
-alias setxkbmap='nocorrect setxkbmap'
-alias vagrant='nocorrect vagrant'
-alias doc='nocorrect doc'
-alias az='nocorrect az'
-alias castnow='nocorrect castnow'
-alias locate='nocorrect locate'
-alias sshfs='nocorrect sshfs'
-alias command='nocorrect command'
-alias ant='nocorrect ant'
-alias ssh='nocorrect ssh'
+for c in \
+	ah \
+	aliashelp \
+	ant \
+	az \
+	castnow \
+	command \
+	doc \
+	kubectl \
+	locate \
+	minikube \
+	ps-mr.sh \
+	screen \
+	setxkbmap \
+	ssh \
+	sshfs \
+	vagrant \
+	viw \
+	watch \
+	which \
+	; do
+	eval "alias $c='nocorrect $c'"
+done
 alias cp='nocorrect cp -ip'
-alias which='nocorrect which'
-alias viw='nocorrect viw'
-alias ah='nocorrect aliashelp'
-alias aliashelp='nocorrect aliashelp'
 alias mv='nocorrect mv -i'
-alias kubectl='nocorrect kubectl'
-alias minikube='nocorrect minikube'
-alias screen='nocorrect screen'
-alias watch='nocorrect watch'
 alias ncal='ncal -M'
 "git-clone.py"() {
     command git-clone.py $@ &&
