@@ -223,6 +223,7 @@ freebsd)
     alias watch='gnu-watch'
     alias tac='tail -r'
     ! hash md5sum 2>/dev/null && hash md5deep 2>/dev/null && alias md5sum=md5deep
+    test -f /usr/local/bin/ssh && p="/usr/local/bin:$PATH"
     alias netstat='echo use sockcat -l or command netstat'
     #alias locate='locate -i'
     #export LC_TIME=en_DK.UTF-8
