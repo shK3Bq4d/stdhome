@@ -12,7 +12,7 @@ function sudomr() {
             sudo cp -R $RCD $NEWRCD
             f=$NEWRCD/../.sshrc
             sudo cp $SSHHOME/.sshrc $f
-            sudo chown -R "$1" $NEWRCD/.:
+            sudo chown -R "$1" $NEWRCD/..
         fi
     fi
 
@@ -28,15 +28,19 @@ export VIMINIT='so $NEWRCD/.vimrc'
 export SSH_AUTH_SOCK=$SSH_AUTH_SOCK
 "
     if [[ -z $SSHHOME ]]; then
-        f=$HOME/.tmp/tmp/sudomr.bashrc
+        f=$(mktemp -d)/sudomr.bashrc
+        chmod a+rx $(dirname $f)
         [[ -f $f ]] && rm -f $f
-        [[ -d $HOME/.tmp/tmp ]] || mkdir -p $HOME/.tmp/tmp
         touch $f
+        chmod a+r $f
     else
         [[ -z $f ]] && f=$SSHHOME/.sshrc
     fi
     echo "$commands" | sudo tee -a $f >/dev/null
-    sudo $user bash --rcfile $f
+    unalias . 2>/dev/null
+    is_zsh \
+    && sudo ${=user} bash --rcfile $f \
+    || sudo ${user}  bash --rcfile $f
     if [[ -z $SSHHOME ]]; then
         rm -f $f
     else
@@ -610,12 +614,24 @@ function .() {
 SSH_ENV=$HOME/.ssh/environment
 
 function mr_ssh_add {
-     if /usr/bin/ssh-add -l | grep -w $HOME/.ssh/id_rsa &>/dev/null; then
-         true
-     else
-         echo -n "ssh-add dot.bashfunctions $HOSTNAMEF: "
-         /usr/bin/ssh-add -t 43200
-     fi
+    local f
+    local t
+    for f in \
+        $HOME/.ssh/id_rsa \
+        $HOME/.ssh/jexternalssh \
+        ; do
+        test -f $f || continue
+         /usr/bin/ssh-add -l | grep -w $f &>/dev/null && continue
+         t="-t 43200"
+         case $f in \
+             *jexternalssh) t="";;
+         esac
+         echo -n "ssh-add dot.bashfunctions $HOSTNAMEF $t: "
+         echo
+         is_zsh \
+         && /usr/bin/ssh-add ${=t} $f \
+         || /usr/bin/ssh-add ${t}  $f
+     done
 }
 
 function start_agent {
@@ -825,9 +841,15 @@ os_detection() {
     printf '%-13s %s\n' MACH "$MACH"
     echo ""
 }
+
 uname_os_detection() {
     os_detection
 }
+
+githubkeys() {
+    curl -L https://github.com/shk3bq4d.keys
+}
+
 mrcd() {
     local d
     for var in "$@"; do
