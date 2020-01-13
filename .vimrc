@@ -538,6 +538,9 @@ if version >= 500
         ":exec "silent !%:p 2>&1 \| tee" a:output
         :exec "silent !" . $RCD . "/bin/notinpath/vimf6.sh %:p " . a:output
         :exec "pedit! +setlocal\\ buftype=nofile\\ ft= " . a:output
+        noautocmd wincmd p " go to window up
+        :2000000           " simulate go to end of file by going to line 2000000
+        noautocmd wincmd P " go to windo down
         ":exec "silent AnsiEsc"
 
         silent redraw!
