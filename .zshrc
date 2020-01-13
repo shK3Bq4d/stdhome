@@ -179,7 +179,7 @@ freebsd)
 	alias -g 'X1@'='|xargs -n 1 |xargs --open-tty --verbose --no-run-if-empty -I@'
 	;;
 esac
-alias -g XV="|xargs bash -c '</dev/tty vim \$@' ignoreme" # doesn't work
+alias -g XV="|xargs bash -c '</dev/tty vim \$@' ignoreme"
 alias git='nocorrect git'
 
 alias -g LA='$(last)'
