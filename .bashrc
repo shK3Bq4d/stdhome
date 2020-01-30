@@ -311,12 +311,7 @@ alias venv.proj="mkproject"
 alias venv.setproj="setvirtualenvproject"
 alias venv.wipe="wipeenv"
 
-for d in $RCD/py \
-    \#$RCD/git/mr/mrpy/src \
-    ; do
-    [[ -d $d ]] && \
-        for i in $(find $d -maxdepth 1 -type d ); do export PYTHONPATH=$PYTHONPATH:$i; done
-done
+PYTHONPATH=$RCD/py
 
 
 PERL_MB_OPT="--install_base \"$HOME/perl5\""; export PERL_MB_OPT;
