@@ -121,6 +121,7 @@ for c in \
 	command \
 	doc \
 	kubectl \
+	fahrplan \
 	locate \
 	minikube \
 	ps-mr.sh \

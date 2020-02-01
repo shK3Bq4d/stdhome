@@ -58,6 +58,7 @@ for i in $RCD ~$SUDO_USER; do
         break
     fi
 done
+pathprepend $RCD/.local/bin # python stup
 pathprepend $RCD/bin # needs dot.bashfunctions
 # cygwin, being started from mintty.exe scratch, doesn't any good PATH
 if ! hash chmod &>/dev/null; then
