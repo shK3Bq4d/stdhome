@@ -404,6 +404,13 @@ func! MrSyntaxRange()
         " deal with it
     endtry
     try
+        call SyntaxRange#Include('```ini'       ,'```'       ,'dosini'       ,'NonText')
+    catch /^Vim\%((\a\+)\)\=:E117/
+        " deal with it
+    catch /^Vim\%((\a\+)\)\=:E484/
+        " deal with it
+    endtry
+    try
         call SyntaxRange#Include('```sql'       ,'```'       ,'sql'       ,'NonText')
     catch /^Vim\%((\a\+)\)\=:E117/
         " deal with it
