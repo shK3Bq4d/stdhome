@@ -85,23 +85,27 @@ function cpmr() {
 }
 
 function pathprepend() {
-    if [ -d "$1" ] && [[ ":$PATH:" != *":$1:"* ]]; then
-        if [[ -z "$PATH" ]]; then
-            PATH="$1"
-        else
-            PATH="$1:$PATH"
-        fi
-    fi
+    [ ! -d "$1" ] && return 1
+    PATH="$1:$( \
+        echo $PATH | \
+            tr : '\n' | \
+            grep -vx "$1" | \
+            tr '\n' : | \
+            sed -r -e 's/:$//'
+            )"
+    #!echo $PATH2
     export PATH
 }
+
 function pathappend() {
-    if [ -d "$1" ] && [[ ":$PATH:" != *":$1:"* ]]; then
-        if [[ -z "$PATH" ]]; then
-            PATH="$1"
-        else
-            PATH="$PATH:$1"
-        fi
-    fi
+    [ ! -d "$1" ] && return 1
+    PATH="$( \
+        echo $PATH | \
+            tr : '\n' | \
+            grep -vx "$1" | \
+            tr '\n' : | \
+            sed -r -e 's/:$//'
+            ):$1"
     export PATH
 }
 function mrbasename() {
@@ -467,6 +471,7 @@ function locate() {
         ;;
     esac
 }
+function http_proxy_service() { http_proxy "52.149.69.106:55656";}
 function http_proxy_dockerhost3142() { http_proxy "172.17.0.1:3142";}
 function http_proxy_none() { http_proxy "";}
 function http_proxy() {

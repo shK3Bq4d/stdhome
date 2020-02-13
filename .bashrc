@@ -58,7 +58,6 @@ for i in $RCD ~$SUDO_USER; do
         break
     fi
 done
-pathprepend $RCD/bin # needs dot.bashfunctions
 # cygwin, being started from mintty.exe scratch, doesn't any good PATH
 if ! hash chmod &>/dev/null; then
     pathprepend /usr/sbin
@@ -67,6 +66,8 @@ if ! hash chmod &>/dev/null; then
     pathprepend /bin
     cd $HOME
 fi
+pathprepend $RCD/.local/bin # python stup
+pathprepend $RCD/bin # needs dot.bashfunctions
 if [[ -z $HOSTNAMEF ]]; then
     if [[ -L /usr/bin/timeout ]] && [[ $(readlink -f /usr/bin/timeout) == *busybox ]]; then
         export HOSTNAMEF=$(timeout -t 3 hostname -f | tr '[:upper:]' '[:lower:]')
@@ -311,12 +312,7 @@ alias venv.proj="mkproject"
 alias venv.setproj="setvirtualenvproject"
 alias venv.wipe="wipeenv"
 
-for d in $RCD/py \
-    \#$RCD/git/mr/mrpy/src \
-    ; do
-    [[ -d $d ]] && \
-        for i in $(find $d -maxdepth 1 -type d ); do export PYTHONPATH=$PYTHONPATH:$i; done
-done
+PYTHONPATH=$RCD/py
 
 
 PERL_MB_OPT="--install_base \"$HOME/perl5\""; export PERL_MB_OPT;

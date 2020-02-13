@@ -170,6 +170,7 @@ au BufNewFile,BufRead *.wsdl set filetype=xml
 au BufNewFile,BufRead *.log set filetype=messages
 au BufNewFile,BufRead *.tjp set filetype=tjp
 au BufNewFile,BufRead *.tji set filetype=tjp
+au BufNewFile,BufRead *.tf set cursorcolumn ts=2 sw=2
 :set cpo=aABceFs$
 "set directory=$RCD/.tmp/vim/directory,.
 set directory=$RCD/.tmp/vim/directory,.
@@ -404,6 +405,13 @@ func! MrSyntaxRange()
         " deal with it
     endtry
     try
+        call SyntaxRange#Include('```ini'       ,'```'       ,'dosini'       ,'NonText')
+    catch /^Vim\%((\a\+)\)\=:E117/
+        " deal with it
+    catch /^Vim\%((\a\+)\)\=:E484/
+        " deal with it
+    endtry
+    try
         call SyntaxRange#Include('```sql'       ,'```'       ,'sql'       ,'NonText')
     catch /^Vim\%((\a\+)\)\=:E117/
         " deal with it
@@ -538,9 +546,11 @@ if version >= 500
         ":exec "silent !%:p 2>&1 \| tee" a:output
         :exec "silent !" . $RCD . "/bin/notinpath/vimf6.sh %:p " . a:output
         :exec "pedit! +setlocal\\ buftype=nofile\\ ft= " . a:output
-        noautocmd wincmd p " go to window up
-        :2000000           " simulate go to end of file by going to line 2000000
-        noautocmd wincmd P " go to windo down
+        if false
+            noautocmd wincmd p " go to window up
+            :2000000           " simulate go to end of file by going to line 2000000
+            noautocmd wincmd P " go to windo down
+        end
         ":exec "silent AnsiEsc"
 
         silent redraw!
