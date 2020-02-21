@@ -503,6 +503,7 @@ for f in \
         [[ -f $f ]] && source $f
 done
 is_zsh && unsetopt null_glob
+LO=127.0.0.1
 # needs  to be done after local aliases
 [[ -n "$GIT_AUTHOR_NAME" && -z "$GIT_COMMITTER_NAME" ]] && export GIT_COMMITTER_NAME="$GIT_AUTHOR_NAME"
 [[ -n "$GIT_AUTHOR_EMAIL" && -z "$GIT_COMMITTER_EMAIL" ]] && export GIT_COMMITTER_EMAIL="$GIT_AUTHOR_EMAIL"

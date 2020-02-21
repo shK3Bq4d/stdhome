@@ -114,27 +114,27 @@ unsetopt null_glob
 #source ~/bin/dot.bashfunctions
 source ~/.bashrc
 for c in \
-	aliashelp \
-	ant \
-	az \
-	castnow \
-	command \
-	doc \
-	kubectl \
-	fahrplan \
-	locate \
-	minikube \
-	ps-mr.sh \
-	screen \
-	setxkbmap \
-	ssh \
-	sshfs \
-	vagrant \
-	viw \
-	watch \
-	which \
-	; do
-	eval "alias $c='nocorrect $c'"
+    aliashelp \
+    ant \
+    az \
+    castnow \
+    command \
+    doc \
+    kubectl \
+    fahrplan \
+    locate \
+    minikube \
+    ps-mr.sh \
+    screen \
+    setxkbmap \
+    ssh \
+    sshfs \
+    vagrant \
+    viw \
+    watch \
+    which \
+    ; do
+    eval "alias $c='nocorrect $c'"
 done
 alias ah='nocorrect aliashelp'
 alias cp='nocorrect cp -ip'
@@ -164,21 +164,23 @@ compdef ssh-vagrant=ssh
 
 case $UNAME in \
 freebsd)
-	alias grep='nocorrect grep --line-buffered -a --color=auto'
-	alias -g X='|xargs -o'
-	alias -g 'X@'='|xargs -o -I@'
-	alias -g X1='|xargs -o -n 1'
-	alias -g 'X@1'='|xargs -n 1 |xargs -o -I@'
-	alias -g 'X1@'='|xargs -n 1 |xargs -o -I@'
-	;;
+    alias grep='nocorrect grep --line-buffered -a --color=auto'
+    alias -g X="|tr '\n' '\0' | xargs -0 -o"
+    alias -g XX='|xargs -o'
+    alias -g 'X@'='|xargs -o -I@'
+    alias -g X1='|xargs -o -n 1'
+    alias -g 'X@1'='|xargs -n 1 |xargs -o -I@'
+    alias -g 'X1@'='|xargs -n 1 |xargs -o -I@'
+    ;;
 *)
-	alias grep='nocorrect grep --line-buffered -a --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn}'
-	alias -g X='|xargs --open-tty --verbose --no-run-if-empty'
-	alias -g 'X@'='|xargs --open-tty --verbose --no-run-if-empty -I@'
-	alias -g X1='|xargs --open-tty --verbose --no-run-if-empty -n 1'
-	alias -g 'X@1'='|xargs -n 1 |xargs --open-tty --verbose --no-run-if-empty -I@'
-	alias -g 'X1@'='|xargs -n 1 |xargs --open-tty --verbose --no-run-if-empty -I@'
-	;;
+    alias grep='nocorrect grep --line-buffered -a --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn}'
+    alias -g X="| xargs --open-tty --verbose --no-run-if-empty -d '\n'"
+    alias -g XX='|xargs --open-tty --verbose --no-run-if-empty'
+    alias -g 'X@'='|xargs --open-tty --verbose --no-run-if-empty -I@'
+    alias -g X1='|xargs --open-tty --verbose --no-run-if-empty -n 1'
+    alias -g 'X@1'='|xargs -n 1 |xargs --open-tty --verbose --no-run-if-empty -I@'
+    alias -g 'X1@'='|xargs -n 1 |xargs --open-tty --verbose --no-run-if-empty -I@'
+    ;;
 esac
 alias -g XV="|xargs bash -c '</dev/tty vim \$@' ignoreme"
 alias git='nocorrect git'
@@ -437,9 +439,9 @@ zstyle ':completion:*' menu select=2
 compdef _path_commands viw catw lessw
 f=~/.zsh/completion/std/bash.az.completion
 if [[ -f $f ]]; then
-	# https://stackoverflow.com/questions/49273395/how-to-enable-command-completion-for-azure-cli-in-zsh
-	autoload -U +X bashcompinit && bashcompinit
-	source $f
+    # https://stackoverflow.com/questions/49273395/how-to-enable-command-completion-for-azure-cli-in-zsh
+    autoload -U +X bashcompinit && bashcompinit
+    source $f
 fi
 alias z='nocorrect _z 2>&1' # at the end is necessary as it is defined elsewhere
 ZSH_AUTOSUGGEST_USE_ASYNC=1
