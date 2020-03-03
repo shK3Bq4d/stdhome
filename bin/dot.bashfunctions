@@ -471,7 +471,6 @@ function locate() {
         ;;
     esac
 }
-function http_proxy_service() { http_proxy "52.149.69.106:55656";}
 function http_proxy_dockerhost3142() { http_proxy "172.17.0.1:3142";}
 function http_proxy_none() { http_proxy "";}
 function http_proxy() {
