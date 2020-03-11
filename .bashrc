@@ -68,6 +68,7 @@ if ! hash chmod &>/dev/null; then
 fi
 pathprepend $RCD/.local/bin # python stup
 pathprepend $RCD/bin # needs dot.bashfunctions
+pathappend /snap/bin
 if [[ -z $HOSTNAMEF ]]; then
     if [[ -L /usr/bin/timeout ]] && [[ $(readlink -f /usr/bin/timeout) == *busybox ]]; then
         export HOSTNAMEF=$(timeout -t 3 hostname -f | tr '[:upper:]' '[:lower:]')
