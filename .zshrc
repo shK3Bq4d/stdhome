@@ -67,7 +67,7 @@ fi
 # minikube # minikube init seams slowish
 # helm # doesn't complet
 typeset -U path
-#path=(~/bin $path) # otherwise kubectl doesn't work per SSH (likely have PATH exported from parent urxvt window when not using SSH)
+test -n ${SSH_CLIENT:-} && path=(~/bin $path) # otherwise kubectl doesn't work per SSH (likely have PATH exported from parent urxvt window when not using SSH)
 if [[ -f "$ZSH/oh-my-zsh.sh" ]]; then
     source $ZSH/oh-my-zsh.sh
 else
