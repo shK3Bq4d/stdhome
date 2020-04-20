@@ -11,8 +11,11 @@ path=($path $GOPATH/bin) # otherwise kubectl doesn't work per SSH (likely have P
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 
 ZSH_THEME="mr"
+#set -x
 test -f ~/.oh-my-zsh/custom/themes/${ZSH_THEME}.zsh-theme || ZSH_THEME="agnoster"
-ZSH_THEME="agnoster"
+#set +x
+#ZSH_THEME="agnoster"
+#echo theme is $ZSH_THEME
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
