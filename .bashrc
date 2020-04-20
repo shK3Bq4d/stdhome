@@ -430,7 +430,10 @@ if hash pip 2>/dev/null; then
    fi
 fi
 #[[ -z $SSH_CLIENT && $EUID -ne 0 && -d ~/.tmp ]] && echo "$(date +'%Y.%m.%d %H:%M:%S') in" >> ~/.tmp/bashrc-events
-[[ $EUID -ne 0 && -d ~/.tmp ]] && echo "$(date +'%Y.%m.%d %H:%M:%S') in  $SSH_CLIENT" >> ~/.tmp/bashrc-events
+if [[ $EUID -ne 0 && -d ~/.tmp ]]; then
+    test -f ~/.tmp/bashrc-events || touch ~/.tmp/bashrc-events
+    echo "$(date +'%Y.%m.%d %H:%M:%S') in  $SSH_CLIENT" >> ~/.tmp/bashrc-events
+fi
 #[[ -n $SSH_TTY ]] && [[ $- == *i* ]] && command last | head
 #echo "$-"
 [[ -n "$MR_EXTERNAL_RC" ]] && source $MR_EXTERNAL_RC # so as to be called to execute further scripts in docker where sourcing from {HOSTNAME}_aliases doesn't work
