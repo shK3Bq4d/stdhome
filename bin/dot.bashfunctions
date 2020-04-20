@@ -640,7 +640,7 @@ function mr_ssh_add {
 }
 
 function start_agent {
-    if [[ -d $(dirname $SSH_ENV) ]]; then
+    if [[ -d $(dirname $SSH_ENV) && ! -f /.dockerenv ]]; then
         echo "Initialising new SSH agent..."
         [[ -f ${SSH_ENV} ]] && rm -f ${SSH_ENV}
         /usr/bin/ssh-agent | sed 's/^echo/#echo/' > ${SSH_ENV}
