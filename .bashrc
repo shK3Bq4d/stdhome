@@ -502,7 +502,7 @@ is_zsh && setopt null_glob
 for f in \
     $RCD/.bash_aliases \
     $RCD/.${HOSTNAMEF}_aliases  \
-     /usr/share/virtualenvwrapper/virtualenvwrapper_lazy.sh \
+    /usr/share/virtualenvwrapper/virtualenvwrapper_lazy.sh \
     /usr/bin/virtualenvwrapper_lazy.sh \
     $RCD/.std*_aliases \
     ; do
