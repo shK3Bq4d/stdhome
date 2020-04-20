@@ -193,6 +193,7 @@ if hash vim  &>/dev/null; then
     export EDITOR=vim
     if [[ $EUID -eq 0 ]]; then # vim readonly for root
         alias vi='vim -R'
+        alias v='vim -R'
         function vim() {
             if [[ $# -eq 1 ]] && [[ $1 == /tmp/bash-fc-* ]]; then
                 # bash vi mode:
@@ -205,11 +206,15 @@ if hash vim  &>/dev/null; then
         }
     else
         alias vi='vim'; # vim instead of vi
+        alias v='vim';
     fi
 elif hash vi  &>/dev/null; then
     export EDITOR=vi
     if [[ $EUID -eq 0 ]]; then # vim readonly for root
         alias vi='vi -R'
+        alias v='vi -R'
+    else
+        alias v='vi';
     fi
 fi
 #export PATH=~/bin:$PATH

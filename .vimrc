@@ -161,7 +161,7 @@ au BufReadPost * if getfsize(bufname("%")) > 90*1024 |
 au BufNewFile,BufRead *.yaml set cursorcolumn ts=2 sw=2
 au BufNewFile,BufRead *.yml set cursorcolumn ts=2 sw=2
 au BufNewFile,BufRead *.py set filetype=python
-au BufNewFile,BufRead *.json set filetype=json
+au BufNewFile,BufRead *.json set cursorcolumn ts=2 sw=2 filetype=json
 au BufNewFile,BufRead *.java set filetype=java
 au BufNewFile,BufRead *.js set filetype=javascript
 au BufNewFile,BufRead *.item set filetype=xml
