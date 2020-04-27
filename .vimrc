@@ -158,9 +158,9 @@ au BufReadPost * if getfsize(bufname("%")) > 90*1024 |
 ":auto BufEnter * let &titlestring = "vi" . strpart(v:servername, 3, 1) . " %t     " . expand("%:p:h:h:t") . "\\" . expand("%:p:h:t") . " %=%l/%L-%P "
 :set title
 
-au BufNewFile,BufRead *.yaml set cursorcolumn ts=2 sw=2
-au BufNewFile,BufRead *.yml set cursorcolumn ts=2 sw=2
-au BufNewFile,BufRead *.py set filetype=python
+au BufNewFile,BufRead *.yaml set expandtab cursorcolumn ts=2 sw=2
+au BufNewFile,BufRead *.yml set expandtab cursorcolumn ts=2 sw=2
+au BufNewFile,BufRead *.py set expandtab filetype=python
 au BufNewFile,BufRead *.json set cursorcolumn ts=2 sw=2 filetype=json
 au BufNewFile,BufRead *.java set filetype=java
 au BufNewFile,BufRead *.js set filetype=javascript
@@ -170,7 +170,7 @@ au BufNewFile,BufRead *.wsdl set filetype=xml
 au BufNewFile,BufRead *.log set filetype=messages
 au BufNewFile,BufRead *.tjp set filetype=tjp
 au BufNewFile,BufRead *.tji set filetype=tjp
-au BufNewFile,BufRead *.tf set cursorcolumn ts=2 sw=2
+au BufNewFile,BufRead *.tf set expandtab cursorcolumn ts=2 sw=2
 :set cpo=aABceFs$
 "set directory=$RCD/.tmp/vim/directory,.
 set directory=$RCD/.tmp/vim/directory,.
