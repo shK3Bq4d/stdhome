@@ -171,7 +171,7 @@ function ssh() {
     p="$PATH"
     test $UNAME = freebsd && test -f /usr/local/bin/ssh && p="/usr/local/bin:$PATH"
     BIN=ssh
-    OPTS=""
+    OPTS="-t"
 
     if [[ $# -eq 1 ]] && [[ -f $HOME/.sshrc ]]; then
         case "$1" in \
@@ -180,7 +180,7 @@ function ssh() {
                 f=$HOME/.words/$1
                 if [[ -f $f ]]; then
                     BIN=sshpass
-                    OPTS="-f$f ssh"
+                    OPTS="$OPTS -f$f ssh"
                 else
                     echo "you may set your password in $f"
                 fi
