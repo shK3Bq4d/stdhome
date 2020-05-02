@@ -557,3 +557,15 @@ if version >= 500
         return ""
     endfunc
 endif
+if &diff
+    " https://vi.stackexchange.com/questions/2705/create-mappings-that-only-apply-to-diff-mode
+	" https://github.com/vim-syntastic/syntastic/issues/822
+    " Your setting you want to set when using diff mode.
+    "
+	set ttyfast
+	au FileWritePost * :redraw!
+	au TermResponse * :redraw!
+	au TextChanged * :redraw!
+	au QuickFixCmdPre * :redraw!
+	au QuickFixCmdPost * :redraw!
+endif
