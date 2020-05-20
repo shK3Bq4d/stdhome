@@ -867,10 +867,12 @@ mrcd() {
         fi
     done
 }
+
 cut_terminal_width() {
     sed -u -r -e 's/\t/        /g' | cut -c-$COLUMNS
 }
-sed_nginx_color() {
+
+nginx_color() {
     test -z "${ERED:-}${ENONE:-}${EBGMAGENTA:-}" && source $RCD/bin/dot.bashcolors
     sed -u -r \
        -e "s/(\" )([23][0-9][0-9])/\\1$EGREEN\\2$ENONE/" \
@@ -878,6 +880,11 @@ sed_nginx_color() {
        -e "s/(\" )([5][0-9][0-9])/\\1$EBGRED$EWHITE\\2$ENONE/" \
         "$@"
 }
+
+curl_http_headers() {
+    curl -sD - -o /dev/null "$@" | less --raw-control-chars --quit-if-one-screen --ignore-case --status-column --no-init
+}
+
 alias bin='nocorrect mrcd ~/bin $*'
 alias cddoc='nocorrect mrcd ~/doc $*'
 alias dl='nocorrect mrcd ~/Downloads $*'
