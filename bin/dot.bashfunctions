@@ -892,3 +892,5 @@ alias music='nocorrect mrcd ~/Music $*'
 alias pic='nocorrect mrcd ~/Pictures $*'
 alias gi='nocorrect mrcd ~/git $*'
 alias h='nocorrect mrcd ~ $*'
+
+! hash az 2>/dev/null && hash docker 2>/dev/null && alias az='docker run -it mcr.microsoft.com/azure-cli az $*'
