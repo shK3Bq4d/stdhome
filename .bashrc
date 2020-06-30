@@ -127,7 +127,7 @@ if [ -x /usr/bin/dircolors ]; then
         alias ls='ls --color=auto'
         ;;
     *)
-        alias ls='ls -h --color=auto'
+        alias ls='ls -h --color=auto --time-style=long-iso'
         ;;
     esac
 fi
@@ -235,8 +235,8 @@ freebsd)
     alias netstat='echo use sockcat -l or command netstat'
     #alias locate='locate -i'
     #export LC_TIME=en_DK.UTF-8
-    alias ll='ls -lhFa'
-    alias ,='ls -lhFa'
+    alias ll='ls -lhFa --time-style=long-iso'
+    alias ,='ls  -lhFa --time-style=long-iso'
     alias updatedb='/usr/libexec/locate.updatedb'
     ;;
 cygwin*|msys*)
