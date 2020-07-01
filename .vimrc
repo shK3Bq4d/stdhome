@@ -333,6 +333,13 @@ inoremap <ScrollWheelDown> <Nop>
 if version >= 500
 func! MrSyntaxRange()
     try
+        call SyntaxRange#Include('```none'       ,'```'       ,'nosyntax'       ,'NonText')
+    catch /^Vim\%((\a\+)\)\=:E117/
+        " deal with it
+    catch /^Vim\%((\a\+)\)\=:E484/
+        " deal with it
+    endtry
+    try
         call SyntaxRange#Include('```markdown'       ,'```'       ,'markdown'       ,'NonText')
     catch /^Vim\%((\a\+)\)\=:E117/
         " deal with it
