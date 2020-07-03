@@ -905,6 +905,7 @@ rawurlencode() {
      c=${string:$pos:1}
      case "$c" in
         [-_.~a-zA-Z0-9] ) o="${c}" ;;
+        [/] ) o="${c}" ;; # MR: I choose to keep / as is
         * )               printf -v o '%%%02x' "'$c"
      esac
      encoded+="${o}"
