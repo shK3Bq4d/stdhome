@@ -141,6 +141,24 @@ function newsh()      { RET="$(~/bin/newsh "$@")";      rehash; [[ $? -eq 0 && -
 function newansible() { RET="$(~/bin/newansible "$@")";         [[ $? -eq 0 && -f "$RET" ]] && $EDITOR "$RET"; }
 function newjava()    { RET="$(~/bin/newjava    "$@")";         [[ $? -eq 0 && -f "$RET" ]] && $EDITOR "$RET"; }
 
+function cdf() {
+    local c
+    if [[ $# -eq 0 ]]; then
+        echo "FATAL: no args specified"
+        return 1
+    fi
+    test -z "${ERED:-}${ENONE:-}${EBGMAGENTA:-}" && source $RCD/bin/dot.bashcolors
+    for arg in "$@"; do
+        c="$(find . -mindepth 2 -ipath '*'"$arg"'*' -print -quit)"
+        test -z "$c" && continue
+        echo "${RED}$c${NONE}"
+        cd  "$(dirname "$c")"
+        return 0
+    done
+    echo "FATAL: not found $@"
+    return 1
+}
+
 function cdd() {
     local DIR
     local idx
@@ -291,9 +309,26 @@ else
         fi
     }
     function last () {
-        NEWEST=$(find -maxdepth 1 -name "*${*}*" -type f -printf '%T@ %p\0' | \
-            sort -rnz | xargs -0rn1 2>/dev/null | head -n1 | cut -d' ' -f2-)
-        mrbasename "$NEWEST"
+        local n NEWEST DIR
+        n=1
+        if [[ $# -gt 0 ]] && [[ "$1" =~ "^[0-9]+" ]]; then
+            n=$(( 1 + $1 ))
+            shift
+        fi
+        DIR=.
+        if [[ $# -gt 0 ]] && [[ -d "$@" ]]; then
+            DIR="$@"
+        fi
+        if [[ $# -gt 0 ]] && [[ "$1" == *"/"* ]]; then
+            DIR="$(dirname "$1")"
+        fi
+        NEWEST=$(find $DIR -maxdepth 1 -ipath "*${@}*" -type f -printf '%T@ %p\0' | \
+            sort -rnz | xargs -0rn1 2>/dev/null | tail -n +$n | head -n1 | cut -d' ' -f2-)
+        if [[ $DIR == . ]]; then
+            mrbasename "$NEWEST"
+        else
+            echo "$NEWEST"
+        fi
     }
 fi
 function cdl_old () {
