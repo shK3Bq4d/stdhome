@@ -188,8 +188,7 @@ HISTSIZE=1000000
 HISTCONTROL=ignorespace
 set -o vi
 set -o noclobber
-[[ -z "$EDITOR" ]] && export EDITOR=vi
-if hash vim  &>/dev/null; then
+if which vim  &>/dev/null; then # zsh hash does not work, I'm not sure why
     export EDITOR=vim
     if [[ $EUID -eq 0 ]]; then # vim readonly for root
         alias vi='vim -R'
@@ -208,7 +207,7 @@ if hash vim  &>/dev/null; then
         alias vi='vim'; # vim instead of vi
         alias v='vim';
     fi
-elif hash vi  &>/dev/null; then
+elif which vi  &>/dev/null; then # zsh hash does not work, I'm not sure why
     export EDITOR=vi
     if [[ $EUID -eq 0 ]]; then # vim readonly for root
         alias vi='vi -R'
@@ -216,7 +215,10 @@ elif hash vi  &>/dev/null; then
     else
         alias v='vi';
     fi
+else
+    echo "bashrc no vi(m)"
 fi
+
 #export PATH=~/bin:$PATH
 export VAGRANT_SERVER_URL=https://app.vagrantup.com
 #pathprepend ~/bin/$HOSTNAME
@@ -301,6 +303,10 @@ alias igrep='grep -ia --line-buffered'
 alias cgrep='grep --color=always -a --line-buffered'
 alias fgrep='fgrep --color=auto -a --line-buffered'
 alias egrep='egrep --color=auto -a --line-buffered'
+
+alias gcrd='git checkout $(git_root_dir)'
+alias ky='kubectl-get-yaml.py'
+alias kg='kubectl get'
 
 alias venv="workon"
 alias venv.exit="deactivate"
