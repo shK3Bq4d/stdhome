@@ -531,6 +531,7 @@ if [[ -f ~/.tmp/touch/stdhome-pull && ! -f ~/.tmp/touch/stdhome-pull-automation-
         stdhome-pull.sh
     fi
 fi
+export BC_ENV_ARGS=$HOME/.config/bcrc
 alias ........='cd ../../../../../../../..'
 alias .......='cd ../../../../../../..'
 alias ......='cd ../../../../../..'
