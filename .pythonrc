@@ -7,7 +7,7 @@ else:
     import rlcompleter
     readline.parse_and_bind("tab: complete")
     readline.parse_and_bind("set editing-mode vi")
-import re, sys, os, time, datetime, pickle, json, base64, shutil
+import re, sys, os, time, datetime, pickle, json, base64, shutil, inspect
 try:
     from lxml import etree, html
     doc = etree.fromstring("<root><a>ha</a><b battribute='battvalue'>bvalue</b><c /><d /><d /></root>")
@@ -112,10 +112,10 @@ cNT = MyNamedTuple(1, 2, 3)
 
 
 __rH = dict()
-for k, v in locals().copy().iteritems():
-    if isinstance(v, types.ClassType): continue
-    if isinstance(v, types.ModuleType): continue
-    if isinstance(v, types.FunctionType): continue
+for k, v in locals().copy().items():
+    if inspect.isclass(v): continue
+    if inspect.ismodule(v): continue
+    if inspect.isfunction(v): continue
     if k.startswith('__'): continue
     __rH[k] = v
 pprint(__rH)
