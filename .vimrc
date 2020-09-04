@@ -25,6 +25,47 @@ endif
 if hostname == "jly200" || hostname == "bipbip"
     let g:airline#extensions#whitespace#mixed_indent_algo = 2
 endif
+if &diff
+    " https://vi.stackexchange.com/questions/2705/create-mappings-that-only-apply-to-diff-mode
+	" https://github.com/vim-syntastic/syntastic/issues/822
+    " Your setting you want to set when using diff mode.
+    "
+	if v:false
+		set ttyfast
+		au FileWritePost * :redraw!
+		au TermResponse * :redraw!
+		au TextChanged * :redraw!
+		au QuickFixCmdPre * :redraw!
+		au QuickFixCmdPost * :redraw!
+	endif
+    "autocmd VimEnter * nnoremap <silent> <c-w>l <c-w>l<cr>:redraw!<cr>
+    "autocmd VimEnter * nnoremap <silent> <c-w>h <c-w>h<cr>:redraw!<cr>
+	if v:false
+		let g:loaded_youcompleteme = 1
+		let g:syntastic_check_on_open = 0
+		let g:mrdiffmode = "yes you are in mrdiffmode" " :echo g:mrdiffmode
+		call add(g:pathogen_disabled, 'vim-gitgutter')
+		call add(g:pathogen_disabled, 'syntastic')
+		call add(g:pathogen_disabled, 'SyntaxRange')
+		call add(g:pathogen_disabled, 'tabular')
+		call add(g:pathogen_disabled, 'Align')
+		call add(g:pathogen_disabled, 'AnsiEsc')
+		call add(g:pathogen_disabled, 'bufexplorer')
+		call add(g:pathogen_disabled, 'colorschemes')
+		call add(g:pathogen_disabled, 'dockerfile')
+		call add(g:pathogen_disabled, 'ingo-library')
+		call add(g:pathogen_disabled, 'syntastic')
+		call add(g:pathogen_disabled, 'SyntaxRange')
+		call add(g:pathogen_disabled, 'tabular')
+		call add(g:pathogen_disabled, 'vim-airline')
+		call add(g:pathogen_disabled, 'vim-airline-themes')
+		call add(g:pathogen_disabled, 'vim-fugitive')
+		call add(g:pathogen_disabled, 'vim-gitgutter')
+		call add(g:pathogen_disabled, 'vim-indentwise')
+		call add(g:pathogen_disabled, 'vim-puppet')
+		call add(g:pathogen_disabled, 'youcompleteme')
+	endif
+endif
 if hostname == "bipbip" || hostname == "bipbip"
     call add(g:pathogen_disabled, 'vim-gitgutter')
 else
@@ -545,7 +586,7 @@ if version >= 500
         pc!
         if exists("g:mrf6oldbuffer")
             exec "silent bw! " g:mrf6oldbuffer
-        end
+        endif
         w!
         "silent !chmod +x %:p
         let a:output= $RCD . "/.tmp/vim/output/" . strftime("%Y.%m.%d-%H.%M.%S") . "-" . expand("%:t") . ".tmp"
@@ -554,11 +595,11 @@ if version >= 500
         ":exec "silent !%:p 2>&1 \| tee" a:output
         :exec "silent !" . $RCD . "/bin/notinpath/vimf6.sh %:p " . a:output
         :exec "pedit! +setlocal\\ buftype=nofile\\ ft= " . a:output
-        if false
+        if v:false
             noautocmd wincmd p " go to window up
             :2000000           " simulate go to end of file by going to line 2000000
             noautocmd wincmd P " go to windo down
-        end
+        endif
         ":exec "silent AnsiEsc"
 
         silent redraw!
@@ -566,14 +607,5 @@ if version >= 500
     endfunc
 endif
 if &diff
-    " https://vi.stackexchange.com/questions/2705/create-mappings-that-only-apply-to-diff-mode
-	" https://github.com/vim-syntastic/syntastic/issues/822
-    " Your setting you want to set when using diff mode.
-    "
-	set ttyfast
-	au FileWritePost * :redraw!
-	au TermResponse * :redraw!
-	au TextChanged * :redraw!
-	au QuickFixCmdPre * :redraw!
-	au QuickFixCmdPost * :redraw!
+	set t_Co=8
 endif
