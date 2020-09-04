@@ -291,7 +291,7 @@ function precmd() {
         fi
     else
         p=""
-        [[ -n $VIMRUNTIME ]] && p="${p}%F{red}:SH %{$reset_color%}"
+        [[ -n ${VIMRUNTIME:-} ]] && p="${p}%F{red}:SH %{$reset_color%}"
         if [ $timer ]; then
             now=$(now_millis)
             elapsed=$(($now-$timer))
