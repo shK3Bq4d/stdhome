@@ -49,10 +49,12 @@ export SSH_AUTH_SOCK=$SSH_AUTH_SOCK
         fi
     fi
 }
+
 function abspath() {
     cd "$(mrdirname "$1")"
     echo -n "$PWD/$(mrbasename "$1")"
 }
+
 function mrargs() {
     # does support spaces but not new lines when using following contruct
     # mrargs * | while read i; do ls -l "$i"; sleep 2; done
@@ -74,6 +76,7 @@ function mrargs() {
         echo "$v"
     done
 }
+
 function cpmr() {
     local v $target
     ts="$(date +'%Y.%m.%d-%H.%M')"
@@ -108,6 +111,7 @@ function pathappend() {
             ):$1"
     export PATH
 }
+
 function mrbasename() {
     local a
     a="$1"
@@ -118,6 +122,7 @@ function mrbasename() {
     [[ $# -gt 1 ]] && a="${a%$2}"
     echo "$a"
 }
+
 function mrdirname() {
     local a
     a="$1"
@@ -236,6 +241,7 @@ tomr () {
         cp $* $dir
     fi
 }
+
 mrfind () {
     local out
     local k
@@ -345,6 +351,7 @@ function cdl_old () {
         ;;
     esac
 }
+
 function viw () {
     local f
     f=$(command which $1)
@@ -355,9 +362,11 @@ function viw () {
         return 1
     fi
 }
+
 function catw () {
     cat $(command which $1)
 }
+
 function vif ()
 {    file=$(find . -type f | egrep -v '\.swp$' | egrep -i $* | head -n 1)
     if [[ -z $file ]]; then
@@ -367,9 +376,11 @@ function vif ()
 
     $EDITOR $file
 }
+
 function cdw () {
     cd $(dirname $(command which $1))
 }
+
 function vil () {
     #params=$*
     local file
@@ -383,6 +394,7 @@ function vil () {
     fi
     $EDITOR "$file"
 }
+
 function vi_last_grep() {
     local DIR
     HISTTIMEFORMAT=""
@@ -419,10 +431,12 @@ function vi_last_grep() {
         ;;
     esac
 }
+
 function clip () {
     xclip -i -selection clipboard $*
     xclip -o -selection clipboard | head -n 10
 }
+
 function p2f () {
     local f ext
     f=$(mktemp -p ~/tmp/ p2f.XXXXX)
@@ -450,6 +464,7 @@ function p2f () {
     echo -n $f | xclip -i -selection clipboard
     echo "Filepath has been copied to clipboard"
 }
+
 function p2v () {
     local vi
     local file
@@ -462,8 +477,8 @@ function p2v () {
     xclip -o -selection clipboard >$file
     set -o noclobber
     $vi -- $file
-
 }
+
 function cwd_gitted() {
     local a
     if [[ -n ${GIT_DIR:+1} ]]; then
@@ -476,6 +491,7 @@ function cwd_gitted() {
     done
     return 1
 }
+
 function git_root_dir() {
     local a
     if [[ -n ${GIT_DIR:+1} ]]; then
@@ -488,6 +504,7 @@ function git_root_dir() {
     done
     return 1
 }
+
 function locate() {
     local args gargs
 
@@ -499,13 +516,14 @@ function locate() {
     args="$@"
     case $UNAME in \
     freebsd)
-        command locate -i         "$@"  | grep -Ei $gargs "$@" | less --raw-control-chars --quit-if-one-screen --ignore-case --no-init
+        command locate -i         "$@"  | grep -Ei $gargs "$@" | mrless
         ;;
     *)
-        command locate -i --regex "$@" | grep -Ei $gargs "^|$@" | less --raw-control-chars --quit-if-one-screen --ignore-case --no-init
+        command locate -i --regex "$@" | grep -Ei $gargs "^|$@" | mrless
         ;;
     esac
 }
+
 function http_proxy_dockerhost3142() { http_proxy "172.17.0.1:3142";}
 function http_proxy_none() { http_proxy "";}
 function http_proxy() {
@@ -517,6 +535,7 @@ function http_proxy() {
     export https_proxy="${a}"
     set +x
 }
+
 function git_reset_dir_work_tree() {
     unset GIT_DIR
     unset GIT_WORK_TREE
@@ -712,7 +731,7 @@ function start_agent_if_not_started {
 }
 
 function mrless() {
-    less --raw-control-chars --quit-if-one-screen --ignore-case --status-column --no-init
+    less --raw-control-chars --quit-if-one-screen --ignore-case --status-column --no-init "$@"
 }
 
 function aliashelp() {
@@ -737,6 +756,7 @@ function aliashelp() {
         ;;
     esac
 }
+
 function pwdc() {
     local mr
     if [[ -a "$1" ]]; then
@@ -754,6 +774,7 @@ function pwdc() {
         echo "$mr"
     fi
 }
+
 dehumanise() {
     # https://stackoverflow.com/questions/26621647/convert-human-readable-to-bytes-in-bash
   #for v in "${@:-$(</dev/stdin)}"
@@ -805,6 +826,7 @@ function systemd_mr_unitfiles() {
         2>/dev/null |
         grep -E "$G"
 }
+
 function bc() {
     #[[ -t 0 ]] && echo tty || echo NOTTY
     #[[ $# -eq 0 ]] && echo noarg || echo ARGS
@@ -820,9 +842,11 @@ function bc() {
         command bc -ql <<< "$@" | sed -r -e '/\./s/0+$//'
     fi
 }
+
 lowercase(){
     echo "$1" | sed "y/ABCDEFGHIJKLMNOPQRSTUVWXYZ/abcdefghijklmnopqrstuvwxyz/"
 }
+
 os_detection() {
     OS=$(lowercase $(uname))
     KERNEL=$(uname -r)
@@ -917,7 +941,7 @@ nginx_color() {
 }
 
 curl_http_headers() {
-    curl -sD - -o /dev/null "$@" | less --raw-control-chars --quit-if-one-screen --ignore-case --status-column --no-init
+    curl -sD - -o /dev/null "$@" | mrless
 }
 
 alias bin='nocorrect mrcd ~/bin $*'
@@ -948,10 +972,23 @@ rawurlencode() {
   echo "${encoded}"    # You can either set a return variable (FASTER)
   REPLY="${encoded}"   #+or echo the result (EASIER)... or both... :p
 }
+
 rawurldecode() {
   printf -v REPLY '%b' "${1//%/\\x}" # You can either set a return variable (FASTER)
 
   echo "${REPLY}"  #+or echo the result (EASIER)... or both... :p
+}
+
+nt() {
+    echo "sudo netstat -tlnp"
+    local SUDO POST
+    SUDO="sudo"
+    POST="$@"
+    test $# -eq 0 && POST="^"
+    sudo true || SUDO=""
+    export GREP_COLORS="mt=09;31"
+
+    $SUDO netstat -tlnp | GREP_COLORS="mt=34" grep --color=always -P '^|(?<=:)(21|22|25|53|80|8080|8443|443|10050|10051) ' | grep --color=always -E "$POST" -- | mrless
 }
 
 true # last statement must return true
