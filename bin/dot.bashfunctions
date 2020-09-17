@@ -990,5 +990,7 @@ nt() {
 
     $SUDO netstat -tlnp | GREP_COLORS="mt=34" grep --color=always -P '^|(?<=:)(21|22|25|53|80|8080|8443|443|10050|10051) ' | grep --color=always -E "$POST" -- | mrless
 }
+alias tr-upper-lower="tr '[:upper:]' '[:lower:]' $@"
+alias tr-lower-upper="tr '[:lower:]' '[:upper:]' $@"
 
 true # last statement must return true
