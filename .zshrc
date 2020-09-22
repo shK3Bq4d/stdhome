@@ -205,6 +205,12 @@ alias -g T='2>&1|tail'
 alias -g T1='2>/dev/null|T'
 alias -g T2='2>&1 >/dev/null|T'
 
+alias -g LAST='$(last)'
+alias -g LAST1='$(last 1)'
+alias -g LAST2='$(last 2)'
+alias -g LAST3='$(last 3)'
+alias -g LAST4='$(last 4)'
+alias -g LAST5='$(last 5)'
 
 alias -g C='2>&1|cat'
 alias -g C1='2>/dev/null|C'
