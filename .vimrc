@@ -326,12 +326,21 @@ endif
 
 nnoremap <F2>      :<C-U>setlocal lcs=tab:>-,trail:-,eol:$ list! list? <CR>
 imap     <F2> <Esc>:<C-U>setlocal lcs=tab:>-,trail:-,eol:$ list! list? <CR>
-map  <F7>      :GitGutterPrevHunk<CR>
-imap <F7> <Esc>:GitGutterPrevHunk<CR>
-map  <F8>      :GitGutterNextHunk<CR>
-imap <F8> <Esc>:GitGutterNextHunk<CR>
-map  <F9>      :GitGutterPreviewHunk<CR>
-imap <F9> <Esc>:GitGutterPreviewHunk<CR>
+if &diff
+    map  <F7>      [c<CR>
+    imap <F7> <Esc>[c<CR>
+    map  <F8>      ]c<CR>
+    imap <F8> <Esc>]c<CR>
+    map  <F9>      :diffget<CR>
+    imap <F9> <Esc>:diffget<CR>
+else
+    map  <F7>      :GitGutterPrevHunk<CR>
+    imap <F7> <Esc>:GitGutterPrevHunk<CR>
+    map  <F8>      :GitGutterNextHunk<CR>
+    imap <F8> <Esc>:GitGutterNextHunk<CR>
+    map  <F9>      :GitGutterPreviewHunk<CR>
+    imap <F9> <Esc>:GitGutterPreviewHunk<CR>
+endif
 map  <F10>      :set paste! wrap! number!<CR>:GitGutterToggle<CR>:redraw!<CR>
 imap <F10> <Esc>:set paste! wrap! number!<CR>:GitGutterToggle<CR>:redraw!<CR>
 noremap  <F11> <Esc>:syntax sync fromstart<CR>:autocmd BufEnter <buffer> syntax sync fromstart<CR>
@@ -595,7 +604,7 @@ if version >= 500
         ":exec "silent !%:p 2>&1 \| tee" a:output
         :exec "silent !" . $RCD . "/bin/notinpath/vimf6.sh %:p " . a:output
         :exec "pedit! +setlocal\\ buftype=nofile\\ ft= " . a:output
-        if v:false
+        if v:true
             noautocmd wincmd p " go to window up
             :2000000           " simulate go to end of file by going to line 2000000
             noautocmd wincmd P " go to windo down
