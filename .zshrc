@@ -254,6 +254,7 @@ alias -g P31='|awk "{ print \$3 \" \" \$1 }"'
 alias -g P32='|awk "{ print \$3 \" \" \$2 }"'
 
 alias findf='find . -type f'
+alias findd='find . -type d'
 
 # https://github.com/robbyrussell/oh-my-zsh/pull/3434/files
 #AGNOSTER_STATUS_BG=yellow
