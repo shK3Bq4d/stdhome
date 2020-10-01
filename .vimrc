@@ -538,6 +538,11 @@ map <C-ScrollWheelRight> <nop>
 " terminal see tab as C-i
 map <C-i> <Esc>:bnext<CR>
 
+:nnoremap <Space>   <C-d>
+:nnoremap <C-M-Space> <C-u>
+:nnoremap <M-Space> <C-u>
+:nnoremap <C-Space> <C-u>
+
 if version >= 500
 let g:airline_powerline_fonts = 1
 let g:airline_theme='papercolor'
