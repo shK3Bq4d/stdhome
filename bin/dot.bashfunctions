@@ -979,7 +979,7 @@ rawurldecode() {
   echo "${REPLY}"  #+or echo the result (EASIER)... or both... :p
 }
 
-nt() {
+netstat-tlnp() {
     echo "sudo netstat -tlnp"
     local SUDO POST
     SUDO="sudo"
