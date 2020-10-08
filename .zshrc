@@ -212,6 +212,8 @@ alias -g LAST3='$(last 3)'
 alias -g LAST4='$(last 4)'
 alias -g LAST5='$(last 5)'
 
+alias -g OY='-o yaml'
+
 alias -g C='2>&1|cat'
 alias -g C1='2>/dev/null|C'
 alias -g C2='2>&1 >/dev/null|C'
