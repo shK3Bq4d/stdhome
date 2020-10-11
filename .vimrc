@@ -268,6 +268,8 @@ endif
 "if has('vim')
 :map  <F6>      :call MrF6()<CR><CR>
 :imap <F6> <Esc>:call MrF6()<CR><CR>
+:map  <F5>      :call MrF5()<CR><CR>
+:imap <F5> <Esc>:call MrF5()<CR><CR>
 :nmap <F3> :AnsiEsc<CR><CR>
 ":nmap <F7> :pc!<CR>:let a:x=`date +'%Y'`<CR>:w<CR>:silent !chmod +x %:p<CR>:execute "silent !%:p 2>&1 \| tee /tmp/" . x . ".tmp"<CR>:pedit! +:42343234 /tmp/%:t.tmp<CR>:redraw!<CR><CR>
 
@@ -608,6 +610,29 @@ if version >= 500
         silent !clear
         ":exec "silent !%:p 2>&1 \| tee" a:output
         :exec "silent !" . $RCD . "/bin/notinpath/vimf6.sh %:p " . a:output
+        :exec "pedit! +setlocal\\ buftype=nofile\\ ft= " . a:output
+        if v:true
+            noautocmd wincmd p " go to window up
+            :2000000           " simulate go to end of file by going to line 2000000
+            noautocmd wincmd P " go to windo down
+        endif
+        ":exec "silent AnsiEsc"
+
+        silent redraw!
+        return ""
+    endfunc
+    :function! MrF5()
+        pc!
+        if exists("g:mrf6oldbuffer")
+            exec "silent bw! " g:mrf6oldbuffer
+        endif
+        w!
+        "silent !chmod +x %:p
+        let a:output= $RCD . "/.tmp/vim/output/" . strftime("%Y.%m.%d-%H.%M.%S") . "-" . expand("%:t") . ".tmp"
+        let g:mrf6oldbuffer=a:output
+        silent !clear
+        ":exec "silent !%:p 2>&1 \| tee" a:output
+        :exec "silent !" . $RCD . "/bin/notinpath/vimf5.sh %:p " . a:output
         :exec "pedit! +setlocal\\ buftype=nofile\\ ft= " . a:output
         if v:true
             noautocmd wincmd p " go to window up
