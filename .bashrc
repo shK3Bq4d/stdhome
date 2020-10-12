@@ -542,4 +542,5 @@ alias ..='cd ../..'
 alias .='cd ..'
 alias vi-='vi -'
 alias bc='bc -l'
+alias dc=cd
 true # so prompt is green
