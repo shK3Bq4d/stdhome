@@ -565,6 +565,7 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_puppet_checkers = ['puppetlint']
 let g:syntastic_python_checkers = []
+let g:syntastic_ansible_checkers = []
 let g:syntastic_javascript_checkers = ['jshint']
 
 function! Py2()
@@ -588,6 +589,25 @@ endtry
 let &t_SI = "\<Esc>[5 q"
 let &t_EI = "\<Esc>[1 q"
 " :set t_ti=""
+
+let g:tagbar_type_yaml = {
+    \ 'ctagstype' : 'yaml',
+    \ 'kinds' : [
+        \ 'a:anchors',
+        \ 's:section',
+        \ 'e:entry'
+    \ ],
+  \ 'sro' : '.',
+    \ 'scope2kind': {
+      \ 'section': 's',
+      \ 'entry': 'e'
+    \ },
+    \ 'kind2scope': {
+      \ 's': 'section',
+      \ 'e': 'entry'
+    \ },
+    \ 'sort' : 0
+    \ }
 
 if has ('autocmd') " Remain compatible with earlier versions
  augroup vimrc     " Source vim configuration upon save
