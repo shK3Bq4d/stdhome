@@ -458,3 +458,8 @@ fi
 alias z='nocorrect _z 2>&1' # at the end is necessary as it is defined elsewhere
 ZSH_AUTOSUGGEST_USE_ASYNC=1
 ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=25
+if [[ -n "${MR_URXVT_CMD:-}" ]]; then
+    command ${=MR_URXVT_CMD}
+	# && echo success || echo failure
+	# sshrc seems to always end with success
+fi
