@@ -189,9 +189,9 @@ alias -g XV="|xargs bash -c '</dev/tty vim \$@' ignoreme"
 alias -g XC="|xclip-tee.sh"
 alias git='nocorrect git'
 
-alias -g LA='$(last)'
-alias -g LAS='$(last)'
-alias -g LAST='$(last)'
+alias -g LA='"$(last)"'
+alias -g LAS='"$(last)"'
+alias -g LAST='"$(last)"'
 
 alias -g L='2>&1|less --raw-control-chars --quit-if-one-screen --ignore-case --status-column --no-init'
 alias -g L1='2>/dev/null|L'
@@ -205,12 +205,11 @@ alias -g T='2>&1|tail'
 alias -g T1='2>/dev/null|T'
 alias -g T2='2>&1 >/dev/null|T'
 
-alias -g LAST='$(last)'
-alias -g LAST1='$(last 1)'
-alias -g LAST2='$(last 2)'
-alias -g LAST3='$(last 3)'
-alias -g LAST4='$(last 4)'
-alias -g LAST5='$(last 5)'
+alias -g LAST1='"$(last 1)"'
+alias -g LAST2='"$(last 2)"'
+alias -g LAST3='"$(last 3)"'
+alias -g LAST4='"$(last 4)"'
+alias -g LAST5='"$(last 5)"'
 
 alias -g OY='-o yaml'
 
