@@ -5,7 +5,9 @@
 export GOPATH=~/go
 path=($path $GOPATH/bin) # otherwise kubectl doesn't work per SSH (likely have PATH exported from parent urxvt window when not using SSH)
 
-if [[ ! -f ~/.antigenrc ]]; then
+if [[ -f ~/.antigenrc ]]; then
+	source ~/.antigenrc
+else
 	export ZSH=$HOME/.oh-my-zsh
 	# Set name of the theme to load. Optionally, if you set this to "random"
 	# it'll load a random theme each time that oh-my-zsh is loaded.
