@@ -2,17 +2,19 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH=$HOME/.oh-my-zsh
 export GOPATH=~/go
 path=($path $GOPATH/bin) # otherwise kubectl doesn't work per SSH (likely have PATH exported from parent urxvt window when not using SSH)
 
-# Set name of the theme to load. Optionally, if you set this to "random"
-# it'll load a random theme each time that oh-my-zsh is loaded.
-# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
+if [[ ! -f ~/.antigenrc ]]; then
+	export ZSH=$HOME/.oh-my-zsh
+	# Set name of the theme to load. Optionally, if you set this to "random"
+	# it'll load a random theme each time that oh-my-zsh is loaded.
+	# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 
-ZSH_THEME="mr"
-#set -x
-test -f ~/.oh-my-zsh/custom/themes/${ZSH_THEME}.zsh-theme || ZSH_THEME="agnoster"
+	ZSH_THEME="mr"
+	#set -x
+	test -f ~/.oh-my-zsh/custom/themes/${ZSH_THEME}.zsh-theme || ZSH_THEME="agnoster"
+fi
 #set +x
 #ZSH_THEME="agnoster"
 #echo theme is $ZSH_THEME
@@ -62,16 +64,20 @@ ZSH_HIGHLIGHT_STYLES[comment]='fg=blue,underline,italic'
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-autosuggestions history-substring-search vi-mode-mr z kubectl ansible zsh-syntax-highlighting) # zsh-syntax-highlighting must be the last
-if [[ $HOSTNAMEF == $WORK_PC1F ]]; then
-    plugins=(git-auto-fetch $plugins)
-    GIT_AUTO_FETCH_INTERVAL=1200
+if [[ ! -f ~/.antigenrc ]]; then
+	plugins=(git zsh-autosuggestions history-substring-search vi-mode-mr z kubectl ansible zsh-syntax-highlighting) # zsh-syntax-highlighting must be the last
+	if [[ $HOSTNAMEF == $WORK_PC1F ]]; then
+		plugins=(git-auto-fetch $plugins)
+		GIT_AUTO_FETCH_INTERVAL=1200
+	fi
 fi
 # minikube # minikube init seams slowish
 # helm # doesn't complet
 typeset -U path
 test -n ${SSH_CLIENT:-} && path=(~/bin $path) # otherwise kubectl doesn't work per SSH (likely have PATH exported from parent urxvt window when not using SSH)
-if [[ -f "$ZSH/oh-my-zsh.sh" ]]; then
+if [[ -f ~/.antigenrc ]]; then
+	true
+elif [[ -f "$ZSH/oh-my-zsh.sh" ]]; then
     source $ZSH/oh-my-zsh.sh
 else
     echo -e "oh-my-zsh absent\ninstall via sh -c \"\$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)\"\nor visit https://github.com/robbyrussell/oh-my-zsh"
@@ -85,36 +91,6 @@ done
 unsetopt null_glob
 
 
-# User configuration
-
-# export MANPATH="/usr/local/man:$MANPATH"
-
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-# ssh
-# export SSH_KEY_PATH="~/.ssh/rsa_id"
-
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-#
-#source ~/bin/dot.bashfunctions
 source ~/.bashrc
 for c in \
     aliashelp \
